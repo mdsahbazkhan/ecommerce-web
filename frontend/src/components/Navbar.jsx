@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { assets } from "../assets/assets";
 import { Link, NavLink } from "react-router-dom";
-import { FiSearch, FiUser, FiShoppingBag } from "react-icons/fi";
-
+import { FiSearch, FiUser, FiShoppingBag, FiMenu, FiX } from "react-icons/fi";
 const Navbar = () => {
+  const [visible, setVisible] = useState(false);
   return (
-    <div className="flex items-center justify-between py-5 font-medium">
+    <div className="flex items-center justify-between px-6 py-3 font-medium ">
       <img src={assets.logo} alt="" className="w-38" />
       <ul className="hidden sm:flex gap-5 text-sm text-indigo-800">
         <NavLink to="/" className="flex flex-col items-center gap-1">
@@ -42,10 +42,60 @@ const Navbar = () => {
             size={25}
             className="text-indigo-800 cursor-pointer w-10 min-w-5"
           />
-          <p className="absolute right-[-5px] bottom-[-5px] w-4 text-center leading-4 bg-gray-800 text-white aspect-square rounded-full text-[8px]">
+          <p className="absolute right-[-1px] bottom-[-5px] w-4 text-center leading-4 bg-gray-900 text-white aspect-square rounded-full text-[8px]">
             10
           </p>
         </Link>
+
+        <FiMenu
+          onClick={() => setVisible(true)}
+          size={28}
+          className="text-indigo-800 cursor-pointer sm:hidden"
+        />
+      </div>
+      {/* Side Bar Menu For Small Screen */}
+      <div
+        className={`fixed top-0 right-0 h-screen w-full bg-white z-0
+  transition-transform duration-300 ease-in-out ${
+    visible ? "translate-x-0" : "translate-x-full"
+  }`}
+      >
+        <div className="flex flex-col text-gray-600">
+          <div
+            onClick={() => setVisible(false)}
+            className="flex items-center gap-4 p-3"
+          >
+            <FiX size={28} className="text-indigo-800 cursor-pointer" />
+          </div>
+          <NavLink
+            onClick={() => setVisible(false)}
+            className="py-2 pl-6 border"
+            to="/"
+          >
+            HOME
+          </NavLink>
+          <NavLink
+            onClick={() => setVisible(false)}
+            className="py-2 pl-6 border"
+            to="/collection"
+          >
+            COLLECTION
+          </NavLink>
+          <NavLink
+            onClick={() => setVisible(false)}
+            className="py-2 pl-6 border"
+            to="/about"
+          >
+            ABOUT
+          </NavLink>
+          <NavLink
+            onClick={() => setVisible(false)}
+            className="py-2 pl-6 border"
+            to="/contact"
+          >
+            CONTACT
+          </NavLink>
+        </div>
       </div>
     </div>
   );
