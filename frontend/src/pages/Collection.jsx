@@ -6,7 +6,8 @@ import ProductItems from "../components/ProductItems";
 import { FiChevronDown } from "react-icons/fi";
 
 const Collection = () => {
-  const { products } = useContext(ShopContext);
+  const { products, search, showSearchBar, searchQuery } =
+    useContext(ShopContext);
   const [showFilters, setShowFilters] = useState(false);
   const [filterProducts, setFilterProducts] = useState([]);
   const [category, setCategory] = useState([]);
@@ -28,6 +29,16 @@ const Collection = () => {
   };
   const applyFilter = () => {
     let productsArray = products.slice();
+    // if (search && showSearchBar) {
+    //   productsArray = productsArray.filter((item) =>
+    //     item.name.toLowerCase().includes(search.toLowerCase())
+    //   );
+    // }
+    if (searchQuery) {
+      productsArray = productsArray.filter((item) =>
+        item.name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
     if (category.length > 0) {
       productsArray = productsArray.filter((item) =>
         category.includes(item.category)
@@ -60,13 +71,13 @@ const Collection = () => {
   }, [products]);
   useEffect(() => {
     applyFilter();
-  }, [category, subCategory]);
+  }, [category, subCategory, search, showSearchBar]);
   useEffect(() => {
     sortProduct();
   }, [sortType]);
 
   return (
-    <div className="flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10  mt-12">
+    <div className="flex flex-col sm:flex-row gap-1 sm:gap-10   mt-20 top-0">
       {/* Filter Options */}
       <div className="min-w-60">
         <p

@@ -1,9 +1,8 @@
-
 import { assets } from "../assets/assets";
 
 const Hero = () => {
   return (
-    <div className="flex flex-col sm:flex-row items-center bg-slate-50">
+    <div className="flex flex-col sm:flex-row items-center bg-slate-50 mt-20">
       {/* Hero Left */}
       <div className="w-full sm:w-1/2 flex items-center justify-center px-6 sm:px-12 py-16">
         <div className="text-[#414141] max-w-md">

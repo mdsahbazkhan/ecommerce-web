@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { assets } from "../assets/assets";
 import { Link, NavLink } from "react-router-dom";
 import { FiSearch, FiUser, FiShoppingBag, FiMenu, FiX } from "react-icons/fi";
+import { ShopContext } from "../context/ShopContext";
 const Navbar = () => {
   const [visible, setVisible] = useState(false);
+  const { setShowSearchBar } = useContext(ShopContext);
   return (
-    <div className="fixed top-0 left-0 w-full z-50 bg-white shadow-md">
+    <div className="absolute top-0 left-0 w-full z-50 bg-white shadow-md">
       <div className=" flex items-center justify-between px-6 py-3 font-medium ">
         <Link to="/">
           <img src={assets.logo} alt="" className="w-36" />
@@ -32,7 +34,10 @@ const Navbar = () => {
           </NavLink>
         </ul>
         <div className="flex items-center gap-6">
-          <FiSearch className="text-indigo-800 text-2xl  cursor-pointer" />
+          <FiSearch
+            onClick={() => setShowSearchBar(true)}
+            className="text-indigo-800 text-2xl  cursor-pointer"
+          />
           <div className="group relative">
             <FiUser className="text-indigo-800 text-2xl  cursor-pointer" />
             <div className="group-hover:block hidden absolute dropdown-menu  right-0  pt-4 ">

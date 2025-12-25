@@ -107,7 +107,7 @@ export const products = [
     sizes: ["S", "M", "L"],
     date: 1716634345448,
     bestseller: true,
-    rating: 4.4,
+    rating: 3,
     reviews: 195,
   },
   {
@@ -122,7 +122,7 @@ export const products = [
     sizes: ["M", "L", "XL"],
     date: 1716621345448,
     bestseller: true,
-    rating: 4.5,
+    rating: 2.5,
     reviews: 1240,
   },
   {
@@ -137,8 +137,8 @@ export const products = [
     sizes: ["S", "L", "XL"],
     date: 1716234545448,
     bestseller: true,
-    rating: 4.2,
-  reviews: 380,
+    rating: 1,
+    reviews: 380,
   },
   {
     _id: "aaaad",
