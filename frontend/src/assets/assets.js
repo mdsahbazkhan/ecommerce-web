@@ -109,6 +109,12 @@ export const products = [
     bestseller: true,
     rating: 3,
     reviews: 195,
+    highlights: [
+      "Premium pure cotton fabric",
+      "Soft & breathable material",
+      "Regular fit for daily wear",
+      "Easy wash & long lasting color",
+    ],
   },
   {
     _id: "aaaab",
@@ -124,6 +130,12 @@ export const products = [
     bestseller: true,
     rating: 2.5,
     reviews: 1240,
+    highlights: [
+      "Premium pure cotton fabric",
+      "Soft & breathable material",
+      "Regular fit for daily wear",
+      "Easy wash & long lasting color",
+    ],
   },
   {
     _id: "aaaac",
@@ -139,6 +151,12 @@ export const products = [
     bestseller: true,
     rating: 1,
     reviews: 380,
+    highlights: [
+      "Premium pure cotton fabric",
+      "Soft & breathable material",
+      "Regular fit for daily wear",
+      "Easy wash & long lasting color",
+    ],
   },
   {
     _id: "aaaad",
@@ -154,6 +172,12 @@ export const products = [
     bestseller: true,
     rating: 4.6,
     reviews: 875,
+    highlights: [
+      "Premium pure cotton fabric",
+      "Soft & breathable material",
+      "Regular fit for daily wear",
+      "Easy wash & long lasting color",
+    ],
   },
   {
     _id: "aaaae",
@@ -169,6 +193,12 @@ export const products = [
     bestseller: true,
     rating: 4.3,
     reviews: 640,
+    highlights: [
+      "Premium pure cotton fabric",
+      "Soft & breathable material",
+      "Regular fit for daily wear",
+      "Easy wash & long lasting color",
+    ],
   },
   {
     _id: "aaaaf",
@@ -184,6 +214,12 @@ export const products = [
     bestseller: true,
     rating: 4.1,
     reviews: 290,
+    highlights: [
+      "Premium pure cotton fabric",
+      "Soft & breathable material",
+      "Regular fit for daily wear",
+      "Easy wash & long lasting color",
+    ],
   },
   {
     _id: "aaaag",
@@ -199,6 +235,12 @@ export const products = [
     bestseller: false,
     rating: 4.0,
     reviews: 120,
+    highlights: [
+      "Premium pure cotton fabric",
+      "Soft & breathable material",
+      "Regular fit for daily wear",
+      "Easy wash & long lasting color",
+    ],
   },
   {
     _id: "aaaah",
@@ -214,6 +256,12 @@ export const products = [
     bestseller: false,
     rating: 4.2,
     reviews: 450,
+    highlights: [
+      "Premium pure cotton fabric",
+      "Soft & breathable material",
+      "Regular fit for daily wear",
+      "Easy wash & long lasting color",
+    ],
   },
   {
     _id: "aaaai",
@@ -229,6 +277,12 @@ export const products = [
     bestseller: false,
     rating: 4.3,
     reviews: 310,
+    highlights: [
+      "Premium pure cotton fabric",
+      "Soft & breathable material",
+      "Regular fit for daily wear",
+      "Easy wash & long lasting color",
+    ],
   },
   {
     _id: "aaaaj",
@@ -244,6 +298,12 @@ export const products = [
     bestseller: false,
     rating: 4.0,
     reviews: 150,
+    highlights: [
+      "Premium pure cotton fabric",
+      "Soft & breathable material",
+      "Regular fit for daily wear",
+      "Easy wash & long lasting color",
+    ],
   },
   {
     _id: "aaaak",
@@ -259,6 +319,12 @@ export const products = [
     bestseller: false,
     rating: 4.4,
     reviews: 220,
+    highlights: [
+      "Premium pure cotton fabric",
+      "Soft & breathable material",
+      "Regular fit for daily wear",
+      "Easy wash & long lasting color",
+    ],
   },
   {
     _id: "aaaal",
@@ -274,6 +340,12 @@ export const products = [
     bestseller: false,
     rating: 4.1,
     reviews: 330,
+    highlights: [
+      "Premium pure cotton fabric",
+      "Soft & breathable material",
+      "Regular fit for daily wear",
+      "Easy wash & long lasting color",
+    ],
   },
   {
     _id: "aaaam",
@@ -304,6 +376,12 @@ export const products = [
     bestseller: false,
     rating: 4.2,
     reviews: 410,
+    highlights: [
+      "Premium pure cotton fabric",
+      "Soft & breathable material",
+      "Regular fit for daily wear",
+      "Easy wash & long lasting color",
+    ],
   },
   {
     _id: "aaaao",
@@ -319,6 +397,12 @@ export const products = [
     bestseller: false,
     rating: 4.2,
     reviews: 410,
+    highlights: [
+      "Premium pure cotton fabric",
+      "Soft & breathable material",
+      "Regular fit for daily wear",
+      "Easy wash & long lasting color",
+    ],
   },
   {
     _id: "aaaap",
@@ -334,6 +418,12 @@ export const products = [
     bestseller: false,
     rating: 4.2,
     reviews: 410,
+    highlights: [
+      "Premium pure cotton fabric",
+      "Soft & breathable material",
+      "Regular fit for daily wear",
+      "Easy wash & long lasting color",
+    ],
   },
   {
     _id: "aaaaq",
@@ -364,6 +454,12 @@ export const products = [
     bestseller: false,
     rating: 4.2,
     reviews: 410,
+    highlights: [
+      "Premium pure cotton fabric",
+      "Soft & breathable material",
+      "Regular fit for daily wear",
+      "Easy wash & long lasting color",
+    ],
   },
   {
     _id: "aaaas",
@@ -379,6 +475,12 @@ export const products = [
     bestseller: false,
     rating: 4.2,
     reviews: 410,
+    highlights: [
+      "Premium pure cotton fabric",
+      "Soft & breathable material",
+      "Regular fit for daily wear",
+      "Easy wash & long lasting color",
+    ],
   },
   {
     _id: "aaaat",
@@ -409,6 +511,12 @@ export const products = [
     bestseller: false,
     rating: 4.2,
     reviews: 410,
+    highlights: [
+      "Premium pure cotton fabric",
+      "Soft & breathable material",
+      "Regular fit for daily wear",
+      "Easy wash & long lasting color",
+    ],
   },
   {
     _id: "aaaav",
@@ -424,6 +532,12 @@ export const products = [
     bestseller: false,
     rating: 4.2,
     reviews: 410,
+    highlights: [
+      "Premium pure cotton fabric",
+      "Soft & breathable material",
+      "Regular fit for daily wear",
+      "Easy wash & long lasting color",
+    ],
   },
   {
     _id: "aaaaw",
@@ -439,6 +553,12 @@ export const products = [
     bestseller: false,
     rating: 4.2,
     reviews: 410,
+    highlights: [
+      "Premium pure cotton fabric",
+      "Soft & breathable material",
+      "Regular fit for daily wear",
+      "Easy wash & long lasting color",
+    ],
   },
   {
     _id: "aaaax",

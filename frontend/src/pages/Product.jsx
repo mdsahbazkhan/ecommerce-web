@@ -2,14 +2,16 @@ import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { ShopContext } from "../context/ShopContext";
 import RatingStars from "../components/RatingStars";
+import RelatedProducts from "../components/RelatedProducts";
 
 const Product = () => {
   const { productId } = useParams();
-  const { products, currency } = useContext(ShopContext);
+  const { products, currency, addToCart } = useContext(ShopContext);
 
   const [productData, setProductData] = useState(false);
   const [image, setImage] = useState("");
   const [size, setSize] = useState("");
+  const [activeTab, setActiveTab] = useState("description");
 
   useEffect(() => {
     const product = products.find((item) => item._id === productId);
@@ -18,14 +20,10 @@ const Product = () => {
       setImage(product.image[0]);
     }
   }, [productId, products]);
-  const handleAddToCart = () => {
-    if (!size) return;
-    // add to cart logic here
-  };
+
   const handleBuyNow = () => {
     if (!size) return;
-    // add item to cart
-    // redirect to checkout page
+    alert("Coming Sooooooon");
   };
 
   return productData ? (
@@ -73,9 +71,18 @@ const Product = () => {
             {currency}
             {productData.price}
           </p>
-          <p className="mt-5 text-indigo-500 md:w-4/5">
-            {productData.description}
-          </p>
+          {/* Product Highlights */}
+          <div className="mt-4">
+            <p className="text-sm font-medium text-indigo-800 mb-2">
+              Highlights
+            </p>
+
+            <ul className="list-disc pl-5 text-sm text-indigo-500 space-y-1">
+              {productData.highlights.map((point, index) => (
+                <li key={index}>{point}</li>
+              ))}
+            </ul>
+          </div>
           <div className="flex flex-col gap-4 my-8">
             <p>Select Size</p>
             <div className="flex gap-2">
@@ -101,29 +108,11 @@ const Product = () => {
               ))}
             </div>
           </div>
-          {/* <button
-            onClick={handleAddToCart}
-            disabled={!size}
-            className={`
-    w-full sm:w-auto
-    mt-6
-    px-8 py-3
-    text-sm font-semibold
-    rounded-md
-    transition-all
-    ${
-      size
-        ? "bg-indigo-600 text-white hover:bg-indigo-700 active:scale-95"
-        : "bg-gray-300 text-gray-500 cursor-not-allowed"
-    }
-  `}
-          >
-            ADD TO CART
-          </button> */}
+
           <div className="flex flex-col sm:flex-row gap-3 mt-6">
             {/* ADD TO CART */}
             <button
-              onClick={handleAddToCart}
+              onClick={() => addToCart(productData._id, size)}
               disabled={!size}
               className={`
       flex-1
@@ -164,30 +153,65 @@ const Product = () => {
           </div>
 
           {/* <hr className="mt-8 sm:w-4/5" /> */}
-          <div className="text-sm text-500 mt-5 flex flex-col gap-1">
-            <p className="text-indigo-500">100% Original product.</p>
+          <div className="text-sm  mt-5 flex flex-col gap-1">
+            <p className="text-indigo-500">✔ 100% Original product.</p>
             <p className="text-indigo-500">
               {" "}
-              Cash on delivery is available on this product.
+              ✔ Cash on delivery is available on this product.
             </p>
             <p className="text-indigo-500">
-              Easy return and exchange policy within 7 days.
+              ✔ Easy return and exchange policy within 7 days.
             </p>
           </div>
         </div>
       </div>
-      <div className="mt-2">
-        <div className="flex">
-          <b className="border px-5 py-3 text-sm">Description</b>
-          <p className="border px-5 py-3 text-sm">
-            Reviews({productData.reviews})
-          </p>
+      <div className="mt-10 border-b border-indigo-500">
+        {/* Tabs */}
+        <div className="flex gap-6 border-b border-indigo-200 text-sm">
+          <button
+            onClick={() => setActiveTab("description")}
+            className={`pb-2 transition ${
+              activeTab === "description"
+                ? "text-indigo-700 border-b-2 border-indigo-600 font-medium"
+                : "text-indigo-400 hover:text-indigo-600"
+            }`}
+          >
+            Description
+          </button>
+
+          <button
+            onClick={() => setActiveTab("reviews")}
+            className={`pb-2 transition ${
+              activeTab === "reviews"
+                ? "text-indigo-700 border-b-2 border-indigo-600 font-medium"
+                : "text-indigo-400 hover:text-indigo-600"
+            }`}
+          >
+            Reviews ({productData.reviews})
+          </button>
         </div>
-        <div className="flex flex-col gap-4 border px-6 py-6 text-sm text-gray-500">
-          <p></p>
-          <p></p>
+
+        {/* Content */}
+        <div className="mt-6 text-sm text-indigo-500 leading-relaxed ">
+          {activeTab === "description" && <p>{productData.description}</p>}
+
+          {activeTab === "reviews" && (
+            <div className="flex flex-col gap-2">
+              <p className="font-medium text-indigo-700">Customer Reviews</p>
+              <p>No reviews available for this product yet.</p>
+              <p className="text-xs text-indigo-400">
+                Reviews will be displayed here once customers start sharing
+                feedback.
+              </p>
+            </div>
+          )}
         </div>
       </div>
+      {/* Display related product */}
+      <RelatedProducts
+        category={productData.category}
+        subCategory={productData.subCategory}
+      />
     </div>
   ) : (
     <div className="opacity-0">Loading...</div>
