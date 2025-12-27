@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { toast } from "sonner";
+import { Link, useParams } from "react-router-dom";
 import { ShopContext } from "../context/ShopContext";
 import RatingStars from "../components/RatingStars";
 import RelatedProducts from "../components/RelatedProducts";
@@ -8,22 +9,27 @@ const Product = () => {
   const { productId } = useParams();
   const { products, currency, addToCart } = useContext(ShopContext);
 
-  const [productData, setProductData] = useState(false);
+  const [productData, setProductData] = useState(null);
   const [image, setImage] = useState("");
   const [size, setSize] = useState("");
   const [activeTab, setActiveTab] = useState("description");
 
   useEffect(() => {
     const product = products.find((item) => item._id === productId);
+
     if (product) {
       setProductData(product);
-      setImage(product.image[0]);
+      setImage(product.image?.[0] || "");
     }
   }, [productId, products]);
 
   const handleBuyNow = () => {
-    if (!size) return;
-    alert("Coming Sooooooon");
+    if (!size) {
+      toast.error("Please select a size first ❗");
+      return;
+    }
+
+    toast("Coming soooooon 🚀");
   };
 
   return productData ? (
@@ -34,7 +40,7 @@ const Product = () => {
         <div className="flex-1 flex flex-col-reverse sm:flex-row gap-3">
           {/* Thumbnails */}
           <div className="flex sm:flex-col overflow-x-auto sm:overflow-y-scroll gap-3 sm:w-[18%] w-full">
-            {productData.image.map((item, index) => (
+            {productData?.image?.map((item, index) => (
               <img
                 src={item}
                 key={index}
@@ -78,7 +84,7 @@ const Product = () => {
             </p>
 
             <ul className="list-disc pl-5 text-sm text-indigo-500 space-y-1">
-              {productData.highlights.map((point, index) => (
+              {productData?.highlights?.map((point, index) => (
                 <li key={index}>{point}</li>
               ))}
             </ul>
@@ -86,7 +92,7 @@ const Product = () => {
           <div className="flex flex-col gap-4 my-8">
             <p>Select Size</p>
             <div className="flex gap-2">
-              {productData.sizes.map((item, index) => (
+              {productData?.sizes?.map((item, index) => (
                 <button
                   key={index}
                   onClick={() => setSize(item)}
@@ -113,19 +119,15 @@ const Product = () => {
             {/* ADD TO CART */}
             <button
               onClick={() => addToCart(productData._id, size)}
-              disabled={!size}
-              className={`
+              className="
       flex-1
       px-8 py-3
       text-sm font-semibold
       rounded-md
       transition-all
-      ${
-        size
-          ? "bg-indigo-600 text-white hover:bg-indigo-700 active:scale-95"
-          : "bg-gray-300 text-gray-500 cursor-not-allowed"
-      }
-    `}
+     bg-indigo-600 text-white hover:bg-indigo-700 active:scale-95
+      
+    "
             >
               ADD TO CART
             </button>
@@ -133,20 +135,15 @@ const Product = () => {
             {/* BUY NOW */}
             <button
               onClick={handleBuyNow}
-              disabled={!size}
-              className={`
-      flex-1
-      px-8 py-3
-      text-sm font-semibold
-      rounded-md
-      border
-      transition
-      ${
-        size
-          ? "border-indigo-600 text-indigo-600 hover:bg-indigo-50"
-          : "border-gray-300 text-gray-400 cursor-not-allowed"
-      }
-    `}
+              className="
+    flex-1
+    px-8 py-3
+    text-sm font-semibold
+    rounded-md
+    border
+    transition
+    border-indigo-600 text-indigo-600 hover:bg-indigo-50
+  "
             >
               BUY NOW
             </button>

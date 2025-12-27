@@ -1,4 +1,4 @@
-import React from "react";
+import { Toaster } from "sonner";
 import { Routes, Route } from "react-router";
 import Home from "./pages/Home";
 import Collection from "./pages/Collection";
@@ -17,7 +17,8 @@ const App = () => {
   return (
     <div className="px-4 sm:px-[5vw] md:px-[5vw] lg:px-[5vw]">
       <Navbar />
-      <SearchBar/>
+      <SearchBar />
+     <Toaster richColors position="top-right" />
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/collection" element={<Collection />}></Route>

@@ -5,7 +5,7 @@ import { FiSearch, FiUser, FiShoppingBag, FiMenu, FiX } from "react-icons/fi";
 import { ShopContext } from "../context/ShopContext";
 const Navbar = () => {
   const [visible, setVisible] = useState(false);
-  const { setShowSearchBar } = useContext(ShopContext);
+  const { setShowSearchBar, getCartCount } = useContext(ShopContext);
   return (
     <div className="absolute top-0 left-0 w-full z-50 bg-white shadow-md">
       <div className=" flex items-center justify-between px-6 py-3 font-medium ">
@@ -56,7 +56,7 @@ const Navbar = () => {
               className="text-indigo-800 cursor-pointer w-10 min-w-5"
             />
             <p className="absolute right-[-1px] bottom-[-5px] w-4 text-center leading-4 bg-gray-900 text-white aspect-square rounded-full text-[8px]">
-              10
+              {getCartCount()}
             </p>
           </Link>
 
