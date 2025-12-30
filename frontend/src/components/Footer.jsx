@@ -9,7 +9,9 @@ const Footer = () => {
       <div className="flex flex-col sm:grid grid-cols-[3fr_1fr_1fr] gap-14 my-10 mt-4 text-sm">
         {/* Brand */}
         <div>
-          <img src={assets.logo} alt="Bazario" className="w-36" />
+        <Link to="/">
+          <img src={assets.logo} alt="" className="w-36" />
+        </Link>
           <p className="text-indigo-500 text-xs sm:text-sm  md:text-base max-w-xl mt-4">
             Bazario brings you carefully curated fashion that blends modern
             trends with timeless style. Designed for comfort, quality, and

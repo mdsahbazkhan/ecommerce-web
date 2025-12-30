@@ -5,7 +5,7 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import CartTotal from "../components/CartTotal";
 
 const Cart = () => {
-  const { products, currency, cartItems, updateQuantity } =
+  const { products, currency, cartItems, updateQuantity, navigate } =
     useContext(ShopContext);
 
   const cartData = useMemo(() => {
@@ -101,6 +101,7 @@ const Cart = () => {
           <CartTotal />
           <div className="w-full text-end">
             <button
+              onClick={() => navigate("/place-order")}
               className=" mt-2
       flex-1
       px-8 py-3

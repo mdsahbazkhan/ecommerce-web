@@ -1,41 +1,3 @@
-// import React, { useContext, useMemo } from "react";
-// import { useLocation } from "react-router-dom";
-// import { ShopContext } from "../context/ShopContext";
-// import { assets } from "../assets/assets";
-
-// const SearchBar = () => {
-//   const { search, setSearch, showSearchBar, setShowSearchBar } =
-//     useContext(ShopContext);
-//   const location = useLocation();
-
-//   const visible = useMemo(() => {
-//     return location.pathname.includes("collection");
-//   }, [location.pathname]);
-
-//   return showSearchBar && visible ? (
-//     <div className=" text-center mt-14 flex justify-center items-center">
-//       <div className=" inline-flex items-center justify-center border border-indigo-300 px-5 py-2 my-5 mx-3 rounded-full w-3/4 sm:w-1/2">
-//         <input
-//           value={search}
-//           onChange={(e) => setSearch(e.target.value)}
-//           className="flex-1 outline-none bg-inherit text-sm"
-//           type="text"
-//           placeholder="Search"
-//         />
-//         <img className="w-4" src={assets.search_icon} alt="" />
-//       </div>
-//       <img
-//         onClick={() => setShowSearchBar(false)}
-//         className="inline w-3 cursor-pointer opacity-70 hover:opacity-100 transition"
-//         src={assets.cross_icon}
-//         alt=""
-//       />
-//     </div>
-//   ) : null;
-// };
-
-// export default SearchBar;
-
 import React, { useContext, useMemo, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { ShopContext } from "../context/ShopContext";
@@ -73,10 +35,10 @@ const SearchBar = () => {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            setSearchQuery(search); 
+            setSearchQuery(search);
             setShowSuggestions(false);
           }}
-          className="flex items-center border border-indigo-300 px-5 py-2 rounded-full w-full"
+          className="flex items-center border border-gray-300 px-5 py-2 rounded-full w-full"
         >
           <input
             type="text"

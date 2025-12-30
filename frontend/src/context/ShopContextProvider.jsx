@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ShopContext } from "./ShopContext";
 import { products } from "../assets/assets";
 import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
 const ShopContextProvider = ({ children }) => {
   const currency = "₹";
   const deliveryFee = 40;
@@ -9,6 +10,7 @@ const ShopContextProvider = ({ children }) => {
   const [search, setSearch] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [cartItems, setCartItems] = useState({});
+  const navigate = useNavigate();
 
   const addToCart = async (itemId, size) => {
     if (!size) {
@@ -79,6 +81,7 @@ const ShopContextProvider = ({ children }) => {
     getCartCount,
     updateQuantity,
     getCartAmount,
+    navigate,
   };
   return <ShopContext.Provider value={value}>{children}</ShopContext.Provider>;
 };

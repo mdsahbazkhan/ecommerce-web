@@ -16,3 +16,24 @@ a.active hr {
 ::-webkit-scrollbar {
   display: none;
 }
+.input {
+  @apply border border-gray-300 rounded px-4 py-2 w-full outline-none
+  focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500;
+}
+
+.payment-box {
+  @apply flex items-center gap-3 border border-gray-300 px-4 py-3 rounded-md cursor-pointer transition;
+}
+
+.radio {
+  @apply w-4 h-4 border border-gray-400 rounded-full flex items-center justify-center;
+}
+
+.radio-active::after {
+  content: "";
+  width: 8px;
+  height: 8px;
+  background-color: #4f46e5; /* indigo-600 */
+  border-radius: 9999px;
+  display: block;
+}
