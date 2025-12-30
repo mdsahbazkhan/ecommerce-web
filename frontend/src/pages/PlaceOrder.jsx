@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 const PlaceOrder = () => {
   const [paymentMethod, setPaymentMethod] = useState("cod");
-  const navigate =useNavigate()
+  const navigate = useNavigate();
 
   return (
     <div className="flex flex-col lg:flex-row gap-10 pt-10 mt-10 border-t px-4 sm:px-0">
@@ -18,26 +18,34 @@ const PlaceOrder = () => {
 
         {/* Name */}
         <div className="flex gap-3">
-          <input className="input" type="text" placeholder="First Name" />
-          <input className="input" type="text" placeholder="Last Name" />
+          <input
+            className="w-full border border-gray-300 rounded-md px-4 py-2 outline-none focus:border-indigo-500"
+            type="text"
+            placeholder="First Name"
+          />
+          <input
+            className="w-full border border-gray-300 rounded-md px-4 py-2 outline-none focus:border-indigo-500"
+            type="text"
+            placeholder="Last Name"
+          />
         </div>
 
-        <input className="input" type="email" placeholder="Email Address" />
+        <input className="w-full border border-gray-300 rounded-md px-4 py-2 outline-none focus:border-indigo-500" type="email" placeholder="Email Address" />
         <input className="input" type="text" placeholder="Street Address" />
 
         {/* City / State */}
         <div className="flex gap-3">
-          <input className="input" type="text" placeholder="City" />
-          <input className="input" type="text" placeholder="State" />
+          <input className="w-full border border-gray-300 rounded-md px-4 py-2 outline-none focus:border-indigo-500" type="text" placeholder="City" />
+          <input className="w-full border border-gray-300 rounded-md px-4 py-2 outline-none focus:border-indigo-500" type="text" placeholder="State" />
         </div>
 
         {/* Zip / Country */}
         <div className="flex gap-3">
-          <input className="input" type="number" placeholder="Zip Code" />
+          <input className="w-full border border-gray-300 rounded-md px-4 py-2 outline-none focus:border-indigo-500" type="number" placeholder="Zip Code" />
           <input className="input" type="text" placeholder="Country" />
         </div>
 
-        <input className="input" type="number" placeholder="Phone Number" />
+        <input className="w-full border border-gray-300 rounded-md px-4 py-2 outline-none focus:border-indigo-500" type="number" placeholder="Phone Number" />
       </div>
 
       {/* ---------- RIGHT : ORDER SUMMARY ---------- */}
@@ -93,7 +101,10 @@ const PlaceOrder = () => {
 
           {/* PLACE ORDER BUTTON */}
           <div className="mt-8 w-full text-end">
-            <button onClick={()=>navigate('/orders')} className=" bg-indigo-600 text-white py-3 px-16 rounded-md font-semibold hover:bg-indigo-700 transition">
+            <button
+              onClick={() => navigate("/orders")}
+              className=" bg-indigo-600 text-white py-3 px-16 rounded-md font-semibold hover:bg-indigo-700 transition"
+            >
               PLACE ORDER
             </button>
           </div>

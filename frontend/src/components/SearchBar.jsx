@@ -47,7 +47,7 @@ const SearchBar = () => {
               setSearch(e.target.value);
               setShowSuggestions(true); // show again while typing
             }}
-            className="flex-1 outline-none text-sm bg-transparent appearance-none"
+            className="flex-1 outline-none text-sm bg-transparent appearance-none "
             placeholder="Search products"
           />
           <img className="w-4 opacity-70" src={assets.search_icon} alt="" />
