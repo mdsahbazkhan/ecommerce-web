@@ -9,9 +9,9 @@ const Footer = () => {
       <div className="flex flex-col sm:grid grid-cols-[3fr_1fr_1fr] gap-14 my-10 mt-4 text-sm">
         {/* Brand */}
         <div>
-        <Link to="/">
-          <img src={assets.logo} alt="" className="w-36" />
-        </Link>
+          <Link to="/">
+            <img src={assets.logo} alt="" className="w-36" />
+          </Link>
           <p className="text-indigo-500 text-xs sm:text-sm  md:text-base max-w-xl mt-4">
             Bazario brings you carefully curated fashion that blends modern
             trends with timeless style. Designed for comfort, quality, and
@@ -38,12 +38,15 @@ const Footer = () => {
                 Contact Us
               </Link>
             </li>
-            <li className="hover:text-indigo-800 cursor-pointer">
+            <Link
+              to="/privacy"
+              className="hover:text-indigo-800 cursor-pointer"
+            >
               Privacy Policy
-            </li>
-            <li className="hover:text-indigo-800 cursor-pointer">
+            </Link>
+            <Link to="/terms" className="hover:text-indigo-800 cursor-pointer">
               Terms & Conditions
-            </li>
+            </Link>
           </ul>
         </div>
 
@@ -53,34 +56,30 @@ const Footer = () => {
             CUSTOMER CARE
           </p>
           <ul className="flex flex-col gap-2 text-indigo-500">
-            <li className="hover:text-indigo-800 cursor-pointer ">
+            <Link
+              to="/shipping"
+              className="hover:text-indigo-800 cursor-pointer "
+            >
               Shipping & Delivery
-            </li>
-            <li className="hover:text-indigo-800 cursor-pointer">
+            </Link>
+            <Link
+              to="/returns"
+              className="hover:text-indigo-800 cursor-pointer"
+            >
               Returns & Exchanges
-            </li>
-            <li className="hover:text-indigo-800 cursor-pointer">FAQs</li>
-            <li className="hover:text-indigo-800  cursor-pointer">
+            </Link>
+            <Link className="hover:text-indigo-800 cursor-pointer" to="/faq">
+              FAQs
+            </Link>
+
+            <Link
+              className="hover:text-indigo-800  cursor-pointer"
+              to="/orders"
+            >
               Track Order
-            </li>
+            </Link>
           </ul>
         </div>
-
-        {/* Contact */}
-        {/* <div>
-          <p className="text-lg font-semibold mb-4 text-indigo-800">CONTACT</p>
-          <ul className="flex flex-col gap-2 text-indigo-500">
-            <li className="hover:text-indigo-800 cursor-pointer">
-              support@bazario.com
-            </li>
-            <li className="hover:text-indigo-800 cursor-pointer">
-              +91 62077 85264
-            </li>
-            <li className="hover:text-indigo-800 cursor-pointer">
-              Hyderabad, India
-            </li>
-          </ul>
-        </div> */}
       </div>
 
       {/* Bottom Footer */}

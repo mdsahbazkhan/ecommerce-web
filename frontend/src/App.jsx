@@ -12,13 +12,18 @@ import Orders from "./pages/Orders";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import SearchBar from "./components/SearchBar";
+import FAQ from "./pages/Faq";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsConditions from "./pages/TermsConditions";
+import ShippingDelivery from "./pages/ShippingDelivery";
+import ReturnsExchanges from "./pages/ReturnsExchanges";
 
 const App = () => {
   return (
     <div className="px-4 sm:px-[5vw] md:px-[5vw] lg:px-[5vw]">
       <Navbar />
       <SearchBar />
-     <Toaster richColors position="top-right" />
+      <Toaster richColors position="top-right" />
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/collection" element={<Collection />}></Route>
@@ -29,6 +34,11 @@ const App = () => {
         <Route path="/login" element={<Login />}></Route>
         <Route path="/place-order" element={<PlaceOrder />}></Route>
         <Route path="/orders" element={<Orders />}></Route>
+        <Route path="/faq" element={<FAQ />}></Route>
+        <Route path="/privacy" element={<PrivacyPolicy />} />
+        <Route path="/terms" element={<TermsConditions />} />
+        <Route path="/shipping" element={<ShippingDelivery />} />
+        <Route path="/returns" element={<ReturnsExchanges />} />
       </Routes>
       <Footer />
     </div>

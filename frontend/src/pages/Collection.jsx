@@ -29,11 +29,7 @@ const Collection = () => {
   };
   const applyFilter = () => {
     let productsArray = products.slice();
-    // if (search && showSearchBar) {
-    //   productsArray = productsArray.filter((item) =>
-    //     item.name.toLowerCase().includes(search.toLowerCase())
-    //   );
-    // }
+   
     if (searchQuery) {
       productsArray = productsArray.filter((item) =>
         item.name.toLowerCase().includes(searchQuery.toLowerCase())

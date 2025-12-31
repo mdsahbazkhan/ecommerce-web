@@ -1,13 +1,16 @@
 import { createRoot } from "react-dom/client";
-import { BrowserRouter } from "react-router";
+import { BrowserRouter } from "react-router-dom";
+import { HelmetProvider } from "react-helmet-async";
 import "./index.css";
 import App from "./App.jsx";
 import ShopContextProvider from "./context/ShopContextProvider.jsx";
 
 createRoot(document.getElementById("root")).render(
   <BrowserRouter>
-    <ShopContextProvider>
-      <App />
-    </ShopContextProvider>
+    <HelmetProvider>
+      <ShopContextProvider>
+        <App />
+      </ShopContextProvider>
+    </HelmetProvider>
   </BrowserRouter>
 );

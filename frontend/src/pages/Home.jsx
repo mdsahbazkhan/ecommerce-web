@@ -4,16 +4,29 @@ import LatestCollection from "../components/LatestCollection";
 import BestSeller from "../components/BestSeller";
 import OurPolicy from "../components/OurPolicy";
 import NewsLetterBox from "../components/NewsLetterBox";
+import { Helmet } from "react-helmet-async";
 
 const Home = () => {
   return (
-    <div className="">
-      <Hero />
-      <LatestCollection />
-      <BestSeller />
-      <OurPolicy />
-      <NewsLetterBox />
-    </div>
+    <>
+      {/* 🔹 SEO */}
+      <Helmet>
+        <title>Bazario | Online Fashion Store</title>
+        <meta
+          name="description"
+          content="Shop trendy fashion online at Bazario – latest arrivals, best sellers, easy returns and fast delivery across India."
+        />
+      </Helmet>
+
+      {/* 🔹 Page UI */}
+      <div>
+        <Hero />
+        <LatestCollection />
+        <BestSeller />
+        <OurPolicy />
+        <NewsLetterBox />
+      </div>
+    </>
   );
 };
 
