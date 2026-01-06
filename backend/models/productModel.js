@@ -21,12 +21,12 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  image: {
-    type: Array,
+  images: {
+    type: [String],
     required: true,
   },
   sizes: {
-    type: Array,
+    type: [String],
     required: true,
   },
   date: {
@@ -39,17 +39,17 @@ const productSchema = new mongoose.Schema({
   },
   rating: {
     type: Number,
-    required: true,
+    default: 0,
   },
   reviews: {
     type: Number,
-    required: true,
+    default: 0,
   },
   highlights: {
-    type: Array,
+    type: [String],
     required: true,
   },
 });
-const product =
+const productModel =
   mongoose.models.product || mongoose.model("Product", productSchema);
-export default product;
+export default productModel;

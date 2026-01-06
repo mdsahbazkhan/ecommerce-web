@@ -2,12 +2,85 @@ import User from "../models/userModel.js";
 import validator from "validator";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { OAuth2Client } from "google-auth-library";
 
 const createToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET);
 };
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+
+// Route for google Login
+const googleLogin = async (req, res) => {
+  try {
+    // This token comes from frontend or Postman
+    const { token } = req.body;
+    if (!token) {
+      return res.status(400).json({
+        success: false,
+        message: "Google token is required",
+      });
+    }
+
+    // Verify Google ID token with Google servers
+    const ticket = await client.verifyIdToken({
+      idToken: token,
+      audience: process.env.GOOGLE_CLIENT_ID,
+    });
+
+    // Extract user details from verified token
+    const payload = ticket.getPayload();
+
+    const { sub, email, name, picture } = payload;
+
+    let user = await User.findOne({ email });
+
+    if (!user) {
+      user = await User.create({
+        name,
+        email,
+        googleId: sub,
+        authProvider: "google",
+        password: null,
+      });
+    }
+    // This JWT will be used for authorization in future requests
+    const jwtToken = createToken(user._id);
+    user.password = undefined;
+    res.status(200).json({
+      success: true,
+      user,
+      token: jwtToken,
+    });
+  } catch (error) {
+    console.error("Google Login Error:", error.message);
+
+    res.status(500).json({
+      success: false,
+      message: "Google login failed",
+    });
+  }
+};
 // Route for user login
-const loginUser = async (req, res) => {};
+const loginUser = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res
+        .status(400)
+        .json({ success: false, message: "User does not exist" });
+    }
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (isMatch) {
+      const token = createToken(user._id);
+      res.status(200).json({ success: true, user, token });
+    } else {
+      res.status(400).json({ success: false, message: "Invalid credentials" });
+    }
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
 
 // Route for user register
 
@@ -52,4 +125,4 @@ const registerUser = async (req, res) => {
 
 const adminLogin = async (req, res) => {};
 
-export { loginUser, registerUser, adminLogin };
+export { loginUser, registerUser, adminLogin,googleLogin };
