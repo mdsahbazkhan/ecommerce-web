@@ -2,3 +2,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+* {
+  font-family: Outfit;
+}
+.active {
+  background-color: rgb(162, 224, 243);
+  border-color: #5b9eaf;
+}
