@@ -50,7 +50,7 @@ const Login = ({ setToken }) => {
               onChange={(e) => setEmail(e.target.value)}
               type="email"
               placeholder="admin@example.com"
-              className="w-full px-4 py-2 border rounded-lg outline-none focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400"
+              className="w-full px-4 py-2  rounded-lg outline-none focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400"
               required
             />
           </div>
@@ -67,7 +67,7 @@ const Login = ({ setToken }) => {
                 value={password}
                 type={showPassword ? "text" : "password"}
                 placeholder="Enter your password"
-                className="w-full px-4 py-2 border rounded-lg outline-none pr-10 focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400"
+                className="w-full px-4 py-2  rounded-lg outline-none pr-10 focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400"
                 required
               />
 
