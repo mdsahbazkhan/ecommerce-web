@@ -4,6 +4,7 @@ import { assets } from "../assets/assets";
 import Title from "../components/Title";
 import ProductItems from "../components/ProductItems";
 import { FiChevronDown } from "react-icons/fi";
+import CollectionSkeleton from "../components/CollectionSkeleton";
 
 const Collection = () => {
   const { products, search, showSearchBar, searchQuery } =
@@ -13,6 +14,8 @@ const Collection = () => {
   const [category, setCategory] = useState([]);
   const [subCategory, setSubCategory] = useState([]);
   const [sortType, setSortType] = useState("relevance");
+  const [loading, setLoading] = useState(true);
+
   const toggleCategory = (e) => {
     if (category.includes(e.target.value)) {
       setCategory(category.filter((item) => item !== e.target.value));
@@ -29,7 +32,7 @@ const Collection = () => {
   };
   const applyFilter = () => {
     let productsArray = products.slice();
-   
+
     if (searchQuery) {
       productsArray = productsArray.filter((item) =>
         item.name.toLowerCase().includes(searchQuery.toLowerCase())
@@ -62,15 +65,26 @@ const Collection = () => {
         break;
     }
   };
+  
+  useEffect(() => {
+    if (products.length > 0) {
+      setLoading(false);
+    }
+  }, [products]);
+  
   useEffect(() => {
     setFilterProducts(products);
   }, [products]);
+  
   useEffect(() => {
     applyFilter();
   }, [category, subCategory, search, showSearchBar]);
+  
   useEffect(() => {
     sortProduct();
   }, [sortType]);
+
+  if (loading) return <CollectionSkeleton />;
 
   return (
     <div className="flex flex-col sm:flex-row gap-1 sm:gap-10   mt-20 top-0">
@@ -207,7 +221,7 @@ const Collection = () => {
                 key={product._id}
                 id={product._id}
                 name={product.name}
-                image={product.image}
+                images={product.images}
                 price={product.price}
                 rating={product.rating}
                 reviews={product.reviews}

@@ -3,20 +3,20 @@ import { ShopContext } from "../context/ShopContext";
 import { Link } from "react-router-dom";
 import { FaStar } from "react-icons/fa";
 
-const ProductItems = ({ id, name, image, price, rating, reviews }) => {
+const ProductItems = ({ id, name, images = [], price, rating, reviews }) => {
   const { currency } = useContext(ShopContext);
   const [currentImage, setCurrentImage] = useState(0);
   const [hovered, setHovered] = useState(false);
 
   useEffect(() => {
-    if (!hovered || image.length <= 1) return;
-
+    if (!hovered || images.length <= 1) return;
+   
     const interval = setInterval(() => {
-      setCurrentImage((prev) => (prev + 1) % image.length);
+      setCurrentImage((prev) => (prev + 1) % images.length);
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [hovered, image.length]);
+  }, [hovered, images]);
 
   const formatReviews = (num) => {
     if (num >= 1000) return (num / 1000).toFixed(1) + "k";
@@ -36,7 +36,7 @@ const ProductItems = ({ id, name, image, price, rating, reviews }) => {
       {/* IMAGE */}
       <div className="relative overflow-hidden rounded-md bg-slate-50">
         <img
-          src={image[currentImage]}
+          src={images[currentImage] || images[0] || "/placeholder.png"}
           alt={name}
           className="block w-full transition-transform duration-300 ease-in-out group-hover:scale-105"
         />

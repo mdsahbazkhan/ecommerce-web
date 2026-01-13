@@ -1,12 +1,22 @@
-import React, { useContext, useMemo } from "react";
+import React, { useContext, useMemo, useState, useEffect } from "react";
 import { ShopContext } from "../context/ShopContext";
 import Title from "../components/Title";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import CartTotal from "../components/CartTotal";
+import CartSkeleton from "../components/CartSkeleton";
 
 const Cart = () => {
   const { products, currency, cartItems, updateQuantity, navigate } =
     useContext(ShopContext);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (products.length > 0) {
+      setLoading(false);
+    }
+  }, [products]);
+
+  if (loading) return <CartSkeleton />;
 
   const cartData = useMemo(() => {
     const temp = [];
@@ -47,7 +57,7 @@ const Cart = () => {
               {/* Product Info */}
               <div className="flex gap-4 items-start">
                 <img
-                  src={productData.image[0]}
+                  src={productData.images[0]}
                   alt={productData.name}
                   className="w-20 h-24 object-cover rounded"
                 />

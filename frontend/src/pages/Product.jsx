@@ -32,17 +32,26 @@ const Product = () => {
   const [size, setSize] = useState("");
   const [activeTab, setActiveTab] = useState("description");
   const [showSizeChart, setShowSizeChart] = useState(false);
+  const [showZoom, setShowZoom] = useState(false);
+  const [zoomPosition, setZoomPosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     const product = products.find((item) => item._id === productId);
     if (product) {
       setProductData(product);
-      setImage(product.image?.[0] || "");
+      setImage(product.images?.[0] || "");
       setSize("");
       setShowSizeChart(false);
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   }, [productId, products]);
+
+  const handleMouseMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    setZoomPosition({ x, y });
+  };
 
   const handleBuyNow = () => {
     if (!size) {
@@ -52,7 +61,54 @@ const Product = () => {
     toast("Coming soooooon 🚀");
   };
 
-  if (!productData) return <div className="mt-10">Loading...</div>;
+  if (!productData) {
+    return (
+      <div className="border-t-2 pt-10 mt-10">
+        <div className="flex gap-12 flex-col sm:flex-row">
+          {/* Image Skeleton */}
+          <div className="flex-1 flex flex-col-reverse sm:flex-row gap-3">
+            <div className="flex sm:flex-col gap-3 sm:w-[18%] w-full overflow-auto">
+              {Array.from({ length: 4 }, (_, i) => (
+                <div key={i} className="w-20 h-20 sm:w-full sm:h-24 bg-gray-200 rounded-md animate-pulse"></div>
+              ))}
+            </div>
+            <div className="w-full sm:w-[80%] h-96 bg-gray-200 rounded animate-pulse"></div>
+          </div>
+
+          {/* Product Info Skeleton */}
+          <div className="flex-1 space-y-4">
+            <div className="h-8 bg-gray-200 rounded w-3/4 animate-pulse"></div>
+            <div className="flex items-center gap-2">
+              <div className="h-5 bg-gray-200 rounded w-24 animate-pulse"></div>
+              <div className="h-5 bg-gray-200 rounded w-20 animate-pulse"></div>
+            </div>
+            <div className="h-10 bg-gray-200 rounded w-32 animate-pulse"></div>
+            
+            <div className="space-y-2">
+              <div className="h-5 bg-gray-200 rounded w-20 animate-pulse"></div>
+              <div className="h-4 bg-gray-200 rounded animate-pulse"></div>
+              <div className="h-4 bg-gray-200 rounded w-5/6 animate-pulse"></div>
+              <div className="h-4 bg-gray-200 rounded w-4/5 animate-pulse"></div>
+            </div>
+
+            <div className="space-y-3">
+              <div className="h-5 bg-gray-200 rounded w-24 animate-pulse"></div>
+              <div className="flex gap-2">
+                {Array.from({ length: 5 }, (_, i) => (
+                  <div key={i} className="h-10 w-12 bg-gray-200 rounded animate-pulse"></div>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex gap-3 mt-6">
+              <div className="flex-1 h-12 bg-gray-200 rounded animate-pulse"></div>
+              <div className="flex-1 h-12 bg-gray-200 rounded animate-pulse"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="border-t-2 pt-10 mt-10">
@@ -61,25 +117,45 @@ const Product = () => {
         {/* Images */}
         <div className="flex-1 flex flex-col-reverse sm:flex-row gap-3">
           <div className="flex sm:flex-col gap-3 sm:w-[18%] w-full overflow-auto">
-            {productData.image?.map((item, index) => (
+            {productData.images?.map((item, index) => (
               <img
                 key={index}
                 src={item}
                 onClick={() => setImage(item)}
-                className={`cursor-pointer border ${
-                  image === item ? "border-indigo-600" : "border-transparent"
+                className={`cursor-pointer border-2 rounded-md w-20 h-20 sm:w-full sm:h-auto object-cover ${
+                  image === item ? "border-indigo-600" : "border-gray-200 hover:border-indigo-400"
                 }`}
                 alt=""
               />
             ))}
           </div>
 
-          <div className="w-full sm:w-[80%]">
-            <img
-              src={image}
-              alt=""
-              className="w-full h-auto object-cover rounded"
-            />
+          <div className="w-full sm:w-[80%] relative">
+            <div 
+              className="relative overflow-hidden rounded cursor-crosshair"
+              onMouseEnter={() => setShowZoom(true)}
+              onMouseLeave={() => setShowZoom(false)}
+              onMouseMove={handleMouseMove}
+            >
+              <img
+                src={image}
+                alt=""
+                className="w-full h-auto object-cover rounded transition-transform duration-200"
+              />
+              
+              {/* Zoom Overlay */}
+              {showZoom && (
+                <div 
+                  className="absolute inset-0 bg-white bg-opacity-30 pointer-events-none"
+                  style={{
+                    backgroundImage: `url(${image})`,
+                    backgroundSize: '200%',
+                    backgroundPosition: `${zoomPosition.x}% ${zoomPosition.y}%`,
+                    backgroundRepeat: 'no-repeat'
+                  }}
+                />
+              )}
+            </div>
           </div>
         </div>
 

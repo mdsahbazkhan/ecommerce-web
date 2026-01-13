@@ -90,7 +90,7 @@ const Login = ({ setToken }) => {
         </form>
 
         <p className="text-xs text-center text-gray-400 mt-6">
-          © 2026 Bazario Admin Panel
+          © {new Date().getFullYear()} Bazario Admin Panel
         </p>
       </div>
     </div>

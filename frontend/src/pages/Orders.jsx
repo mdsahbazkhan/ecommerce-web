@@ -1,9 +1,19 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { ShopContext } from "../context/ShopContext";
 import Title from "../components/Title";
+import OrdersSkeleton from "../components/OrdersSkeleton";
 
 const Orders = () => {
   const { products, currency } = useContext(ShopContext);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (products.length > 0) {
+      setLoading(false);
+    }
+  }, [products]);
+
+  if (loading) return <OrdersSkeleton />;
   return (
     <div className="border-t pt-16 mt-10">
       <div className="text-2xl">

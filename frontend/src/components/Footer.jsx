@@ -85,7 +85,7 @@ const Footer = () => {
       {/* Bottom Footer */}
       <hr className="border-t border-gray-200 my-3 w-full" />
       <p className="text-center text-gray-500 text-sm py-6">
-        © 2025 Bazario. All rights reserved.
+        © {new Date().getFullYear()} Bazario. All rights reserved.
       </p>
     </div>
   );
