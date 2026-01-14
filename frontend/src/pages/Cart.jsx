@@ -16,8 +16,6 @@ const Cart = () => {
     }
   }, [products]);
 
-  if (loading) return <CartSkeleton />;
-
   const cartData = useMemo(() => {
     const temp = [];
 
@@ -32,6 +30,7 @@ const Cart = () => {
 
     return temp;
   }, [cartItems]);
+  if (loading) return <CartSkeleton />;
 
   return (
     <div className="border-t pt-14 mt-10 px-4 sm:px-0">

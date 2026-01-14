@@ -1,5 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
+import { ShopContext } from "../context/ShopContext";
+import axios from "axios";
+import { GoogleLogin } from "@react-oauth/google";
+import { toast } from "sonner";
 
 const Login = () => {
   const [currentState, setCurrentState] = useState("Login");
@@ -7,17 +11,71 @@ const Login = () => {
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
+  const { token, setToken, navigate, backendUrl } = useContext(ShopContext);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
-    setError("");
-    setLoading(true);
+    try {
+      if (currentState === "Sign Up") {
+        const response = await axios.post(`${backendUrl}/api/user/register`, {
+          name,
+          email,
+          password,
+        });
+        if (response.data.success) {
+          setToken(response.data.token);
+          localStorage.setItem("token", response.data.token);
+          toast.success("Logged in Successfully");
+        } else {
+          toast.error(response.data.message || "Something went wrong");
+        }
+      } else {
+        const response = await axios.post(`${backendUrl}/api/user/login`, {
+          email,
+          password,
+        });
+        if (response.data.success) {
+          setToken(response.data.token);
+          localStorage.setItem("token", response.data.token);
+        } else {
+          toast.error(response.data.message || "Something went wrong");
+        }
+      }
+    } catch (error) {
+      console.log(error.message);
 
-    // backend logic later
-    setTimeout(() => {
-      setLoading(false);
-    }, 1500);
+      toast.error(error.message);
+    }
   };
+  const handleGoogleLogin = async (credentialResponse) => {
+    try {
+      const googleToken = credentialResponse.credential;
+
+      const response = await axios.post(`${backendUrl}/api/user/google-login`, {
+        token: googleToken,
+      });
+
+      if (response.data.success) {
+        setToken(response.data.token);
+        localStorage.setItem("token", response.data.token);
+        toast.success("Logged in with Google ");
+      } else {
+        toast.error(response.data.message || "Google login failed");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Google login failed");
+    }
+  };
+
+  useEffect(() => {
+    if (token) {
+      navigate("/");
+    }
+  }, [token]);
 
   return (
     <form
@@ -33,6 +91,8 @@ const Login = () => {
       {/* Name (Signup only) */}
       {currentState === "Sign Up" && (
         <input
+          value={name}
+          onChange={(e) => setName(e.target.value)}
           className="w-full border border-gray-300 rounded-md px-4 py-2 outline-none focus:border-indigo-500"
           type="text"
           placeholder="Full Name"
@@ -42,6 +102,8 @@ const Login = () => {
 
       {/* Email */}
       <input
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
         className="w-full border border-gray-300 rounded-md px-4 py-2 outline-none focus:border-indigo-500"
         type="email"
         placeholder="Email Address"
@@ -51,6 +113,8 @@ const Login = () => {
       {/* Password */}
       <div className="relative w-full">
         <input
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           className="w-full border border-gray-300 rounded-md px-4 py-2 outline-none focus:border-indigo-500 pr-10"
           type={showPassword ? "text" : "password"}
           placeholder="Password"
@@ -143,19 +207,13 @@ const Login = () => {
       </div>
 
       {/* Google Login */}
-      <button
-        type="button"
-        className="w-full flex items-center justify-center gap-3 border border-gray-300 py-2 rounded-md hover:bg-gray-50 transition"
-      >
-        <img
-          src="https://developers.google.com/identity/images/g-logo.png"
-          alt="Google"
-          className="w-5 h-5"
-        />
-        <span className="text-sm font-medium text-gray-700">
-          Continue with Google
-        </span>
-      </button>
+      <GoogleLogin
+        onSuccess={handleGoogleLogin}
+        onError={() => toast.error("Google Login Failed")}
+        theme="outline"
+        size="large"
+        width="100%"
+      />
     </form>
   );
 };
