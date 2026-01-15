@@ -41,6 +41,7 @@ const googleLogin = async (req, res) => {
         googleId: sub,
         authProvider: "google",
         password: null,
+        cartData: {},
       });
     }
     // This JWT will be used for authorization in future requests
@@ -125,17 +126,19 @@ const registerUser = async (req, res) => {
 
 const adminLogin = async (req, res) => {
   try {
-    const {email,password}=req.body;
-  if(email===process.env.ADMIN_EMAIL &&password===process.env.ADMIN_PASSWORD){
-    const token=jwt.sign(email+password,process.env.JWT_SECRET);
-    res.status(200).json({success:true,token});
-  }else{
-    res.json({success:false, message:"Invalid credentials"});
-  }
+    const { email, password } = req.body;
+    if (
+      email === process.env.ADMIN_EMAIL &&
+      password === process.env.ADMIN_PASSWORD
+    ) {
+      const token = jwt.sign(email + password, process.env.JWT_SECRET);
+      res.status(200).json({ success: true, token });
+    } else {
+      res.json({ success: false, message: "Invalid credentials" });
+    }
   } catch (error) {
-    res.status(500).json({success:false, message:error.message});
+    res.status(500).json({ success: false, message: error.message });
   }
-  
 };
 
 export { loginUser, registerUser, adminLogin, googleLogin };

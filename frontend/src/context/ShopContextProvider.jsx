@@ -32,9 +32,21 @@ const ShopContextProvider = ({ children }) => {
       cartData[itemId][size] = 1;
     }
     setCartItems(cartData);
-    toast.success("Added to cart 🛒", {
-      duration: 2000,
-    });
+    if (token) {
+      try {
+        await axios.post(
+          `${backendUrl}/api/cart/add`,
+          { itemId, size },
+          { headers: { token } }
+        );
+        toast.success("Added to cart", {
+          duration: 1000,
+        });
+      } catch (error) {
+        console.log(error);
+        toast.error(error.message);
+      }
+    }
   };
   const getCartCount = () => {
     let totalCount = 0;
@@ -54,6 +66,18 @@ const ShopContextProvider = ({ children }) => {
     let cartData = structuredClone(cartItems);
     cartData[itemId][size] = quantity;
     setCartItems(cartData);
+    if (token) {
+      try {
+        await axios.post(
+          `${backendUrl}/api/cart/update`,
+          { itemId, size, quantity },
+          { headers: { token } }
+        );
+      } catch (error) {
+        console.log(error);
+        toast.error(error.message);
+      }
+    }
   };
   const getCartAmount = () => {
     let totalAmount = 0;
@@ -81,14 +105,30 @@ const ShopContextProvider = ({ children }) => {
       toast.error(error.message);
     }
   };
+  const getUserCart = async () => {
+    try {
+      const response = await axios.post(
+        `${backendUrl}/api/cart/get`,
+        {},
+        { headers: { token } }
+      );
+      if (response.data.success) {
+        setCartItems(response.data.cartData);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message);
+    }
+  };
   useEffect(() => {
     getProdutsData();
   }, []);
   useEffect(() => {
     if (!token && localStorage.getItem("token")) {
       setToken(localStorage.getItem("token"));
+      getUserCart();
     }
-  });
+  }, []);
   const value = {
     products,
     currency,
@@ -106,6 +146,7 @@ const ShopContextProvider = ({ children }) => {
     getCartAmount,
     navigate,
     backendUrl,
+    setCartItems,
     setToken,
     token,
   };

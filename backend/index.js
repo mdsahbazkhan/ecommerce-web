@@ -22,7 +22,7 @@ app.use(cors());
 // Api EndPoints
 app.use("/api/user", userRouter);
 app.use("/api/product", productRouter);
-app.use("api/cart", cartRouter);
+app.use("/api/cart", cartRouter);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
