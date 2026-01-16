@@ -44,7 +44,7 @@ const ShopContextProvider = ({ children }) => {
         });
       } catch (error) {
         console.log(error);
-        toast.error(error.message);
+        toast.error(error.response?.data?.message);
       }
     }
   };
@@ -63,6 +63,7 @@ const ShopContextProvider = ({ children }) => {
   };
 
   const updateQuantity = async (itemId, size, quantity) => {
+    const token = localStorage.getItem("token");
     let cartData = structuredClone(cartItems);
     cartData[itemId][size] = quantity;
     setCartItems(cartData);
@@ -75,7 +76,7 @@ const ShopContextProvider = ({ children }) => {
         );
       } catch (error) {
         console.log(error);
-        toast.error(error.message);
+        toast.error(error.response?.data?.message);
       }
     }
   };
@@ -107,6 +108,8 @@ const ShopContextProvider = ({ children }) => {
   };
   const getUserCart = async () => {
     try {
+      const token = localStorage.getItem("token");
+ 
       const response = await axios.post(
         `${backendUrl}/api/cart/get`,
         {},
@@ -116,13 +119,14 @@ const ShopContextProvider = ({ children }) => {
         setCartItems(response.data.cartData);
       }
     } catch (error) {
-      console.log(error);
-      toast.error(error.message);
+      console.log(error.response?.data?.message);
+      toast.error(error.response?.data?.message || "Unauthorized");
     }
   };
   useEffect(() => {
     getProdutsData();
   }, []);
+  
   useEffect(() => {
     if (!token && localStorage.getItem("token")) {
       setToken(localStorage.getItem("token"));
