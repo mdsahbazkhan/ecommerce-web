@@ -5,22 +5,12 @@ const orderSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  name: {
-    type: String,
-    required: true,
-  },
-  email: {
-    type: String,
-    required: true,
-  },
+
   address: {
-    type: String,
+    type: Object,
     required: true,
   },
-  phone: {
-    type: Number,
-    required: true,
-  },
+
   status: {
     type: String,
     required: true,
@@ -36,9 +26,8 @@ const orderSchema = new mongoose.Schema({
     required: true,
   },
   date: {
-    type: Boolean,
+    type: Number,
     required: true,
-    default: false,
   },
 
   items: {

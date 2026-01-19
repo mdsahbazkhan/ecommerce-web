@@ -1,11 +1,25 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Title from "../components/Title";
 import CartTotal from "../components/CartTotal";
 import { assets } from "../assets/assets";
-// import { useNavigate } from "react-router-dom";
+import { ShopContext } from "../context/ShopContext";
+import axios from "axios";
+import { toast } from "sonner";
 
 const PlaceOrder = () => {
   const [paymentMethod, setPaymentMethod] = useState("cod");
+
+  const {
+    navigate,
+    backendUrl,
+    token,
+    cartItems,
+    setCartItems,
+    getCartAmount,
+    deliveryFee,
+    products,
+  } = useContext(ShopContext);
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -17,117 +31,222 @@ const PlaceOrder = () => {
     country: "",
     phone: "",
   });
+
+  const [errors, setErrors] = useState({});
+
+  // ---------- INPUT CHANGE ----------
   const onChangeHandler = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
-    setFormData((data) => ({ ...data, [name]: value }));
+    const { name, value } = e.target;
+
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    setErrors((prev) => ({ ...prev, [name]: "" }));
   };
-  // const navigate = useNavigate();
+
+  // ---------- VALIDATION ----------
+  const validateForm = () => {
+    let newErrors = {};
+
+    if (!formData.firstName.trim())
+      newErrors.firstName = "First name is required";
+
+    if (!formData.lastName.trim()) newErrors.lastName = "Last name is required";
+
+    if (!formData.email.trim()) newErrors.email = "Email is required";
+    else if (!/^\S+@\S+\.\S+$/.test(formData.email))
+      newErrors.email = "Enter a valid email";
+
+    if (!formData.street.trim())
+      newErrors.street = "Street address is required";
+
+    if (!formData.city.trim()) newErrors.city = "City is required";
+
+    if (!formData.state.trim()) newErrors.state = "State is required";
+
+    if (!formData.zipCode.trim()) newErrors.zipCode = "Zip code is required";
+
+    if (!formData.country.trim()) newErrors.country = "Country is required";
+
+    if (!formData.phone.trim()) newErrors.phone = "Phone number is required";
+    else if (!/^[0-9]{10}$/.test(formData.phone))
+      newErrors.phone = "Phone number must be exactly 10 digits";
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  // ---------- SUBMIT ----------
+  const onSubmitHandler = async (e) => {
+    e.preventDefault();
+
+    if (!validateForm()) return;
+
+    try {
+      let orderItems = [];
+
+      for (const productId in cartItems) {
+        for (const size in cartItems[productId]) {
+          if (cartItems[productId][size] > 0) {
+            const product = structuredClone(
+              products.find((p) => p._id === productId),
+            );
+            if (product) {
+              product.size = size;
+              product.quantity = cartItems[productId][size];
+              orderItems.push(product);
+            }
+          }
+        }
+      }
+
+      const orderData = {
+        address: formData,
+        items: orderItems,
+        amount: getCartAmount() + deliveryFee,
+      };
+
+      const response = await axios.post(
+        `${backendUrl}/api/order/place`,
+        orderData,
+        { headers: { token } },
+      );
+
+      if (response.data.success) {
+        setCartItems({});
+        navigate("/orders");
+      } else {
+        toast.error(response.data.message || "Something went wrong");
+      }
+    } catch (error) {
+      toast.error(error.response?.data?.message || error.message);
+    }
+  };
 
   return (
-    <form className="flex flex-col lg:flex-row gap-10 pt-10 mt-10 border-t px-4 sm:px-0">
+    <form
+      onSubmit={onSubmitHandler}
+      className="flex flex-col lg:flex-row gap-10 pt-10 mt-10 border-t px-4 sm:px-0"
+    >
       {/* ---------- LEFT : DELIVERY INFO ---------- */}
       <div className="flex flex-col gap-5 w-full lg:max-w-120">
-        <div className="text-xl sm:text-2xl mb-2">
-          <Title text1="DELIVERY" text2="INFORMATION" />
-        </div>
+        <Title text1="DELIVERY" text2="INFORMATION" />
 
-        {/* Name */}
         <div className="flex gap-3">
-          <input
-            onChange={onChangeHandler}
-            name="firstName"
-            value={formData.firstName}
-            className="w-full border border-gray-300 rounded-md px-4 py-2 outline-none focus:border-indigo-500"
-            type="text"
-            placeholder="First Name"
-            required
-          />
-          <input
-            onChange={onChangeHandler}
-            name="lastName"
-            value={formData.lastName}
-            className="w-full border border-gray-300 rounded-md px-4 py-2 outline-none focus:border-indigo-500"
-            type="text"
-            placeholder="Last Name"
-            required
-          />
+          <div className="w-full">
+            <input
+              name="firstName"
+              value={formData.firstName}
+              onChange={onChangeHandler}
+              placeholder="First Name"
+              className="input"
+            />
+            {errors.firstName && (
+              <p className="text-red-500 text-sm">{errors.firstName}</p>
+            )}
+          </div>
+
+          <div className="w-full">
+            <input
+              name="lastName"
+              value={formData.lastName}
+              onChange={onChangeHandler}
+              placeholder="Last Name"
+              className="input"
+            />
+            {errors.lastName && (
+              <p className="text-red-500 text-sm">{errors.lastName}</p>
+            )}
+          </div>
         </div>
 
         <input
-          onChange={onChangeHandler}
           name="email"
           value={formData.email}
-          className="w-full border border-gray-300 rounded-md px-4 py-2 outline-none focus:border-indigo-500"
-          type="email"
-          placeholder="Email Address"
-          required
-        />
-        <input
           onChange={onChangeHandler}
+          placeholder="Email Address"
+          className="input"
+        />
+        {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
+
+        <input
           name="street"
           value={formData.street}
-          className="w-full border border-gray-300 rounded-md px-4 py-2 outline-none focus:border-indigo-500"
-          type="text"
+          onChange={onChangeHandler}
           placeholder="Street Address"
-          required
+          className="input"
         />
+        {errors.street && (
+          <p className="text-red-500 text-sm">{errors.street}</p>
+        )}
 
-        {/* City / State */}
         <div className="flex gap-3">
-          <input
-            onChange={onChangeHandler}
-            name="city"
-            value={formData.city}
-            className="w-full border border-gray-300 rounded-md px-4 py-2 outline-none focus:border-indigo-500"
-            type="text"
-            placeholder="City"
-            required
-          />
-          <input
-            onChange={onChangeHandler}
-            name="state"
-            value={formData.state}
-            className="w-full border border-gray-300 rounded-md px-4 py-2 outline-none focus:border-indigo-500"
-            type="text"
-            placeholder="State"
-            required
-          />
+          <div className="w-full">
+            <input
+              name="city"
+              value={formData.city}
+              onChange={onChangeHandler}
+              placeholder="City"
+              className="input"
+            />
+            {errors.city && (
+              <p className="text-red-500 text-sm">{errors.city}</p>
+            )}
+          </div>
+
+          <div className="w-full">
+            <input
+              name="state"
+              value={formData.state}
+              onChange={onChangeHandler}
+              placeholder="State"
+              className="input"
+            />
+            {errors.state && (
+              <p className="text-red-500 text-sm">{errors.state}</p>
+            )}
+          </div>
         </div>
 
-        {/* Zip / Country */}
         <div className="flex gap-3">
-          <input
-            onChange={onChangeHandler}
-            name="zipCode"
-            value={formData.zipCode}
-            className="w-full border border-gray-300 rounded-md px-4 py-2 outline-none focus:border-indigo-500"
-            type="number"
-            placeholder="Zip Code"
-            required
-          />
-          <input
-            onChange={onChangeHandler}
-            name="country"
-            value={formData.country}
-            className="input"
-            type="text"
-            placeholder="Country"
-            required
-          />
+          <div className="w-full">
+            <input
+              name="zipCode"
+              value={formData.zipCode}
+              onChange={onChangeHandler}
+              placeholder="Zip Code"
+              className="input"
+            />
+            {errors.zipCode && (
+              <p className="text-red-500 text-sm">{errors.zipCode}</p>
+            )}
+          </div>
+
+          <div className="w-full">
+            <input
+              name="country"
+              value={formData.country}
+              onChange={onChangeHandler}
+              placeholder="Country"
+              className="input"
+            />
+            {errors.country && (
+              <p className="text-red-500 text-sm">{errors.country}</p>
+            )}
+          </div>
         </div>
 
         <input
-          onChange={onChangeHandler}
           name="phone"
           value={formData.phone}
-          className="w-full border border-gray-300 rounded-md px-4 py-2 outline-none focus:border-indigo-500"
-          type="number"
+          onChange={(e) => {
+            if (/^[0-9]{0,10}$/.test(e.target.value)) {
+              onChangeHandler(e);
+            }
+          }}
           placeholder="Phone Number"
-          required
+          className="input"
         />
+        {errors.phone && <p className="text-red-500 text-sm">{errors.phone}</p>}
       </div>
-
       {/* ---------- RIGHT : ORDER SUMMARY ---------- */}
       <div className="flex-1">
         <CartTotal />
@@ -169,9 +288,7 @@ const PlaceOrder = () => {
               className="payment-box"
             >
               <span
-                className={`radio ${
-                  paymentMethod === "cod" ? "radio-active" : ""
-                }`}
+                className={`radio ${paymentMethod === "cod" ? "radio-active" : ""}`}
               />
               <p className="text-sm font-medium text-indigo-700">
                 CASH ON DELIVERY
@@ -183,7 +300,6 @@ const PlaceOrder = () => {
           <div className="mt-8 w-full text-end">
             <button
               type="submit"
-              // onClick={() => navigate("/orders")}
               className=" bg-indigo-600 text-white py-3 px-16 rounded-md font-semibold hover:bg-indigo-700 transition"
             >
               PLACE ORDER
@@ -191,6 +307,7 @@ const PlaceOrder = () => {
           </div>
         </div>
       </div>
+      ;
     </form>
   );
 };

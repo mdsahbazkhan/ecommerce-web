@@ -20,8 +20,20 @@ const placeOrder = async (req, res) => {
     await userModel.findByIdAndUpdate(userId, { cartData: {} });
     res.status(200).json({ success: true, message: "Order Placed" });
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ success: false, message: error.message });
+    console.error(error);
+
+    if (error.name === "ValidationError") {
+      return res.status(400).json({
+        success: false,
+        message: "Please fill all required fields correctly",
+      });
+    }
+
+
+    return res.status(500).json({
+      success: false,
+      message: "Something went wrong. Please try again later.",
+    });
   }
 };
 //Placeing orders using Stripe Method
