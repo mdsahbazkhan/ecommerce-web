@@ -29,7 +29,6 @@ const placeOrder = async (req, res) => {
       });
     }
 
-
     return res.status(500).json({
       success: false,
       message: "Something went wrong. Please try again later.",
@@ -46,9 +45,19 @@ const placeOrderRazorpay = async (req, res) => {};
 //All Orders data for Admin Panel
 
 const allOrders = async (req, res) => {};
+
 //User Orders data for frontend
 
-const userOrders = async (req, res) => {};
+const userOrders = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const orders = await orderModel.find({ userId });
+    res.status(200).json({ success: true, orders });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
 
 //Update Orders status from Admin Panel
 

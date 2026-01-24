@@ -2,16 +2,41 @@ import React, { useContext, useState, useEffect } from "react";
 import { ShopContext } from "../context/ShopContext";
 import Title from "../components/Title";
 import OrdersSkeleton from "../components/OrdersSkeleton";
+import axios from "axios";
+import { toast } from "sonner";
 
 const Orders = () => {
-  const { products, currency } = useContext(ShopContext);
+  const { backendUrl, token, currency } = useContext(ShopContext);
   const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    if (products.length > 0) {
+  const [orderData, setorderData] = useState([]);
+  const loadOrderData = async () => {
+    try {
+      if (!token) return null;
+      const response = await axios.post(
+        `${backendUrl}/api/order/userorders`,
+        {},
+        { headers: { token } },
+      );
+      let allOrdersItem = [];
+      response.data.orders.map((order) => {
+        order.items.map((item) => {
+          item["status"] = order.status;
+          item["payment"] = order.payment;
+          item["paymentMethod"] = order.paymentMethod;
+          item["date"] = order.date;
+          allOrdersItem.push(item);
+        });
+      });
+      setorderData(allOrdersItem.reverse());
       setLoading(false);
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response.data.message);
     }
-  }, [products]);
+  };
+  useEffect(() => {
+    loadOrderData();
+  }, [token]);
 
   if (loading) return <OrdersSkeleton />;
   return (
@@ -20,7 +45,7 @@ const Orders = () => {
         <Title text1={"MY"} text2={"ORDERS"} />
       </div>
       <div>
-        {products.slice(1, 4).map((item, index) => (
+        {orderData.map((item, index) => (
           <div
             key={index}
             className="py-4 border-t border-indigo-500 flex flex-col md:flex-row md:items-center md:justify-between gap-4"
@@ -35,11 +60,18 @@ const Orders = () => {
                   <p className="text-lg">
                     {currency} {item.price}
                   </p>
-                  <p>Quantity: 1</p>
-                  <p>Size: M</p>
+                  <p>Quantity: {item.quantity}</p>
+                  <p>Size: {item.size}</p>
                 </div>
                 <p className="mt-2 text-indigo-800">
-                  Date: <span className="text-indigo-500">30 Dec 2025</span>
+                  Date:{" "}
+                  <span className="text-indigo-500">
+                    {new Date(item.date).toDateString()}
+                  </span>
+                </p>{" "}
+                <p className="mt-2 text-indigo-800">
+                  Payment:{" "}
+                  <span className="text-indigo-500">{item.paymentMethod}</span>
                 </p>
               </div>
             </div>
@@ -47,11 +79,12 @@ const Orders = () => {
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50">
                 <span className="w-2 h-2 rounded-full bg-indigo-600"></span>
                 <span className="text-sm font-medium text-indigo-500">
-                  Ready to ship
+                  {item.status}
                 </span>
               </div>
 
               <button
+                onClick={loadOrderData}
                 className="
   border border-indigo-600
   text-indigo-600
