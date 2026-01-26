@@ -169,27 +169,29 @@ const Orders = ({ token }) => {
               className="px-4 sm:px-6 py-4 hover:bg-gray-50 transition-colors"
             >
               {/* Order Header */}
-              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-3 h-3 bg-indigo-600 rounded-full flex-shrink-0"></div>
-                  <div>
-                    <p className="font-medium text-gray-900">
-                      Order #{order._id?.slice(-8)}
-                    </p>
-                    <p className="text-sm text-gray-500">
-                      {formatDate(order.date)}
-                    </p>
+              <div className="flex flex-col gap-3 mb-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="w-3 h-3 bg-indigo-600 rounded-full flex-shrink-0"></div>
+                    <div>
+                      <p className="font-medium text-gray-900 text-sm sm:text-base">
+                        Order #{order._id?.slice(-8)}
+                      </p>
+                      <p className="text-xs sm:text-sm text-gray-500">
+                        {formatDate(order.date)}
+                      </p>
+                    </div>
                   </div>
+                  <span className="text-base sm:text-lg font-semibold text-gray-900">
+                    {currency}
+                    {order.amount}
+                  </span>
                 </div>
-                <div className="flex items-center gap-3">
+                <div className="flex justify-center sm:justify-end">
                   <span
                     className={`px-2.5 py-1 rounded-full text-xs font-medium ${getStatusColor(order.status)}`}
                   >
                     {order.status}
-                  </span>
-                  <span className="text-lg font-semibold text-gray-900">
-                    {currency}
-                    {order.amount}
                   </span>
                 </div>
               </div>
@@ -238,25 +240,25 @@ const Orders = ({ token }) => {
 
               {/* Order Items */}
               <div className="mb-4">
-                <h4 className="font-medium text-gray-900 mb-3">
+                <h4 className="font-medium text-gray-900 mb-3 text-sm sm:text-base">
                   Order Items ({order.items?.length || 0})
                 </h4>
-                <div className="space-y-3">
+                <div className="space-y-2 sm:space-y-3">
                   {order.items?.map((item, itemIndex) => (
                     <div
                       key={itemIndex}
-                      className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg"
+                      className="flex items-center gap-2 sm:gap-3 p-2 sm:p-3 bg-gray-50 rounded-lg"
                     >
                       <img
                         src={item.images?.[0] || "/placeholder-image.jpg"}
                         alt={item.name || "Product"}
-                        className="w-12 h-12 object-cover rounded-lg border border-gray-200 flex-shrink-0"
+                        className="w-10 h-10 sm:w-12 sm:h-12 object-cover rounded-lg border border-gray-200 flex-shrink-0"
                       />
                       <div className="flex-1 min-w-0">
-                        <p className="font-medium text-gray-900 truncate">
+                        <p className="font-medium text-gray-900 truncate text-sm sm:text-base">
                           {item.name || "Unknown Product"}
                         </p>
-                        <div className="flex items-center gap-4 text-sm text-gray-600">
+                        <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-xs sm:text-sm text-gray-600">
                           <span>Size: {item.size || "N/A"}</span>
                           <span>Qty: {item.quantity || 0}</span>
                           <span className="font-medium">
@@ -271,8 +273,8 @@ const Orders = ({ token }) => {
               </div>
 
               {/* Payment & Status */}
-              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pt-3 border-t border-gray-200">
-                <div className="flex items-center gap-4 text-sm">
+              <div className="flex flex-col gap-3 pt-3 border-t border-gray-200">
+                <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-xs sm:text-sm">
                   <span className="text-gray-600">Payment:</span>
                   <span
                     className={`px-2 py-1 rounded-full text-xs font-medium ${
@@ -283,29 +285,31 @@ const Orders = ({ token }) => {
                   >
                     {order.payment ? "Paid" : "Pending"}
                   </span>
-                  <span className="text-gray-600">
+                  <span className="text-gray-600 break-all">
                     Method: {order.paymentMethod}
                   </span>
                 </div>
-                <div className="flex items-center gap-3">
-                  <label className="text-sm font-medium text-gray-700">
+                <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+                  <label className="text-xs sm:text-sm font-medium text-gray-700">
                     Update Status:
                   </label>
-                  <select
-                    onChange={(event) => statusHandler(event, order._id)}
-                    value={order.status}
-                    disabled={updating === order._id}
-                    className="px-3 py-1 text-sm border border-gray-300 rounded-md focus:ring-1 focus:ring-indigo-500 disabled:opacity-50"
-                  >
-                    <option value="Order Placed">Order Placed</option>
-                    <option value="Packing">Packing</option>
-                    <option value="Shipped">Shipped</option>
-                    <option value="Out for delivery">Out for delivery</option>
-                    <option value="Delivered">Delivered</option>
-                  </select>
-                  {updating === order._id && (
-                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-indigo-600"></div>
-                  )}
+                  <div className="flex items-center gap-2">
+                    <select
+                      onChange={(event) => statusHandler(event, order._id)}
+                      value={order.status}
+                      disabled={updating === order._id}
+                      className="flex-1 sm:flex-none px-2 sm:px-3 py-1 text-xs sm:text-sm border border-gray-300 rounded-md focus:ring-1 focus:ring-indigo-500 disabled:opacity-50"
+                    >
+                      <option value="Order Placed">Order Placed</option>
+                      <option value="Packing">Packing</option>
+                      <option value="Shipped">Shipped</option>
+                      <option value="Out for delivery">Out for delivery</option>
+                      <option value="Delivered">Delivered</option>
+                    </select>
+                    {updating === order._id && (
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-indigo-600 flex-shrink-0"></div>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>

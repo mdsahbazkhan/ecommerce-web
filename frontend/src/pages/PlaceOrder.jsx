@@ -77,7 +77,6 @@ const PlaceOrder = () => {
   // ---------- SUBMIT ----------
   const onSubmitHandler = async (e) => {
     e.preventDefault();
-
     if (!validateForm()) return;
 
     try {
@@ -104,18 +103,45 @@ const PlaceOrder = () => {
         amount: getCartAmount() + deliveryFee,
       };
 
-      const response = await axios.post(
-        `${backendUrl}/api/order/place`,
-        orderData,
-        { headers: { token } },
-      );
+      // 🔹 COD
+      if (paymentMethod === "cod") {
+        const res = await axios.post(
+          `${backendUrl}/api/order/place`,
+          orderData,
+          { headers: { token } },
+        );
 
-      if (response.data.success) {
-        setCartItems({});
-        navigate("/orders");
-      } else {
-        toast.error(response.data.message || "Something went wrong");
+        if (res.data.success) {
+          setCartItems({});
+          navigate("/orders");
+        }
       }
+
+      // 🔹 STRIPE
+      if (paymentMethod === "stripe") {
+        const res = await axios.post(
+          `${backendUrl}/api/order/stripe`,
+          orderData,
+          { headers: { token } },
+        );
+        if (res.data.success) {
+          const { session_url } = res.data;
+          window.location.replace(session_url);
+        } else {
+          toast.error(res.data.message);
+        }
+      }
+
+      // 🔹 RAZORPAY
+      // if (paymentMethod === "razorpay") {
+      //   const res = await axios.post(
+      //     `${backendUrl}/api/payment/razorpay`,
+      //     orderData,
+      //     { headers: { token } }
+      //   );
+
+      //   initRazorpay(res.data);
+      // }
     } catch (error) {
       toast.error(error.response?.data?.message || error.message);
     }
