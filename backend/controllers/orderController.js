@@ -90,12 +90,30 @@ const placeOrderStripe = async (req, res) => {
     res.json({ success: true, session_url: session.url });
   } catch (error) {
     console.error(error);
-    res
-      .status(500)
-      .json({
-        success: false,
-        message: error.message || "Error creating checkout session",
-      });
+    res.status(500).json({
+      success: false,
+      message: error.message || "Error creating checkout session",
+    });
+  }
+};
+// Verify Stripe
+const verifyStripe = async (req, res) => {
+  const userId = req.user.id;
+  const { orderId, success } = req.body;
+  try {
+    if (success === "true") {
+      await orderModel.findByIdAndUpdate(orderId, { payment: true });
+
+      await userModel.findByIdAndUpdate(userId, { cartData: {} });
+
+      res.json({ success: true, message: "Paid" });
+    } else {
+      await orderModel.findByIdAndDelete(orderId);
+      res.json({ success: false, message: "Not Paid" });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ success: false, message: message.error || "Error" });
   }
 };
 //Placeing orders using Razorpay Method
@@ -147,4 +165,5 @@ export {
   allOrders,
   userOrders,
   updateStatus,
+  verifyStripe,
 };
