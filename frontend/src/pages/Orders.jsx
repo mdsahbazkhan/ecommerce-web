@@ -45,47 +45,59 @@ const Orders = () => {
         <Title text1={"MY"} text2={"ORDERS"} />
       </div>
       <div>
-        {orderData.map((item, index) => (
-          <div
-            key={index}
-            className="py-4 border-t border-indigo-500 flex flex-col md:flex-row md:items-center md:justify-between gap-4"
-          >
-            <div className="flex items-start gap-6 text-sm">
-              <img className="w-16 sm:w-20" src={item.images[0]} alt="" />
-              <div>
-                <p className="sm:text-base font-medium text-indigo-800">
-                  {item.name}
-                </p>
-                <div className="flex items-center gap-3 mt-2 text-base text-indigo-800">
-                  <p className="text-lg">
-                    {currency} {item.price}
+        {orderData.length === 0 ? (
+          <div className="text-center py-20">
+            <p className="text-lg font-medium text-indigo-600">
+              No orders found
+            </p>
+            <p className="text-sm text-indigo-400 mt-2">
+              You haven’t placed any orders yet.
+            </p>
+          </div>
+        ) : (
+          orderData.map((item, index) => (
+            <div
+              key={index}
+              className="py-4 border-t border-indigo-500 flex flex-col md:flex-row md:items-center md:justify-between gap-4"
+            >
+              <div className="flex items-start gap-6 text-sm">
+                <img className="w-16 sm:w-20" src={item.images[0]} alt="" />
+                <div>
+                  <p className="sm:text-base font-medium text-indigo-800">
+                    {item.name}
                   </p>
-                  <p>Quantity: {item.quantity}</p>
-                  <p>Size: {item.size}</p>
+                  <div className="flex items-center gap-3 mt-2 text-base text-indigo-800">
+                    <p className="text-lg">
+                      {currency} {item.price}
+                    </p>
+                    <p>Quantity: {item.quantity}</p>
+                    <p>Size: {item.size}</p>
+                  </div>
+                  <p className="mt-2 text-indigo-800">
+                    Date:{" "}
+                    <span className="text-indigo-500">
+                      {new Date(item.date).toDateString()}
+                    </span>
+                  </p>{" "}
+                  <p className="mt-2 text-indigo-800">
+                    Payment:{" "}
+                    <span className="text-indigo-500">
+                      {item.paymentMethod}
+                    </span>
+                  </p>
                 </div>
-                <p className="mt-2 text-indigo-800">
-                  Date:{" "}
-                  <span className="text-indigo-500">
-                    {new Date(item.date).toDateString()}
+              </div>
+              <div className="md:w-1/2 flex justify-between">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50">
+                  <span className="w-2 h-2 rounded-full bg-indigo-600"></span>
+                  <span className="text-sm font-medium text-indigo-500">
+                    {item.status}
                   </span>
-                </p>{" "}
-                <p className="mt-2 text-indigo-800">
-                  Payment:{" "}
-                  <span className="text-indigo-500">{item.paymentMethod}</span>
-                </p>
-              </div>
-            </div>
-            <div className="md:w-1/2 flex justify-between">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50">
-                <span className="w-2 h-2 rounded-full bg-indigo-600"></span>
-                <span className="text-sm font-medium text-indigo-500">
-                  {item.status}
-                </span>
-              </div>
+                </div>
 
-              <button
-                onClick={loadOrderData}
-                className="
+                <button
+                  onClick={loadOrderData}
+                  className="
   border border-indigo-600
   text-indigo-600
   px-4 py-2
@@ -94,12 +106,13 @@ const Orders = () => {
   hover:bg-indigo-50
   transition
 "
-              >
-                Track Order
-              </button>
+                >
+                  Track Order
+                </button>
+              </div>
             </div>
-          </div>
-        ))}
+          ))
+        )}
       </div>
     </div>
   );

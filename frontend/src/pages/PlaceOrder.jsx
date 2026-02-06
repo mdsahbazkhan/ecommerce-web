@@ -1,4 +1,3 @@
-import * as Razorpay from "razorpay";
 import React, { useContext, useState } from "react";
 import Title from "../components/Title";
 import CartTotal from "../components/CartTotal";
@@ -52,10 +51,22 @@ const PlaceOrder = () => {
       order_id: order.id,
       receipt: order.receipt,
       handler: async function (response) {
-        console.log(response);
+        try {
+          const { data } = await axios.post(
+            `${backendUrl}/api/order/verifyRazorpay`,
+            response,
+            { headers: { token } },
+          );
+          if (data.success) {
+            navigate("/orders");
+            setCartItems({});
+          }
+        } catch (error) {
+          toast.error(error.response?.data?.message || error.message);
+        }
       },
     };
-    const rzp = new Razorpay(options);
+    const rzp = new window.Razorpay(options);
     rzp.open();
   };
 
