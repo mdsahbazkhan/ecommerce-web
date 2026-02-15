@@ -11,7 +11,7 @@ import orderRouter from "./routes/orderRoutes.js";
 // App Config
 const app = express();
 app.use(express.json());
-const port = process.env.PORT || 8001;
+// const port = process.env.PORT || 8001;
 
 connectDB();
 connectCloudinary();
@@ -28,3 +28,4 @@ app.use("/api/user", userRouter);
 app.use("/api/product", productRouter);
 app.use("/api/cart", cartRouter);
 app.use("/api/order", orderRouter);
+export default app;
