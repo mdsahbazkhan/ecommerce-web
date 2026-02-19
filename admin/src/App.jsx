@@ -35,7 +35,7 @@ const App = () => {
               <div className="bg-white rounded-xl shadow-sm p-6">
                 <Routes>
                   <Route
-                    path="/admin"
+                    path="/dashboard"
                     element={<AdminDashboard token={token} />}
                   />
                   <Route path="/add" element={<Add token={token} />} />

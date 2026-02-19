@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import axios from "axios";
@@ -8,6 +9,7 @@ const Login = ({ setToken }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
   const onSubmitHandler = async (e) => {
     try {
       e.preventDefault();
@@ -18,6 +20,7 @@ const Login = ({ setToken }) => {
       if (response.data.success) {
         setToken(response.data.token);
         toast.success("Logged in successfully");
+        navigate("/dashboard");
       } else {
         toast.error(response.data.message);
       }

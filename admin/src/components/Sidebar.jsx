@@ -7,7 +7,7 @@ const Sidebar = () => {
     <div className="w-[18%] min-h-screen bg-white border-r border-indigo-200">
       <div className="flex flex-col gap-3 pt-6 pl-[20%] text-[15px]">
         <NavLink
-          to="/admin"
+          to="/dashboard"
           className={({ isActive }) =>
             `flex items-center  py-2  transition gap-3 border border-indigo-400 border-r-0 px-3 rounded-lg
             ${
