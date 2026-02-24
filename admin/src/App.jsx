@@ -8,6 +8,7 @@ import List from "./pages/List";
 import Orders from "./pages/Orders";
 import Login from "./components/Login";
 import AdminDashboard from "./pages/AdminDashboard";
+import Messages from "./pages/Messages";
 export const backendUrl = import.meta.env.VITE_BACKEND_URL;
 export const currency = "₹";
 
@@ -15,6 +16,8 @@ const App = () => {
   const [token, setToken] = useState(
     localStorage.getItem("token") ? localStorage.getItem("token") : "",
   );
+
+
   useEffect(() => {
     localStorage.setItem("token", token);
   }, [token]);
@@ -27,12 +30,13 @@ const App = () => {
       ) : (
         <>
           <Navbar setToken={setToken} />
+        
           <div className="flex">
-            <Sidebar />
+            <Sidebar  />
 
             {/* Main Content */}
-            <div className=" w-[75%] mx-auto ml-[max(3.5vw,25px)] my-8">
-              <div className="bg-white rounded-xl shadow-sm p-6">
+            <div className="flex-1 w-full lg:w-[75%] lg:ml-[max(3.5vw,25px)] my-8 px-4 lg:px-0">
+              <div className="bg-white rounded-xl shadow-sm p-4 lg:p-6">
                 <Routes>
                   <Route
                     path="/dashboard"
@@ -40,10 +44,11 @@ const App = () => {
                   />
                   <Route path="/add" element={<Add token={token} />} />
                   <Route path="/list" element={<List token={token} />} />
+                  <Route path="/orders" element={<Orders token={token} />} />
                   <Route
-                    path="/orders"
-                    element={<Orders token={token} />}
-                  />{" "}
+                    path="/messages"
+                    element={<Messages token={token} />}
+                  />
                 </Routes>
               </div>
             </div>
@@ -55,3 +60,4 @@ const App = () => {
 };
 
 export default App;
+

@@ -45,6 +45,10 @@ const AdminDashboard = ({ token }) => {
           { headers: { token } },
         );
         const orders = orderRes.data.orders || [];
+        const messageRes = await axios.get(backendUrl + "/api/contact/list", {
+          headers: { token },
+        });
+        const message = messageRes.data.message || [];
 
         // Calculate revenue
         const totalRevenue = orders.reduce(
@@ -55,7 +59,7 @@ const AdminDashboard = ({ token }) => {
         setStats({
           products: productRes.data.products.length || [],
           orders: orders.length,
-          messages: 4,
+          messages: message.length,
           revenue: totalRevenue,
         });
 
