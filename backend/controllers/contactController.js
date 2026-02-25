@@ -37,5 +37,18 @@ const listContacts = async (req, res) => {
     });
   }
 };
+const deleteContact = async (req, res) => {
+  try {
+    const { id } = req.params;
+    await contactModel.findByIdAndDelete(id);
+    res.json({ success: true, message: "Message deleted successfully" });
+  } catch (error) {
+    console.log(error);
+    res.json({
+      success: false,
+      message: "Error deleting message",
+    });
+  }
+};
 
-export { sendContact, listContacts };
+export { sendContact, listContacts, deleteContact };

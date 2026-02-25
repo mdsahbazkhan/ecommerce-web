@@ -8,11 +8,14 @@ import {
   HiOutlineUser,
   HiOutlineCalendar,
 } from "react-icons/hi";
+import { toast } from "sonner";
 
 const Messages = ({ token }) => {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedMessage, setSelectedMessage] = useState(null);
+  const [replyText, setReplyText] = useState("");
+  const [sending, setSending] = useState(false);
 
   useEffect(() => {
     const fetchMessages = async () => {
@@ -44,6 +47,33 @@ const Messages = ({ token }) => {
       console.log("Error deleting message", error);
     }
   };
+  const handleReply = async () => {
+    if (!replyText.trim()) return;
+
+    try {
+      setSending(true);
+
+      const res = await axios.post(
+        backendUrl + "/api/contact/reply",
+        {
+          email: selectedMessage.email,
+          message: replyText,
+        },
+        { headers: { token } },
+      );
+
+      if (res.data.success) {
+        toast.success("Reply sent successfully");
+        setReplyText("");
+        setSelectedMessage(null);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Failed to send reply");
+    } finally {
+      setSending(false);
+    }
+  };
 
   // Skeleton
   const SkeletonRow = () => (
@@ -67,21 +97,21 @@ const Messages = ({ token }) => {
   );
 
   return (
-    <div className="p-3 sm:p-4 md:p-6 w-full bg-gray-50 min-h-screen">
+    <div className="p-3 sm:p-4 md:p-6 w-full bg-gray-50 ">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 sm:mb-6 md:mb-8 gap-3">
         <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800 flex items-center gap-3">
-          <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
+          <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg">
             <HiOutlineMail className="text-white text-lg sm:text-xl" />
           </div>
           Contact Messages
         </h2>
-        <div className="px-3 py-1.5 sm:px-4 sm:py-2 bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-lg shadow-md text-xs sm:text-sm font-medium">
+        <div className="px-3 py-1.5 sm:px-4 sm:py-2 bg-gradient-to-r from-indigo-500 to-indigo-600 text-white rounded-lg shadow-md text-xs sm:text-sm font-medium">
           Total: {messages.length} messages
         </div>
       </div>
 
       {/* Messages Table Card */}
-      <div className="bg-white shadow-lg rounded-xl overflow-hidden">
+      <div className="bg-white shadow-lg rounded-xl   p-4 sm:p-5 md:p-6">
         <div className="overflow-x-auto -mx-4 sm:mx-0">
           <div className="inline-block min-w-full align-middle">
             <table className="w-full text-xs sm:text-sm">
@@ -137,7 +167,7 @@ const Messages = ({ token }) => {
                     >
                       <td className="p-3 sm:p-4">
                         <div className="flex items-center gap-2">
-                          <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-purple-600 rounded-full flex items-center justify-center text-white text-xs font-semibold">
+                          <div className="w-8 h-8 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-full flex items-center justify-center text-white text-xs font-semibold">
                             {msg.name?.charAt(0).toUpperCase() || "U"}
                           </div>
                           <span className="font-medium text-gray-700">
@@ -243,23 +273,24 @@ const Messages = ({ token }) => {
                   Received:{" "}
                   {new Date(selectedMessage.createdAt).toLocaleString()}
                 </span>
-                <div className="flex gap-2">
-                  <a
-                    href={`mailto:${selectedMessage.email}`}
-                    className="px-3 py-2 bg-purple-100 text-purple-600 rounded-lg hover:bg-purple-200 transition text-sm font-medium"
-                  >
-                    Reply
-                  </a>
-                  <button
-                    onClick={() => {
-                      handleDelete(selectedMessage._id);
-                      setSelectedMessage(null);
-                    }}
-                    className="px-3 py-2 bg-red-100 text-red-600 rounded-lg hover:bg-red-200 transition text-sm font-medium"
-                  >
-                    Delete
-                  </button>
-                </div>
+               
+              </div>
+              <div className="mt-4">
+                <textarea
+                  placeholder="Type your reply..."
+                  value={replyText}
+                  onChange={(e) => setReplyText(e.target.value)}
+                  className="w-full border rounded-lg p-2 text-sm"
+                  rows="3"
+                />
+
+                <button
+                  onClick={handleReply}
+                  disabled={sending}
+                  className="mt-2 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 disabled:bg-gray-400"
+                >
+                  {sending ? "Sending..." : "Send Reply"}
+                </button>
               </div>
             </div>
           </div>
