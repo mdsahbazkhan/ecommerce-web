@@ -1,94 +1,146 @@
 # 🛒 Bazario – Full-Stack E-commerce Application
 
-**Live Links**  
-User App: https://bazario-frontend-one.vercel.app/  
-Admin Panel: https://bazario-admin-seven.vercel.app/dashboard  
-GitHub: https://github.com/mdsahbazkhan/ecommerce-web  
+---
 
-Bazario is a full-stack MERN e-commerce application that supports user shopping experience along with a role-based admin panel for product and order management. The platform includes authentication, payment integration, image upload, and a responsive UI.
+![alt text](<Screenshot from 2026-02-25 14-12-57.png>)
+![alt text](image.png)
+<!-- You can paste an image directly below this comment -->
 
 ---
 
-## 🚀 Key Features
+## 👨‍💻 About Me
 
-### User Features
-- User registration and login using JWT Authentication
-- Google OAuth login
-- Browse, search, and filter products
-- Add to cart and manage quantities
-- Place orders and view order history
-- Secure online payments using Stripe and Razorpay
-- Fully responsive design for mobile and desktop
+**Md Sahbaz Alam**  
+Full-Stack Developer | MERN Stack Specialist
 
-### Admin Features
-- Role-based Admin Authentication
-- Add, update, and delete products (CRUD)
-- Manage customer orders
-- Admin Dashboard with:
-  - Revenue insights
-  - Order statistics
-  - Product management
-- View customer messages
+📧 Email: amdsahbaz19@gmail.com  
+💼 LinkedIn: [linkedin.com/in/sahbaz-alam-a95680262](https://www.linkedin.com/in/sahbaz-alam-a95680262/)  
+🐙 GitHub: [github.com/mdsahbazkhan](https://github.com/mdsahbazkhan)  
+🌐 Live Project: [bazario-frontend-one.vercel.app](https://bazario-frontend-one.vercel.app/)
 
-### Additional Features
-- Cloudinary integration for product image upload
-- RESTful API architecture
-- Clean and modular folder structure
+---
+
+## 📋 Project Overview
+
+Bazario is a production-ready **full-stack MERN e-commerce platform** that I built from scratch. It includes a complete shopping experience for customers and a powerful admin dashboard for managing products, orders, and analytics. The project demonstrates my ability to architect and deploy a complex, real-world application with modern technologies.
+
+### What I Built
+
+- A responsive e-commerce storefront with product browsing, cart management, and checkout
+- A secure authentication system using JWT and Google OAuth
+- An admin panel with role-based access for product and order management
+- Payment integration with Stripe and Razorpay
+- Cloud-based image storage with Cloudinary
+- Real-time analytics dashboard for revenue and order tracking
 
 ---
 
 ## 🛠 Tech Stack
 
-### Frontend
-- React.js (Vite)
-- Tailwind CSS
-- React Router
+| Category | Technologies |
+|----------|--------------|
+| **Frontend** | React.js, Vite, Tailwind CSS, React Router |
+| **Backend** | Node.js, Express.js |
+| **Database** | MongoDB, Mongoose |
+| **Authentication** | JWT, Google OAuth |
+| **Payments** | Stripe, Razorpay |
+| **Storage** | Cloudinary |
+| **Deployment** | Vercel |
 
-### Backend
-- Node.js
-- Express.js
+---
 
-### Database
-- MongoDB (Mongoose)
+## 💻 Key Features
 
-### Integrations
-- JWT Authentication
-- Google OAuth
-- Cloudinary
-- Stripe
-- Razorpay
+### 👤 Customer Features
+- User Registration & Login (JWT)
+- Google OAuth Integration
+- Product Browsing, Search & Filtering
+- Shopping Cart & Quantity Management
+- Order Placement & Order History
+- Secure Checkout with Stripe/Razorpay
+- Fully Responsive Design
+
+### 👨‍💼 Admin Features
+- Role-based Admin Authentication
+- CRUD Operations for Products
+- Order Management & Tracking
+- Admin Dashboard with Analytics
+  - Revenue Insights
+  - Order Statistics
+  - Product Management
+- Customer Message Management
+
+---
+
+## 🚀 Live Demo
+
+| Platform | URL |
+|----------|-----|
+| **User App** | https://bazario-frontend-one.vercel.app/ |
+| **Admin Panel** | https://bazario-admin-seven.vercel.app/dashboard |
+| **GitHub** | https://github.com/mdsahbazkhan/ecommerce-web |
+
+---
+
+## 📸 Project Screenshots
+
+<!-- Add your screenshots below -->
+
+### 🏠 Home Page
+<!-- PASTE HOME PAGE SCREENSHOT HERE -->
+
+---
+
+### 🛒 Shopping Cart
+<!-- PASTE CART SCREENSHOT HERE -->
+
+---
+
+### 👨‍💼 Admin Dashboard
+<!-- PASTE ADMIN DASHBOARD SCREENSHOT HERE -->
+
+---
+
+### 📱 Mobile Responsive View
+<!-- PASTE MOBILE SCREENSHOT HERE -->
 
 ---
 
 ## 📁 Project Structure
 
-
+```
 ecommerce-web/
 │
-├── backend/
-│ ├── config/
-│ ├── controllers/
-│ ├── middleware/
-│ ├── models/
-│ ├── routes/
-│ └── index.js
+├── backend/               # Express.js REST API
+│   ├── config/           # Database & Cloudinary config
+│   ├── controllers/      # Business logic
+│   ├── middleware/       # Auth & file upload middleware
+│   ├── models/           # Mongoose schemas
+│   ├── routes/           # API endpoints
+│   └── index.js          # Server entry point
 │
-└── frontend/
-├── src/
-│ ├── components/
-│ ├── pages/
-│ ├── context/
-│ └── assets/
-└── public/
-
+├── admin/                 # React Admin Panel
+│   ├── src/
+│   │   ├── components/   # Reusable UI components
+│   │   └── pages/        # Dashboard, Orders, Products, etc.
+│   └── public/
+│
+└── frontend/              # React E-commerce Store
+    ├── src/
+    │   ├── components/   # UI components
+    │   ├── pages/        # Home, Shop, Cart, Login, etc.
+    │   ├── context/      # React Context for state
+    │   └── assets/       # Images & icons
+    └── public/
+```
 
 ---
 
-## ⚙️ Environment Variables (Backend)
+## ⚙️ Environment Variables
 
-Create a `.env` file inside the backend folder:
+Create a `.env` file in the `backend` folder:
 
-
+```env
 PORT=8000
 MONGODB_URI=your_mongodb_connection_string
 JWT_SECRET=your_jwt_secret
@@ -102,49 +154,52 @@ GOOGLE_CLIENT_ID=your_google_client_id
 STRIPE_SECRET_KEY=your_stripe_key
 RAZORPAY_KEY_ID=your_key
 RAZORPAY_SECRET=your_secret
-
+```
 
 ---
 
-## ▶️ Run Locally
+## 🏃‍♂️ Run Locally
 
 ### Backend Setup
-
+```bash
 cd backend
 npm install
 npm run server
-
+```
 
 ### Frontend Setup
-
+```bash
 cd frontend
 npm install
 npm run dev
+```
 
-
-Frontend will run on:  
-http://localhost:5173  
-
-Backend will run on:  
-http://localhost:8000  
+- Frontend: http://localhost:5173
+- Backend: http://localhost:8000
 
 ---
 
-## 📌 Project Highlights
+## 🏆 Key Achievements
 
-- Full-stack MERN architecture
-- Separate User and Admin applications
-- Role-based access control
-- Real-world e-commerce workflow
-- Payment gateway integration
-- Cloud-based image storage
-- Deployed on Vercel
+- ✅ Built a complete full-stack e-commerce application
+- ✅ Implemented secure authentication with JWT & OAuth
+- ✅ Integrated multiple payment gateways (Stripe & Razorpay)
+- ✅ Created an analytics-powered admin dashboard
+- ✅ Deployed to production on Vercel
+- ✅ Clean, modular, and scalable codebase
 
 ---
 
 ## 📬 Contact
 
-**Md Sahbaz Alam**  
-Email: amdsahbaz19@gmail.com  
-LinkedIn: https://www.linkedin.com/in/sahbaz-alam-a95680262/  
-GitHub: https://github.com/mdsahbazkhan
+Feel free to reach out for collaboration or any questions!
+
+**Email:** amdsahbaz19@gmail.com  
+**LinkedIn:** https://www.linkedin.com/in/sahbaz-alam-a95680262/  
+**GitHub:** https://github.com/mdsahbazkhan
+
+---
+
+<p align="center">
+  <strong>⭐ Star this project if you found it helpful!</strong>
+</p>
