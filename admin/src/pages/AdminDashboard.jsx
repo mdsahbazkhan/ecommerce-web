@@ -131,7 +131,7 @@ const AdminDashboard = ({ token }) => {
     <div className={`${height} ${width} bg-gray-200 animate-pulse rounded`} />
   );
   return (
-    <div className="p-3 sm:p-4 md:p-6 w-full bg-gray-50 min-h-screen">
+    <div className="p-3 sm:p-4 md:p-6 w-full bg-gray-50 ">
       <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-4 sm:mb-6 md:mb-8 text-gray-800">
         Dashboard Overview
       </h2>
@@ -273,28 +273,22 @@ const AdminDashboard = ({ token }) => {
               <h3 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4 text-gray-800">
                 Order Status Distribution
               </h3>
+
               <ResponsiveContainer width="100%" height={250}>
                 <PieChart>
                   <Pie
                     data={chartData.orderStatus}
                     cx="50%"
                     cy="50%"
-                    labelLine={false}
-                    label={({ name, percent }) =>
-                      `${name} ${(percent * 100).toFixed(0)}%`
-                    }
                     outerRadius={80}
-                    fill="#8884d8"
                     dataKey="value"
                   >
                     {chartData.orderStatus.map((entry, index) => (
-                      <Cell
-                        key={`cell-${index}`}
-                        fill={COLORS[index % COLORS.length]}
-                      />
+                      <Cell key={index} fill={COLORS[index % COLORS.length]} />
                     ))}
                   </Pie>
-                  <Tooltip contentStyle={{ fontSize: "12px" }} />
+                  <Tooltip />
+                  <Legend />
                 </PieChart>
               </ResponsiveContainer>
             </div>

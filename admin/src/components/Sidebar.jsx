@@ -3,12 +3,21 @@ import { FiPlus } from "react-icons/fi";
 import { BsListUl, BsBoxSeam } from "react-icons/bs";
 import { MdDashboard } from "react-icons/md";
 import { HiOutlineMail } from "react-icons/hi";
-const Sidebar = () => {
+
+const Sidebar = ({ setIsOpen }) => {
+  const handleLinkClick = () => {
+    // Close sidebar on mobile when a link is clicked
+    if (window.innerWidth < 1024 && setIsOpen) {
+      setIsOpen(false);
+    }
+  };
+
   return (
-    <div className="w-[18%] min-h-screen bg-white border-r border-indigo-200">
-      <div className="flex flex-col gap-3 pt-6 pl-[20%] text-[15px]">
+    <div className="w-full min-h-full bg-white border-r border-indigo-200">
+      <div className="flex flex-col gap-3 pt-6 px-4 text-[15px]">
         <NavLink
           to="/dashboard"
+          onClick={handleLinkClick}
           className={({ isActive }) =>
             `flex items-center py-2 transition gap-3 border border-indigo-400 border-r-0 px-3 rounded-lg
     ${
@@ -19,12 +28,13 @@ const Sidebar = () => {
           }
         >
           <MdDashboard className="text-xl" />
-          <p className="hidden md:block font-medium">Dashboard</p>
+          <p className="font-medium">Dashboard</p>
         </NavLink>
         <NavLink
           to="/add"
+          onClick={handleLinkClick}
           className={({ isActive }) =>
-            `flex items-center  py-2  transition gap-3 border border-indigo-400 border-r-0 px-3 rounded-lg
+            `flex items-center py-2 transition gap-3 border border-indigo-400 border-r-0 px-3 rounded-lg
             ${
               isActive
                 ? "bg-indigo-100 text-indigo-700 border border-indigo-300"
@@ -33,13 +43,14 @@ const Sidebar = () => {
           }
         >
           <FiPlus className="text-xl" />
-          <p className="hidden md:block font-medium">Add Items</p>
+          <p className="font-medium">Add Items</p>
         </NavLink>
 
         <NavLink
           to="/list"
+          onClick={handleLinkClick}
           className={({ isActive }) =>
-            `flex items-center  py-2  transition gap-3 border border-indigo-400 border-r-0 px-3 rounded-lg
+            `flex items-center py-2 transition gap-3 border border-indigo-400 border-r-0 px-3 rounded-lg
             ${
               isActive
                 ? "bg-indigo-100 text-indigo-700 border border-indigo-300"
@@ -48,13 +59,14 @@ const Sidebar = () => {
           }
         >
           <BsListUl className="text-xl" />
-          <p className="hidden md:block font-medium">Items List</p>
+          <p className="font-medium">Items List</p>
         </NavLink>
 
         <NavLink
           to="/orders"
+          onClick={handleLinkClick}
           className={({ isActive }) =>
-            `flex items-center  py-2  transition gap-3 border border-indigo-400 border-r-0 px-3 rounded-lg
+            `flex items-center py-2 transition gap-3 border border-indigo-400 border-r-0 px-3 rounded-lg
             ${
               isActive
                 ? "bg-indigo-100 text-indigo-700 border border-indigo-300"
@@ -63,10 +75,11 @@ const Sidebar = () => {
           }
         >
           <BsBoxSeam className="text-xl" />
-          <p className="hidden md:block font-medium">Orders</p>
+          <p className="font-medium">Orders</p>
         </NavLink>
         <NavLink
           to="/messages"
+          onClick={handleLinkClick}
           className={({ isActive }) =>
             `flex items-center py-2 transition gap-3 border border-indigo-400 border-r-0 px-3 rounded-lg
     ${
@@ -77,7 +90,7 @@ const Sidebar = () => {
           }
         >
           <HiOutlineMail className="text-xl" />
-          <p className="hidden md:block font-medium">Messages</p>
+          <p className="font-medium">Messages</p>
         </NavLink>
       </div>
     </div>
