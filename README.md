@@ -1,170 +1,150 @@
-# E-Commerce Web Application
+# 🛒 Bazario – Full-Stack E-commerce Application
 
-A full-stack e-commerce web application built with React and Node.js, featuring user authentication, product management, shopping cart, and payment integration.
+**Live Links**  
+User App: https://bazario-frontend-one.vercel.app/  
+Admin Panel: https://bazario-admin-seven.vercel.app/dashboard  
+GitHub: https://github.com/mdsahbazkhan/ecommerce-web  
 
-## 🚀 Features
+Bazario is a full-stack MERN e-commerce application that supports user shopping experience along with a role-based admin panel for product and order management. The platform includes authentication, payment integration, image upload, and a responsive UI.
 
-- **User Authentication**: Login/Register with JWT and Google OAuth
-- **Product Management**: Browse, search, and filter products
-- **Shopping Cart**: Add/remove items, quantity management
-- **Order Management**: Place orders and track order history
-- **Payment Integration**: Stripe and Razorpay payment gateways
-- **Responsive Design**: Mobile-first design with Tailwind CSS
-- **Image Management**: Cloudinary integration for product images
-- **User Profile**: Manage user information and preferences
+---
 
-## 🛠️ Tech Stack
+## 🚀 Key Features
+
+### User Features
+- User registration and login using JWT Authentication
+- Google OAuth login
+- Browse, search, and filter products
+- Add to cart and manage quantities
+- Place orders and view order history
+- Secure online payments using Stripe and Razorpay
+- Fully responsive design for mobile and desktop
+
+### Admin Features
+- Role-based Admin Authentication
+- Add, update, and delete products (CRUD)
+- Manage customer orders
+- Admin Dashboard with:
+  - Revenue insights
+  - Order statistics
+  - Product management
+- View customer messages
+
+### Additional Features
+- Cloudinary integration for product image upload
+- RESTful API architecture
+- Clean and modular folder structure
+
+---
+
+## 🛠 Tech Stack
 
 ### Frontend
-- **React 18** - UI library
-- **Vite** - Build tool and dev server
-- **Tailwind CSS** - Utility-first CSS framework
-- **React Router DOM** - Client-side routing
-- **React Hot Toast** - Toast notifications
-- **React Icons** - Icon library
+- React.js (Vite)
+- Tailwind CSS
+- React Router
 
 ### Backend
-- **Node.js** - Runtime environment
-- **Express.js** - Web framework
-- **MongoDB** - Database with Mongoose ODM
-- **JWT** - Authentication tokens
-- **Bcrypt** - Password hashing
-- **Cloudinary** - Image storage and management
-- **Multer** - File upload handling
-- **Stripe & Razorpay** - Payment processing
+- Node.js
+- Express.js
+
+### Database
+- MongoDB (Mongoose)
+
+### Integrations
+- JWT Authentication
+- Google OAuth
+- Cloudinary
+- Stripe
+- Razorpay
+
+---
 
 ## 📁 Project Structure
 
-```
+
 ecommerce-web/
+│
 ├── backend/
-│   ├── config/          # Database and service configurations
-│   ├── controllers/     # Route handlers
-│   ├── middleware/      # Custom middleware
-│   ├── models/          # Database models
-│   ├── routes/          # API routes
-│   └── index.js         # Server entry point
+│ ├── config/
+│ ├── controllers/
+│ ├── middleware/
+│ ├── models/
+│ ├── routes/
+│ └── index.js
+│
 └── frontend/
-    ├── src/
-    │   ├── components/  # Reusable UI components
-    │   ├── context/     # React context providers
-    │   ├── pages/       # Page components
-    │   └── assets/      # Static assets
-    └── public/          # Public files
-```
+├── src/
+│ ├── components/
+│ ├── pages/
+│ ├── context/
+│ └── assets/
+└── public/
 
-## 🚀 Getting Started
 
-### Prerequisites
-- Node.js (v16 or higher)
-- MongoDB Atlas account
-- Cloudinary account
-- Stripe account (optional)
-- Razorpay account (optional)
+---
 
-### Installation
+## ⚙️ Environment Variables (Backend)
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/mdsahbazkhan/ecommerce-web.git
-   cd ecommerce-web
-   ```
+Create a `.env` file inside the backend folder:
 
-2. **Backend Setup**
-   ```bash
-   cd backend
-   npm install
-   ```
 
-3. **Frontend Setup**
-   ```bash
-   cd ../frontend
-   npm install
-   ```
-
-### Environment Configuration
-
-Create a `.env` file in the backend directory:
-
-```env
 PORT=8000
 MONGODB_URI=your_mongodb_connection_string
-CLOUDINARY_API_KEY=your_cloudinary_api_key
-CLOUDINARY_SECRET_KEY=your_cloudinary_secret_key
-CLOUDINARY_NAME=your_cloudinary_cloud_name
 JWT_SECRET=your_jwt_secret
+
+CLOUDINARY_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_SECRET_KEY=your_secret_key
+
 GOOGLE_CLIENT_ID=your_google_client_id
-```
 
-### Running the Application
+STRIPE_SECRET_KEY=your_stripe_key
+RAZORPAY_KEY_ID=your_key
+RAZORPAY_SECRET=your_secret
 
-1. **Start the backend server**
-   ```bash
-   cd backend
-   npm run server
-   ```
 
-2. **Start the frontend development server**
-   ```bash
-   cd frontend
-   npm run dev
-   ```
+---
 
-The application will be available at:
-- Frontend: `http://localhost:5173`
-- Backend API: `http://localhost:8000`
+## ▶️ Run Locally
 
-## 📱 Pages & Features
+### Backend Setup
 
-- **Home** - Hero section, featured products, latest collections
-- **Collection** - Product catalog with filtering and search
-- **Product** - Detailed product view with reviews
-- **Cart** - Shopping cart management
-- **Login/Register** - User authentication
-- **Orders** - Order history and tracking
-- **About** - Company information
-- **Contact** - Contact form and information
-- **FAQ** - Frequently asked questions
-- **Privacy Policy** - Privacy policy page
-- **Terms & Conditions** - Terms of service
+cd backend
+npm install
+npm run server
 
-## 🔧 API Endpoints
 
-### User Routes
-- `POST /api/user/register` - User registration
-- `POST /api/user/login` - User login
-- `POST /api/user/google-auth` - Google OAuth
+### Frontend Setup
 
-### Product Routes
-- `GET /api/product/list` - Get all products
-- `POST /api/product/add` - Add new product (admin)
-- `PUT /api/product/update` - Update product (admin)
-- `DELETE /api/product/remove` - Remove product (admin)
+cd frontend
+npm install
+npm run dev
 
-## 🚀 Deployment
 
-### Backend Deployment
-1. Deploy to platforms like Heroku, Railway, or DigitalOcean
-2. Set environment variables in your hosting platform
-3. Ensure MongoDB Atlas is accessible
+Frontend will run on:  
+http://localhost:5173  
 
-### Frontend Deployment
-1. Build the project: `npm run build`
-2. Deploy to Vercel, Netlify, or similar platforms
-3. Update API endpoints to point to your deployed backend
+Backend will run on:  
+http://localhost:8000  
 
-## 🤝 Contributing
+---
 
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature-name`
-3. Commit changes: `git commit -m 'Add feature'`
-4. Push to branch: `git push origin feature-name`
-5. Submit a pull request
+## 📌 Project Highlights
 
-## 📄 License
+- Full-stack MERN architecture
+- Separate User and Admin applications
+- Role-based access control
+- Real-world e-commerce workflow
+- Payment gateway integration
+- Cloud-based image storage
+- Deployed on Vercel
 
-This project is licensed under the ISC License.
+---
 
-## 📞 Support
+## 📬 Contact
 
-For support or questions, please contact the development team or create an issue in the repository.
+**Md Sahbaz Alam**  
+Email: amdsahbaz19@gmail.com  
+LinkedIn: https://www.linkedin.com/in/sahbaz-alam-a95680262/  
+GitHub: https://github.com/mdsahbazkhan
