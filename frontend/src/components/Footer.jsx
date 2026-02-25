@@ -78,6 +78,12 @@ const Footer = () => {
             >
               Track Order
             </Link>
+            <Link
+              className="hover:text-indigo-800  cursor-pointer"
+              to="/support"
+            >
+             Customer Support
+            </Link>
           </ul>
         </div>
       </div>

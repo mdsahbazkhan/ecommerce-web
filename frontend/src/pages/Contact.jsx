@@ -180,7 +180,7 @@ const Contact = () => {
         <div className="flex-1 flex flex-col gap-6 text-indigo-500">
           <div>
             <b className="text-indigo-800">Email</b>
-            <p>support@bazario.com</p>
+            <p>amdsahbaz19@gmail.com</p>
           </div>
 
           <div>

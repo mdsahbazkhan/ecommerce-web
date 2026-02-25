@@ -36,8 +36,8 @@ const Navbar = () => {
             ABOUT
             <hr className="w-2/4 border-none h-[1.5px] bg-indigo-800 hidden" />
           </NavLink>
-          <NavLink to="/contact" className="flex flex-col items-center gap-1">
-            CONTACT
+          <NavLink to="/orders" className="flex flex-col items-center gap-1">
+            ORDERS
             <hr className="w-2/4 border-none h-[1.5px] bg-indigo-800 hidden" />
           </NavLink>
         </ul>
@@ -51,27 +51,24 @@ const Navbar = () => {
               onClick={() => (token ? null : navigate("login"))}
               className="text-indigo-800 text-2xl  cursor-pointer"
             />
-{/* Dropdown Menu */}
+            {/* Dropdown Menu */}
 
-           { token && <div className="group-hover:block hidden absolute dropdown-menu  right-0  pt-4 ">
-              <div className="flex flex-col gap-2 w-36 py-3 px-5 bg-slate-100 text-gray-500 rounded">
-                <p className="cursor-pointer hover:text-indigo-900">
-                  My Profile
-                </p>
-                <p
-                  onClick={() => navigate("/orders")}
-                  className="cursor-pointer hover:text-indigo-900"
-                >
-                  Orders
-                </p>
-                <p
-                  onClick={logout}
-                  className="cursor-pointer hover:text-indigo-900 "
-                >
-                  Logout
-                </p>
+            {token && (
+              <div className="group-hover:block hidden absolute dropdown-menu  right-0  pt-4 ">
+                <div className="flex flex-col gap-2 w-36 py-3 px-5 bg-slate-100 text-gray-500 rounded">
+                  <p className="cursor-pointer hover:text-indigo-900">
+                    My Profile
+                  </p>
+
+                  <p
+                    onClick={logout}
+                    className="cursor-pointer hover:text-indigo-900 "
+                  >
+                    Logout
+                  </p>
+                </div>
               </div>
-            </div>}
+            )}
           </div>
           <Link to="/cart" className="relative">
             <FiShoppingBag
