@@ -1,11 +1,12 @@
 import nodemailer from "nodemailer";
+import contactModel from "../models/contactModel.js";
 const sendReply = async (req, res) => {
   try {
-    const { email, message } = req.body;
-    if (!email || !message) {
+    const { email, message, id } = req.body;
+    if (!email || !message || !id) {
       return res.json({
         success: false,
-        message: "Email and message are required",
+        message: "Email, message and id are required",
       });
     }
     const transporter = nodemailer.createTransport({
@@ -22,7 +23,11 @@ const sendReply = async (req, res) => {
       text: message,
     };
     await transporter.sendMail(mailOptions);
-    return res.json({ success: true, message: "Reply sent successfully" });
+    await contactModel.findByIdAndUpdate(id, { status: "replied" });
+    return res.json({
+      success: true,
+      message: "Reply sent and status updated",
+    });
   } catch (error) {
     console.log(error);
     res.json({ success: false, message: "Failed to send email" });

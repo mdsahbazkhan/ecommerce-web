@@ -87,9 +87,9 @@ const Contact = () => {
     <div className="border-t pt-10 mt-10">
       {/* Page Heading */}
       <div className="text-center text-2xl mb-10">
-        <Title text1={"CONTACT"} text2={"US"} />
+        <Title text1={"CUSTOMER"} text2={"SUPPORT"} />
         <p className="text-indigo-500 text-sm mt-2">
-          We’re here to help. Reach out to us anytime.
+          We’re here to help. Contact our support team anytime.
         </p>
       </div>
 

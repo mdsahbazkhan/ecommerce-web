@@ -3,14 +3,37 @@ import { FiPlus } from "react-icons/fi";
 import { BsListUl, BsBoxSeam } from "react-icons/bs";
 import { MdDashboard } from "react-icons/md";
 import { HiOutlineMail } from "react-icons/hi";
+import { useState } from "react";
+import { useEffect } from "react";
+import { backendUrl } from "../App";
+import axios from "axios";
 
 const Sidebar = ({ setIsOpen }) => {
+  const [pendingCount, setpendingCount] = useState(0);
   const handleLinkClick = () => {
     // Close sidebar on mobile when a link is clicked
     if (window.innerWidth < 1024 && setIsOpen) {
       setIsOpen(false);
     }
   };
+  useEffect(() => {
+    const fetchPending = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const res = await axios.get(backendUrl + "/api/contact/list", {
+          headers: { token },
+        });
+        const messages = res.data.messages || [];
+        const pending = messages.filter(
+          (message) => message.status === "pending",
+        );
+        setpendingCount(pending.length);
+      } catch (error) {
+        console.log("Error fetching pending message", error);
+      }
+    };
+    fetchPending();
+  }, []);
 
   return (
     <div className="w-full min-h-full bg-white border-r border-indigo-200">
@@ -91,6 +114,11 @@ const Sidebar = ({ setIsOpen }) => {
         >
           <HiOutlineMail className="text-xl" />
           <p className="font-medium">Messages</p>
+          {pendingCount > 0 && (
+            <span className="ml-auto bg-red-500 text-white text-xs px-2 py-0.5 rounded-full">
+              {pendingCount}
+            </span>
+          )}
         </NavLink>
       </div>
     </div>

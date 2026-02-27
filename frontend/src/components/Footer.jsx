@@ -33,11 +33,7 @@ const Footer = () => {
                 About Us
               </Link>
             </li>
-            <li>
-              <Link className="hover:text-indigo-800" to="/contact">
-                Contact Us
-              </Link>
-            </li>
+           
             <Link
               to="/privacy"
               className="hover:text-indigo-800 cursor-pointer"

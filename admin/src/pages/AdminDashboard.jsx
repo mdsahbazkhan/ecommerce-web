@@ -23,9 +23,10 @@ const AdminDashboard = ({ token }) => {
   const [stats, setStats] = useState({
     products: 0,
     orders: 0,
-    messages: 0,
     revenue: 0,
   });
+  const [pendingCount, setpendingCount] = useState(0);
+
   const [recentOrders, setRecentOrders] = useState([]);
   const [chartData, setChartData] = useState({
     salesTrend: [],
@@ -39,6 +40,7 @@ const AdminDashboard = ({ token }) => {
       try {
         setLoading(true);
         const productRes = await axios.get(backendUrl + "/api/product/list");
+
         const orderRes = await axios.post(
           backendUrl + "/api/order/list",
           {},
@@ -48,7 +50,12 @@ const AdminDashboard = ({ token }) => {
         const messageRes = await axios.get(backendUrl + "/api/contact/list", {
           headers: { token },
         });
-        const message = messageRes.data.message || [];
+        const messages = messageRes.data.messages || [];
+
+        const pending = messages.filter(
+          (message) => message.status === "pending",
+        );
+        setpendingCount(pending.length);
 
         // Calculate revenue
         const totalRevenue = orders.reduce(
@@ -59,7 +66,6 @@ const AdminDashboard = ({ token }) => {
         setStats({
           products: productRes.data.products.length || [],
           orders: orders.length,
-          messages: message.length,
           revenue: totalRevenue,
         });
 
@@ -193,7 +199,7 @@ const AdminDashboard = ({ token }) => {
                 Messages
               </p>
               <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold mt-1 sm:mt-2">
-                {stats.messages}
+                {pendingCount}
               </h3>
               <p className="text-pink-100 text-xs mt-1 sm:mt-2">
                 ↑ Pending replies

@@ -27,8 +27,8 @@ const sendContact = async (req, res) => {
 };
 const listContacts = async (req, res) => {
   try {
-    const message = await contactModel.find({}).sort({ createdAt: -1 });
-    res.json({ success: true, message });
+    const messages = await contactModel.find({}).sort({ createdAt: -1 });
+    res.json({ success: true, messages });
   } catch (error) {
     console.log(error);
     res.json({

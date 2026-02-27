@@ -25,8 +25,9 @@ const Messages = ({ token }) => {
         const res = await axios.get(backendUrl + "/api/contact/list", {
           headers: { token },
         });
+        console.log(res.data.messages);
 
-        setMessages(res.data.message || []);
+        setMessages(res.data.messages || []);
       } catch (error) {
         console.log("Error fetching messages", error);
       } finally {
@@ -58,12 +59,18 @@ const Messages = ({ token }) => {
         {
           email: selectedMessage.email,
           message: replyText,
+          id: selectedMessage._id,
         },
         { headers: { token } },
       );
 
       if (res.data.success) {
         toast.success("Reply sent successfully");
+        setMessages((prev) =>
+          prev.map((m) =>
+            m._id === selectedMessage._id ? { ...m, status: "replied" } : m,
+          ),
+        );
         setReplyText("");
         setSelectedMessage(null);
       }
@@ -134,6 +141,9 @@ const Messages = ({ token }) => {
                   </th>
                   <th className="p-3 sm:p-4 text-left text-gray-600 font-semibold whitespace-nowrap">
                     Actions
+                  </th>
+                  <th className="p-3 sm:p-4 text-left text-gray-600 font-semibold whitespace-nowrap">
+                    Status
                   </th>
                 </tr>
               </thead>
@@ -215,6 +225,17 @@ const Messages = ({ token }) => {
                           </button>
                         </div>
                       </td>
+                      <td className="p-3">
+                        <span
+                          className={`px-2 py-1 rounded text-xs font-medium ${
+                            msg.status === "replied"
+                              ? "bg-green-100 text-green-700"
+                              : "bg-yellow-100 text-yellow-700"
+                          }`}
+                        >
+                          {msg.status || "pending"}
+                        </span>
+                      </td>
                     </tr>
                   ))
                 )}
@@ -273,7 +294,6 @@ const Messages = ({ token }) => {
                   Received:{" "}
                   {new Date(selectedMessage.createdAt).toLocaleString()}
                 </span>
-               
               </div>
               <div className="mt-4">
                 <textarea
