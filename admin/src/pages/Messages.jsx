@@ -25,7 +25,6 @@ const Messages = ({ token }) => {
         const res = await axios.get(backendUrl + "/api/contact/list", {
           headers: { token },
         });
-        console.log(res.data.messages);
 
         setMessages(res.data.messages || []);
       } catch (error) {

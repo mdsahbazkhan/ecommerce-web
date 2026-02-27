@@ -39,12 +39,16 @@ const AdminDashboard = ({ token }) => {
     const fetchStats = async () => {
       try {
         setLoading(true);
-        const productRes = await axios.get(backendUrl + "/api/product/list");
+        const productRes = await axios.get(backendUrl + "/api/product/list", {
+          headers: { token },
+        });
 
         const orderRes = await axios.post(
           backendUrl + "/api/order/list",
           {},
-          { headers: { token } },
+          {
+            headers: { token },
+          },
         );
         const orders = orderRes.data.orders || [];
         const messageRes = await axios.get(backendUrl + "/api/contact/list", {
@@ -64,12 +68,16 @@ const AdminDashboard = ({ token }) => {
         );
 
         setStats({
-          products: productRes.data.products.length || [],
+          products: productRes.data.products?.length || 0,
           orders: orders.length,
           revenue: totalRevenue,
         });
 
-        const sortedOrders = [...orders].sort((a, b) => b.date - a.date);
+        const sortedOrders = [...orders].sort((a, b) => {
+          const dateA = new Date(a.date).getTime();
+          const dateB = new Date(b.date).getTime();
+          return dateB - dateA;
+        });
         setRecentOrders(sortedOrders.slice(0, 5));
 
         // Process chart data

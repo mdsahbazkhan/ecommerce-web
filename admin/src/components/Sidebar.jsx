@@ -8,7 +8,7 @@ import { useEffect } from "react";
 import { backendUrl } from "../App";
 import axios from "axios";
 
-const Sidebar = ({ setIsOpen }) => {
+const Sidebar = ({ setIsOpen, token }) => {
   const [pendingCount, setpendingCount] = useState(0);
   const handleLinkClick = () => {
     // Close sidebar on mobile when a link is clicked
@@ -17,11 +17,15 @@ const Sidebar = ({ setIsOpen }) => {
     }
   };
   useEffect(() => {
+    // Don't fetch if no token
+    if (!token) return;
+
     const fetchPending = async () => {
       try {
-        const token = localStorage.getItem("token");
+        const storedToken = token || localStorage.getItem("token");
+
         const res = await axios.get(backendUrl + "/api/contact/list", {
-          headers: { token },
+          headers: { token: storedToken },
         });
         const messages = res.data.messages || [];
         const pending = messages.filter(
@@ -33,7 +37,7 @@ const Sidebar = ({ setIsOpen }) => {
       }
     };
     fetchPending();
-  }, []);
+  }, [token]);
 
   return (
     <div className="w-full min-h-full bg-white border-r border-indigo-200">

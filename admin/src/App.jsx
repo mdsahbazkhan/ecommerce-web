@@ -49,7 +49,11 @@ const App = () => {
                 ${sidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}
               `}
             >
-              <Sidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
+              <Sidebar
+                isOpen={sidebarOpen}
+                setIsOpen={setSidebarOpen}
+                token={token}
+              />
             </div>
 
             {/* Mobile Overlay */}

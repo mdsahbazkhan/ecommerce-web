@@ -20,7 +20,9 @@ const List = ({ token }) => {
   const fetchList = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(backendUrl + "/api/product/list");
+      const response = await axios.get(backendUrl + "/api/product/list", {
+        headers: { token },
+      });
       if (response.data.success) {
         setList(response.data.products);
       } else {
@@ -46,13 +48,13 @@ const List = ({ token }) => {
 
   const deleteProduct = async (id) => {
     if (!confirm("Are you sure you want to delete this product?")) return;
-    
+
     setDeleting(id);
     try {
       const response = await axios.post(
         backendUrl + "/api/product/delete",
         { id },
-        { headers: { token } }
+        { headers: { token } },
       );
       if (response.data.success) {
         toast.success(response.data.message);
@@ -95,7 +97,10 @@ const List = ({ token }) => {
         {/* Skeleton Rows */}
         <div className="divide-y divide-gray-200">
           {Array.from({ length: 5 }, (_, i) => (
-            <div key={i} className="block lg:grid lg:grid-cols-[80px_1fr_120px_100px_80px] lg:gap-4 px-4 sm:px-6 py-4">
+            <div
+              key={i}
+              className="block lg:grid lg:grid-cols-[80px_1fr_120px_100px_80px] lg:gap-4 px-4 sm:px-6 py-4"
+            >
               {/* Mobile Skeleton */}
               <div className="lg:hidden space-y-3">
                 <div className="flex items-start gap-3">
@@ -144,9 +149,14 @@ const List = ({ token }) => {
       {/* Header */}
       <div className="px-4 sm:px-6 py-4 border-b border-gray-200">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-          <h2 className="text-lg sm:text-xl font-semibold text-gray-900">Products List</h2>
+          <h2 className="text-lg sm:text-xl font-semibold text-gray-900">
+            Products List
+          </h2>
           <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-sm text-gray-500">
-            <span className="hidden sm:inline">Showing {startIndex + 1}-{Math.min(endIndex, list.length)} of {list.length}</span>
+            <span className="hidden sm:inline">
+              Showing {startIndex + 1}-{Math.min(endIndex, list.length)} of{" "}
+              {list.length}
+            </span>
             <span className="bg-indigo-100 text-indigo-800 px-2 py-1 rounded-full font-medium text-center sm:text-left">
               {list.length} Products
             </span>
@@ -194,7 +204,10 @@ const List = ({ token }) => {
                     {product.name}
                   </h3>
                   <div className="flex flex-wrap gap-1 items-center">
-                    {(expandedSizes.has(product._id) ? product.sizes : product.sizes?.slice(0, 3))?.map((size, i) => (
+                    {(expandedSizes.has(product._id)
+                      ? product.sizes
+                      : product.sizes?.slice(0, 3)
+                    )?.map((size, i) => (
                       <span
                         key={i}
                         className="inline-flex items-center bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded font-medium"
@@ -207,10 +220,9 @@ const List = ({ token }) => {
                         onClick={() => toggleSizeExpansion(product._id)}
                         className="inline-flex items-center text-xs text-indigo-600 hover:text-indigo-800 font-medium transition-colors"
                       >
-                        {expandedSizes.has(product._id) 
-                          ? 'Show less' 
-                          : `+${product.sizes.length - 3} more`
-                        }
+                        {expandedSizes.has(product._id)
+                          ? "Show less"
+                          : `+${product.sizes.length - 3} more`}
                       </button>
                     )}
                   </div>
@@ -226,7 +238,8 @@ const List = ({ token }) => {
                 {/* Price */}
                 <div className="flex items-center">
                   <span className="text-lg font-semibold text-gray-900">
-                    {currency}{product.price}
+                    {currency}
+                    {product.price}
                   </span>
                 </div>
 
@@ -241,8 +254,18 @@ const List = ({ token }) => {
                     {deleting === product._id ? (
                       <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-red-600"></div>
                     ) : (
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                      <svg
+                        className="w-5 h-5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                        />
                       </svg>
                     )}
                   </button>
@@ -261,13 +284,13 @@ const List = ({ token }) => {
           </div>
           <div className="flex items-center gap-2 order-1 sm:order-2">
             <button
-              onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+              onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
               disabled={currentPage === 1}
               className="px-3 py-1 text-sm border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Prev
             </button>
-            
+
             <div className="hidden sm:flex items-center gap-1">
               {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
                 let pageNum;
@@ -280,15 +303,15 @@ const List = ({ token }) => {
                 } else {
                   pageNum = currentPage - 2 + i;
                 }
-                
+
                 return (
                   <button
                     key={pageNum}
                     onClick={() => setCurrentPage(pageNum)}
                     className={`px-3 py-1 text-sm rounded-md ${
                       currentPage === pageNum
-                        ? 'bg-indigo-600 text-white'
-                        : 'border border-gray-300 hover:bg-gray-50'
+                        ? "bg-indigo-600 text-white"
+                        : "border border-gray-300 hover:bg-gray-50"
                     }`}
                   >
                     {pageNum}
@@ -296,13 +319,15 @@ const List = ({ token }) => {
                 );
               })}
             </div>
-            
+
             <div className="sm:hidden text-sm text-gray-600">
               {currentPage} / {totalPages}
             </div>
-            
+
             <button
-              onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+              onClick={() =>
+                setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+              }
               disabled={currentPage === totalPages}
               className="px-3 py-1 text-sm border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
             >

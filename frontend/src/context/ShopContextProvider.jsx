@@ -89,7 +89,9 @@ const ShopContextProvider = ({ children }) => {
           if (cartItems[items][item] > 0) {
             totalAmount += itemInfo.price * cartItems[items][item];
           }
-        } catch (error) {}
+        } catch (error) {
+          console.log(error);
+        }
       }
     }
     return totalAmount;
