@@ -13,7 +13,52 @@ const ShopContextProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState({});
   const [products, setProducts] = useState([]);
   const [token, setToken] = useState("");
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
+
+  const getUserProfile = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) return;
+
+      const response = await axios.get(`${backendUrl}/api/user/profile`, {
+        headers: { token },
+      });
+
+      if (response.data.success) {
+        setUser(response.data.user);
+      }
+    } catch (error) {
+      console.log(error.response?.data?.message);
+    }
+  };
+
+  const updateUserProfile = async (userData) => {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) return;
+
+      const response = await axios.put(
+        `${backendUrl}/api/user/profile`,
+        userData,
+        {
+          headers: { token },
+        },
+      );
+
+      if (response.data.success) {
+        setUser(response.data.user);
+        return { success: true };
+      }
+      return { success: false, message: response.data.message };
+    } catch (error) {
+      console.log(error.response?.data?.message);
+      return {
+        success: false,
+        message: error.response?.data?.message || "Failed to update profile",
+      };
+    }
+  };
 
   const addToCart = async (itemId, size) => {
     if (!size) {
@@ -37,7 +82,7 @@ const ShopContextProvider = ({ children }) => {
         await axios.post(
           `${backendUrl}/api/cart/add`,
           { itemId, size },
-          { headers: { token } }
+          { headers: { token } },
         );
         toast.success("Added to cart", {
           duration: 1000,
@@ -74,7 +119,7 @@ const ShopContextProvider = ({ children }) => {
         await axios.post(
           `${backendUrl}/api/cart/update`,
           { itemId, size, quantity },
-          { headers: { token } }
+          { headers: { token } },
         );
       } catch (error) {
         console.log(error);
@@ -107,17 +152,17 @@ const ShopContextProvider = ({ children }) => {
         toast.error(response.data.message || "Something went wrong");
       }
     } catch (error) {
-      toast.error(error.message);
+      toast.error(error.response?.data?.message || "Something went wrong");
     }
   };
   const getUserCart = async () => {
     try {
       const token = localStorage.getItem("token");
- 
+
       const response = await axios.post(
         `${backendUrl}/api/cart/get`,
         {},
-        { headers: { token } }
+        { headers: { token } },
       );
       if (response.data.success) {
         setCartItems(response.data.cartData);
@@ -130,11 +175,12 @@ const ShopContextProvider = ({ children }) => {
   useEffect(() => {
     getProdutsData();
   }, []);
-  
+
   useEffect(() => {
     if (!token && localStorage.getItem("token")) {
       setToken(localStorage.getItem("token"));
       getUserCart();
+      getUserProfile();
     }
   }, []);
   const value = {
@@ -157,6 +203,10 @@ const ShopContextProvider = ({ children }) => {
     setCartItems,
     setToken,
     token,
+    user,
+    setUser,
+    getUserProfile,
+    updateUserProfile,
   };
   return <ShopContext.Provider value={value}>{children}</ShopContext.Provider>;
 };

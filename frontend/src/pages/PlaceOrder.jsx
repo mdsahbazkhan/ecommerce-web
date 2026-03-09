@@ -95,8 +95,9 @@ const PlaceOrder = () => {
     if (!formData.country.trim()) newErrors.country = "Country is required";
 
     if (!formData.phone.trim()) newErrors.phone = "Phone number is required";
-    else if (!/^[0-9]{10}$/.test(formData.phone))
-      newErrors.phone = "Phone number must be exactly 10 digits";
+    else if (!/^[6-9]\d{9}$/.test(formData.phone))
+      newErrors.phone =
+        "Phone number must start with 6, 7, 8, or 9 and be 10 digits";
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -363,7 +364,6 @@ const PlaceOrder = () => {
           </div>
         </div>
       </div>
-      ;
     </form>
   );
 };

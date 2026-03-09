@@ -17,7 +17,7 @@ const userSchema = new mongoose.Schema(
         return this.authProvider === "local";
       },
     },
-     // ✅ Google login support
+    // ✅ Google login support
     googleId: {
       type: String,
       default: null,
@@ -28,12 +28,16 @@ const userSchema = new mongoose.Schema(
       enum: ["local", "google"],
       default: "local",
     },
+    address: {
+      type: Object,
+      default: {},
+    },
     cartData: {
       type: Object,
       default: {},
     },
   },
-  { minimize: false,timestamps: true }
+  { minimize: false, timestamps: true },
 );
 const user = mongoose.models.user || mongoose.model("User", userSchema);
 export default user;

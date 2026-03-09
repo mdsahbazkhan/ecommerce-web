@@ -28,7 +28,9 @@ const Verify = () => {
       }
     } catch (error) {
       console.log(error);
-      toast.error(error.message || "Payment verification failed");
+      toast.error(
+        error.response?.data?.message || "Payment verification failed",
+      );
     }
   };
   useEffect(() => {

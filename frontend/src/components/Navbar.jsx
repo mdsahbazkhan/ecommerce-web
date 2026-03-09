@@ -14,6 +14,10 @@ const Navbar = () => {
     setToken("");
     setCartItems({});
   };
+  const myProfile = () => {
+    navigate("/profile");
+    setVisible(false);
+  };
   return (
     <div className="absolute top-0 left-0 w-full z-50 bg-white shadow-md">
       <div className=" flex items-center justify-between px-6 py-3 font-medium ">
@@ -56,7 +60,7 @@ const Navbar = () => {
             {token && (
               <div className="group-hover:block hidden absolute dropdown-menu  right-0  pt-4 ">
                 <div className="flex flex-col gap-2 w-36 py-3 px-5 bg-slate-100 text-gray-500 rounded">
-                  <p className="cursor-pointer hover:text-indigo-900">
+                  <p onClick={myProfile} className="cursor-pointer hover:text-indigo-900">
                     My Profile
                   </p>
 

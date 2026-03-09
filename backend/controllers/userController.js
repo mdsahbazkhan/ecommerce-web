@@ -1,4 +1,5 @@
 import User from "../models/userModel.js";
+import orderModel from "../models/orderModel.js";
 import validator from "validator";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
@@ -8,6 +9,60 @@ const createToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET);
 };
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+
+// Route for getting user profile
+const getUserProfile = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select("-password");
+    if (!user) {
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found" });
+    }
+
+    // Get latest order to fetch most recent address
+    const latestOrder = await orderModel
+      .findOne({ userId: req.user.id })
+      .sort({ date: -1 });
+
+    // Use address from user profile, or from latest order if available
+    const address = latestOrder?.address || user.address || {};
+
+    res
+      .status(200)
+      .json({ success: true, user: { ...user.toObject(), address } });
+  } catch (error) {
+    console.error("Get Profile Error:", error);
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+// Route for updating user profile
+const updateUserProfile = async (req, res) => {
+  try {
+    const { name, address } = req.body;
+    const userId = req.user.id;
+
+    const updateData = {};
+    if (name) updateData.name = name;
+    if (address) updateData.address = address;
+
+    const user = await User.findByIdAndUpdate(userId, updateData, {
+      new: true,
+    }).select("-password");
+
+    if (!user) {
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found" });
+    }
+
+    res.status(200).json({ success: true, user });
+  } catch (error) {
+    console.error("Update Profile Error:", error);
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
 
 // Route for google Login
 const googleLogin = async (req, res) => {
@@ -141,4 +196,11 @@ const adminLogin = async (req, res) => {
   }
 };
 
-export { loginUser, registerUser, adminLogin, googleLogin };
+export {
+  loginUser,
+  registerUser,
+  adminLogin,
+  googleLogin,
+  getUserProfile,
+  updateUserProfile,
+};

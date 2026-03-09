@@ -11,7 +11,8 @@ const Login = () => {
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
-  const { token, setToken, navigate, backendUrl } = useContext(ShopContext);
+  const { token, setToken, navigate, backendUrl, setUser } =
+    useContext(ShopContext);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -28,6 +29,7 @@ const Login = () => {
         if (response.data.success) {
           setToken(response.data.token);
           localStorage.setItem("token", response.data.token);
+          setUser(response.data.user);
           toast.success("Logged in Successfully");
         } else {
           toast.error(response.data.message || "Something went wrong");
@@ -40,14 +42,17 @@ const Login = () => {
         if (response.data.success) {
           setToken(response.data.token);
           localStorage.setItem("token", response.data.token);
+          setUser(response.data.user);
         } else {
           toast.error(response.data.message || "Something went wrong");
         }
       }
     } catch (error) {
-      console.log(error.message);
-
-      toast.error(error.message);
+      console.log(error);
+      const errorMessage =
+        error.response?.data?.message ||
+        "Something went wrong. Please try again.";
+      toast.error(errorMessage);
     }
   };
   const handleGoogleLogin = async (credentialResponse) => {
@@ -61,13 +66,17 @@ const Login = () => {
       if (response.data.success) {
         setToken(response.data.token);
         localStorage.setItem("token", response.data.token);
+        setUser(response.data.user);
         toast.success("Logged in with Google ");
       } else {
         toast.error(response.data.message || "Google login failed");
       }
     } catch (error) {
       console.error(error);
-      toast.error("Google login failed");
+      const errorMessage =
+        error.response?.data?.message ||
+        "Google login failed. Please try again.";
+      toast.error(errorMessage);
     }
   };
 
@@ -180,8 +189,8 @@ const Login = () => {
         {loading
           ? "Please wait..."
           : currentState === "Login"
-          ? "Sign In"
-          : "Sign Up"}
+            ? "Sign In"
+            : "Sign Up"}
       </button>
 
       {/* Terms & Privacy (Signup only) */}

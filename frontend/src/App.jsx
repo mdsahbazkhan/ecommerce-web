@@ -18,6 +18,7 @@ import TermsConditions from "./pages/TermsConditions";
 import ShippingDelivery from "./pages/ShippingDelivery";
 import ReturnsExchanges from "./pages/ReturnsExchanges";
 import Verify from "./pages/Verify";
+import Profile from "./pages/Profile";
 
 const App = () => {
   return (
@@ -33,6 +34,7 @@ const App = () => {
         <Route path="/cart" element={<Cart />}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/place-order" element={<PlaceOrder />}></Route>
+        <Route path="/profile" element={<Profile />}></Route>
         <Route path="/orders" element={<Orders />}></Route>{" "}
         <Route path="/verify" element={<Verify />}></Route>
         <Route path="/faq" element={<FAQ />}></Route>
