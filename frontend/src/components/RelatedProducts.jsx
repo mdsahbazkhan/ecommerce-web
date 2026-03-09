@@ -14,7 +14,7 @@ const RelatedProducts = ({ category, subCategory }) => {
       let productCopy = products.slice();
       productCopy = productCopy.filter((item) => category === item.category);
       productCopy = productCopy.filter(
-        (item) => subCategory === item.subCategory
+        (item) => subCategory === item.subCategory,
       );
       setRelated(productCopy.slice(0, 5));
       setLoading(false);
@@ -24,7 +24,7 @@ const RelatedProducts = ({ category, subCategory }) => {
   if (loading) return <RelatedProductsSkeleton />;
   return (
     <div className="my-24">
-      <div className="text-center text-3xl py-2">
+      <div className="text-center text-3xl py-2 animate-fadeInUp">
         <Title text1="YOU MAY ALSO" text2="LIKE" />
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5 gap-y-6 mt-4">
@@ -38,6 +38,7 @@ const RelatedProducts = ({ category, subCategory }) => {
               price={product.price}
               rating={product.rating}
               reviews={product.reviews}
+              index={index}
             />
           );
         })}

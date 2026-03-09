@@ -347,7 +347,7 @@ const PlaceOrder = () => {
               <span
                 className={`radio ${paymentMethod === "cod" ? "radio-active" : ""}`}
               />
-              <p className="text-sm font-medium text-indigo-700">
+              <p className="text-sm font-medium text-cyan-700">
                 CASH ON DELIVERY
               </p>
             </div>
@@ -357,7 +357,7 @@ const PlaceOrder = () => {
           <div className="mt-8 w-full text-end">
             <button
               type="submit"
-              className=" bg-indigo-600 text-white py-3 px-16 rounded-md font-semibold hover:bg-indigo-700 transition"
+              className=" bg-cyan-600 text-white py-3 px-16 rounded-md font-semibold hover:bg-cyan-700 transition"
             >
               PLACE ORDER
             </button>

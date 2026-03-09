@@ -11,10 +11,10 @@ const Home = () => {
     <>
       {/* 🔹 SEO */}
       <Helmet>
-        <title>Bazario | Online Fashion Store</title>
+        <title>BazarioX | Online Fashion Store</title>
         <meta
           name="description"
-          content="Shop trendy fashion online at Bazario – latest arrivals, best sellers, easy returns and fast delivery across India."
+          content="Shop trendy fashion online at BazarioX – latest arrivals, best sellers, easy returns and fast delivery across India."
         />
       </Helmet>
 

@@ -1,39 +1,288 @@
 @import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Prata&display=swap");
 @import "tailwindcss";
 
-a.active hr {
-  display: block;
+/* ==================== DESIGN SYSTEM ==================== */
+:root {
+  --primary: #0891b2;
+  --primary-dark: #0e7490;
+  --primary-light: #06b6d4;
+  --secondary: #f59e0b;
+  --accent: #10b981;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #94a3b8;
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8fafc;
+  --bg-accent: #ecfeff;
+  --border: #e2e8f0;
+  --shadow: rgba(8, 145, 178, 0.1);
 }
+
+/* ==================== ANIMATIONS ==================== */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInLeft {
+  from { opacity: 0; transform: translateX(-30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeInRight {
+  from { opacity: 0; transform: translateX(30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes bounceIn {
+  0% { opacity: 0; transform: scale(0.3); }
+  50% { opacity: 1; transform: scale(1.05); }
+  70% { transform: scale(0.9); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-fadeIn { animation: fadeIn 0.6s ease-out forwards; }
+.animate-fadeInUp { animation: fadeInUp 0.6s ease-out forwards; }
+.animate-fadeInDown { animation: fadeInDown 0.6s ease-out forwards; }
+.animate-fadeInLeft { animation: fadeInLeft 0.6s ease-out forwards; }
+.animate-fadeInRight { animation: fadeInRight 0.6s ease-out forwards; }
+.animate-scaleIn { animation: scaleIn 0.5s ease-out forwards; }
+.animate-bounceIn { animation: bounceIn 0.6s ease-out forwards; }
+.animate-pulse { animation: pulse 2s infinite; }
+.animate-float { animation: float 3s ease-in-out infinite; }
+
+/* ==================== BASE STYLES ==================== */
 * {
-  font-family: Outfit;
+  font-family: Outfit, sans-serif;
 }
+
+body {
+  color: var(--text-primary);
+  background-color: var(--bg-secondary);
+}
+
 .prata-regular {
   font-family: "Prata", serif;
   font-weight: 400;
   font-style: normal;
 }
 
-::-webkit-scrollbar {
-  display: none;
-}
-.input {
-  @apply border border-gray-300 rounded px-4 py-2 w-full outline-none
-  focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500;
+a.active hr {
+  display: block;
 }
 
+/* ==================== SCROLLBAR ==================== */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+}
+
+/* ==================== FORM ELEMENTS ==================== */
+.input {
+  @apply border-2 border-slate-200 rounded-xl px-5 py-3 w-full outline-none;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+}
+
+.input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px var(--shadow);
+}
+
+.input::placeholder {
+  color: var(--text-muted);
+}
+
+/* ==================== BUTTONS ==================== */
+.btn-primary {
+  @apply px-8 py-4 rounded-xl font-bold text-white;
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  box-shadow: 0 4px 15px var(--shadow);
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(8, 145, 178, 0.3);
+  background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+/* ==================== PAYMENT BOX ==================== */
 .payment-box {
-  @apply flex items-center gap-3 border border-gray-300 px-4 py-3 rounded-md cursor-pointer transition;
+  @apply flex items-center gap-4 border-2 border-slate-200 px-6 py-4 rounded-xl cursor-pointer;
+  background: var(--bg-primary);
+  transition: all 0.3s ease;
+}
+
+.payment-box:hover {
+  border-color: var(--primary);
+  box-shadow: 0 4px 15px var(--shadow);
+  transform: translateY(-2px);
+}
+
+.payment-box.active {
+  border-color: var(--primary);
+  background: var(--bg-accent);
 }
 
 .radio {
-  @apply w-4 h-4 border border-gray-400 rounded-full flex items-center justify-center;
+  @apply w-5 h-5 border-2 border-slate-300 rounded-full flex items-center justify-center;
+  transition: all 0.3s ease;
+}
+
+.radio-active {
+  border-color: var(--primary);
 }
 
 .radio-active::after {
   content: "";
-  width: 8px;
-  height: 8px;
-  background-color: #4f46e5; /* indigo-600 */
+  width: 10px;
+  height: 10px;
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
   border-radius: 9999px;
   display: block;
+}
+
+/* ==================== CARDS ==================== */
+.card-hover {
+  transition: all 0.4s ease;
+  border-radius: 20px;
+}
+
+.card-hover:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px var(--shadow);
+}
+
+/* ==================== LINKS ==================== */
+.link-hover {
+  position: relative;
+  color: var(--text-secondary);
+  transition: color 0.3s ease;
+}
+
+.link-hover:hover {
+  color: var(--primary);
+}
+
+.link-hover::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -2px;
+  left: 0;
+  background: linear-gradient(90deg, var(--primary), var(--primary-light));
+  transition: width 0.3s ease;
+}
+
+.link-hover:hover::after {
+  width: 100%;
+}
+
+/* ==================== IMAGES ==================== */
+.img-zoom {
+  overflow: hidden;
+  border-radius: 20px;
+}
+
+.img-zoom img {
+  transition: transform 0.5s ease;
+}
+
+.img-zoom:hover img {
+  transform: scale(1.1);
+}
+
+/* ==================== STAGGER ANIMATION ==================== */
+.stagger-item {
+  opacity: 0;
+  animation: fadeInUp 0.5s ease forwards;
+}
+
+.stagger-item:nth-child(1) { animation-delay: 0ms; }
+.stagger-item:nth-child(2) { animation-delay: 100ms; }
+.stagger-item:nth-child(3) { animation-delay: 200ms; }
+.stagger-item:nth-child(4) { animation-delay: 300ms; }
+.stagger-item:nth-child(5) { animation-delay: 400ms; }
+.stagger-item:nth-child(6) { animation-delay: 500ms; }
+.stagger-item:nth-child(7) { animation-delay: 600ms; }
+.stagger-item:nth-child(8) { animation-delay: 700ms; }
+.stagger-item:nth-child(9) { animation-delay: 800ms; }
+.stagger-item:nth-child(10) { animation-delay: 900ms; }
+
+/* ==================== UTILITY CLASSES ==================== */
+.text-primary { color: var(--text-primary); }
+.text-secondary { color: var(--text-secondary); }
+.text-muted { color: var(--text-muted); }
+.text-brand { 
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.bg-gradient-brand {
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+}
+
+.border-brand {
+  border-color: var(--primary);
+}
+
+.shadow-brand {
+  box-shadow: 0 10px 30px var(--shadow);
 }

@@ -6,23 +6,23 @@ const PrivacyPolicy = () => {
   return (
     <div className="border-t pt-16 mt-10 max-w-5xl mx-auto px-4">
       <Helmet>
-        <title>Privacy Policy | Bazario</title>
+        <title>Privacy Policy | BazarioX </title>
         <meta
           name="description"
-          content="Learn how Bazario collects, uses, and protects your personal information."
+          content="Learn how BazarioX collects, uses, and protects your personal information."
         />
       </Helmet>
 
       <Title text1="PRIVACY" text2="POLICY" />
 
-      <div className="mt-8 text-indigo-500 space-y-6 text-sm sm:text-base">
+      <div className="mt-8 text-cyan-500 space-y-6 text-sm sm:text-base">
         <p>
-          At <b className="text-indigo-800">Bazario</b>, your privacy is
+          At <b className="text-cyan-800">BazarioX</b>, your privacy is
           important to us. This policy explains how we handle your personal
           information.
         </p>
 
-        <h2 className="text-indigo-800 font-semibold">
+        <h2 className="text-cyan-800 font-semibold">
           Information We Collect
         </h2>
         <ul className="list-disc ml-5">
@@ -31,7 +31,7 @@ const PrivacyPolicy = () => {
           <li>Order and payment details</li>
         </ul>
 
-        <h2 className="text-indigo-800 font-semibold">
+        <h2 className="text-cyan-800 font-semibold">
           How We Use Your Information
         </h2>
         <ul className="list-disc ml-5">

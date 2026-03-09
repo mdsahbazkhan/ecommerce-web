@@ -31,7 +31,7 @@ const faqs = [
   {
     question: "How do I contact customer support?",
     answer:
-      "You can reach us through the Contact page or email us at support@bazario.com.",
+      "You can reach us through the Contact page or email us at support@BazarioX.com.",
   },
 ];
 
@@ -47,7 +47,7 @@ const FAQ = () => {
       {/* Page Title */}
       <div className="text-center text-2xl mb-10">
         <Title text1={"HELP &"} text2={"FAQ"} />
-        <p className="text-indigo-500 text-sm mt-2">
+        <p className="text-cyan-500 text-sm mt-2">
           Find answers to common questions below
         </p>
       </div>
@@ -55,10 +55,10 @@ const FAQ = () => {
       {/* FAQ Content */}
       <div className="max-w-4xl mx-auto px-4 mb-20">
         {faqs.map((faq, index) => (
-          <div key={index} className="border border-indigo-200 rounded-lg mb-4">
+          <div key={index} className="border border-cyan-200 rounded-lg mb-4">
             <button
               onClick={() => toggleFAQ(index)}
-              className="w-full flex justify-between items-center px-5 py-4 text-left text-indigo-800 font-medium"
+              className="w-full flex justify-between items-center px-5 py-4 text-left text-cyan-800 font-medium"
             >
               {faq.question}
               <FiChevronDown
@@ -69,7 +69,7 @@ const FAQ = () => {
             </button>
 
             {activeIndex === index && (
-              <div className="px-5 pb-4 text-sm text-indigo-500">
+              <div className="px-5 pb-4 text-sm text-cyan-500">
                 {faq.answer}
               </div>
             )}

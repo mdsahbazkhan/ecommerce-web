@@ -35,7 +35,7 @@ const Cart = () => {
   return (
     <div className="border-t pt-14 mt-10 px-4 sm:px-0">
       {/* Title */}
-      <div className="text-2xl mb-6">
+      <div className="text-2xl mb-6 animate-fadeInUp">
         <Title text1="SHOPPING" text2="CART" />
       </div>
 
@@ -43,37 +43,38 @@ const Cart = () => {
       <div className="flex flex-col gap-4">
         {cartData.map((item, index) => {
           const productData = products.find(
-            (product) => product._id === item._id
+            (product) => product._id === item._id,
           );
 
           return (
             <div
               key={index}
-              className="border border-indigo-200 rounded-lg p-4 
+              className="border border-cyan-200 rounded-lg p-4 
               grid grid-cols-1 sm:grid-cols-[4fr_1fr_1fr]
-              gap-4 items-center"
+              gap-4 items-center stagger-item"
+              style={{ animationDelay: `${index * 100}ms` }}
             >
               {/* Product Info */}
               <div className="flex gap-4 items-start">
                 <img
                   src={productData.images[0]}
                   alt={productData.name}
-                  className="w-20 h-24 object-cover rounded"
+                  className="w-20 h-24 object-cover rounded transform transition-transform duration-300 hover:scale-105"
                 />
 
                 <div className="flex flex-col gap-2">
-                  <p className="text-sm sm:text-lg font-medium text-indigo-800 leading-snug">
+                  <p className="text-sm sm:text-lg font-medium text-cyan-800 leading-snug">
                     {productData.name}
                   </p>
 
-                  <p className="text-indigo-800 font-semibold">
+                  <p className="text-cyan-800 font-semibold">
                     {currency}
                     {productData.price}
                   </p>
 
                   <span
                     className="inline-block w-fit px-3 py-1 text-xs font-medium rounded-md 
-                  border border-indigo-600 bg-indigo-100 text-indigo-800"
+                  border border-cyan-600 bg-cyan-100 text-cyan-800"
                   >
                     Size: {item.size}
                   </span>
@@ -89,14 +90,14 @@ const Cart = () => {
                   onChange={(e) =>
                     updateQuantity(item._id, item.size, Number(e.target.value))
                   }
-                  className="w-16 border border-gray-300 rounded-md px-2 py-1 
-    text-center text-sm focus:outline-none focus:border-indigo-500"
+                  className="w-16 border border-slate-200 rounded-md px-2 py-1 
+                  text-center text-sm focus:outline-none focus:border-cyan-500 focus:ring-2 focus:ring-cyan-200 transition-all duration-300"
                 />
 
                 <RiDeleteBin6Line
                   size={22}
                   onClick={() => updateQuantity(item._id, item.size, 0)}
-                  className="text-indigo-500 hover:text-red-500 transition cursor-pointer"
+                  className="text-cyan-500 hover:text-red-500 transition-all duration-300 cursor-pointer transform hover:scale-110"
                 />
               </div>
             </div>
@@ -106,20 +107,15 @@ const Cart = () => {
 
       {/* Cart Total */}
       <div className="flex justify-end my-16">
-        <div className="w-full sm:w-[420px]">
+        <div
+          className="w-full sm:w-[420px] animate-fadeInUp"
+          style={{ animationDelay: "300ms" }}
+        >
           <CartTotal />
           <div className="w-full text-end">
             <button
               onClick={() => navigate("/place-order")}
-              className=" mt-2
-      flex-1
-      px-8 py-3
-      text-sm font-semibold
-      rounded-md
-      transition-all
-     bg-indigo-600 text-white hover:bg-indigo-700 active:scale-95
-      
-    "
+              className="mt-2 flex-1 px-8 py-3 text-sm font-semibold rounded-md transition-all duration-300 bg-cyan-600 text-white hover:bg-cyan-700 hover:scale-[1.02] hover:shadow-lg active:scale-[0.98]"
             >
               PROCEED TO CHECKOUT
             </button>

@@ -1,9 +1,10 @@
-# 🛒 Bazario – Full-Stack E-commerce Application
+# 🛒 BazarioX – Full-Stack E-commerce Application
 
 ---
 
 ![alt text](<Screenshot from 2026-02-25 14-12-57.png>)
 ![alt text](image.png)
+
 <!-- You can paste an image directly below this comment -->
 
 ---
@@ -16,13 +17,13 @@ Full-Stack Developer | MERN Stack Specialist
 📧 Email: amdsahbaz19@gmail.com  
 💼 LinkedIn: [linkedin.com/in/sahbaz-alam-a95680262](https://www.linkedin.com/in/sahbaz-alam-a95680262/)  
 🐙 GitHub: [github.com/mdsahbazkhan](https://github.com/mdsahbazkhan)  
-🌐 Live Project: [bazario-frontend-one.vercel.app](https://bazario-frontend-one.vercel.app/)
+🌐 Live Project: [BazarioX-frontend-one.vercel.app](https://BazarioX-frontend-one.vercel.app/)
 
 ---
 
 ## 📋 Project Overview
 
-Bazario is a production-ready **full-stack MERN e-commerce platform** that I built from scratch. It includes a complete shopping experience for customers and a powerful admin dashboard for managing products, orders, and analytics. The project demonstrates my ability to architect and deploy a complex, real-world application with modern technologies.
+BazarioX is a production-ready **full-stack MERN e-commerce platform** that I built from scratch. It includes a complete shopping experience for customers and a powerful admin dashboard for managing products, orders, and analytics. The project demonstrates my ability to architect and deploy a complex, real-world application with modern technologies.
 
 ### What I Built
 
@@ -37,21 +38,22 @@ Bazario is a production-ready **full-stack MERN e-commerce platform** that I bui
 
 ## 🛠 Tech Stack
 
-| Category | Technologies |
-|----------|--------------|
-| **Frontend** | React.js, Vite, Tailwind CSS, React Router |
-| **Backend** | Node.js, Express.js |
-| **Database** | MongoDB, Mongoose |
-| **Authentication** | JWT, Google OAuth |
-| **Payments** | Stripe, Razorpay |
-| **Storage** | Cloudinary |
-| **Deployment** | Vercel |
+| Category           | Technologies                               |
+| ------------------ | ------------------------------------------ |
+| **Frontend**       | React.js, Vite, Tailwind CSS, React Router |
+| **Backend**        | Node.js, Express.js                        |
+| **Database**       | MongoDB, Mongoose                          |
+| **Authentication** | JWT, Google OAuth                          |
+| **Payments**       | Stripe, Razorpay                           |
+| **Storage**        | Cloudinary                                 |
+| **Deployment**     | Vercel                                     |
 
 ---
 
 ## 💻 Key Features
 
 ### 👤 Customer Features
+
 - User Registration & Login (JWT)
 - Google OAuth Integration
 - Product Browsing, Search & Filtering
@@ -61,6 +63,7 @@ Bazario is a production-ready **full-stack MERN e-commerce platform** that I bui
 - Fully Responsive Design
 
 ### 👨‍💼 Admin Features
+
 - Role-based Admin Authentication
 - CRUD Operations for Products
 - Order Management & Tracking
@@ -74,11 +77,11 @@ Bazario is a production-ready **full-stack MERN e-commerce platform** that I bui
 
 ## 🚀 Live Demo
 
-| Platform | URL |
-|----------|-----|
-| **User App** | https://bazario-frontend-one.vercel.app/ |
-| **Admin Panel** | https://bazario-admin-seven.vercel.app/dashboard |
-| **GitHub** | https://github.com/mdsahbazkhan/ecommerce-web |
+| Platform        | URL                                               |
+| --------------- | ------------------------------------------------- |
+| **User App**    | https://BazarioX-frontend-one.vercel.app/         |
+| **Admin Panel** | https://BazarioX-admin-seven.vercel.app/dashboard |
+| **GitHub**      | https://github.com/mdsahbazkhan/ecommerce-web     |
 
 ---
 
@@ -87,21 +90,25 @@ Bazario is a production-ready **full-stack MERN e-commerce platform** that I bui
 <!-- Add your screenshots below -->
 
 ### 🏠 Home Page
+
 <!-- PASTE HOME PAGE SCREENSHOT HERE -->
 
 ---
 
 ### 🛒 Shopping Cart
+
 <!-- PASTE CART SCREENSHOT HERE -->
 
 ---
 
 ### 👨‍💼 Admin Dashboard
+
 <!-- PASTE ADMIN DASHBOARD SCREENSHOT HERE -->
 
 ---
 
 ### 📱 Mobile Responsive View
+
 <!-- PASTE MOBILE SCREENSHOT HERE -->
 
 ---
@@ -161,6 +168,7 @@ RAZORPAY_SECRET=your_secret
 ## 🏃‍♂️ Run Locally
 
 ### Backend Setup
+
 ```bash
 cd backend
 npm install
@@ -168,6 +176,7 @@ npm run server
 ```
 
 ### Frontend Setup
+
 ```bash
 cd frontend
 npm install

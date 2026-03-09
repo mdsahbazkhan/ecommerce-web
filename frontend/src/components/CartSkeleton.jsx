@@ -9,7 +9,7 @@ const CartSkeleton = () => {
       <div className="flex flex-col lg:flex-row gap-8">
         {/* Cart Items Skeleton */}
         <div className="flex-1">
-          <div className="bg-white rounded-lg border border-gray-200">
+          <div className="bg-white rounded-lg border border-slate-200">
             {Array.from({ length: 3 }, (_, i) => (
               <CartItemSkeleton key={i} />
             ))}
@@ -18,7 +18,7 @@ const CartSkeleton = () => {
         
         {/* Order Summary Skeleton */}
         <div className="lg:w-80">
-          <div className="bg-white rounded-lg border border-gray-200 p-6 space-y-4 animate-pulse">
+          <div className="bg-white rounded-lg border border-slate-200 p-6 space-y-4 animate-pulse">
             <div className="h-6 bg-gray-200 rounded w-32"></div>
             <div className="space-y-3">
               <div className="flex justify-between">

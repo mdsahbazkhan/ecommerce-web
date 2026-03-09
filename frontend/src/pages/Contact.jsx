@@ -86,20 +86,23 @@ const Contact = () => {
   return (
     <div className="border-t pt-10 mt-10">
       {/* Page Heading */}
-      <div className="text-center text-2xl mb-10">
+      <div className="text-center text-2xl mb-10 animate-fadeInUp">
         <Title text1={"CUSTOMER"} text2={"SUPPORT"} />
-        <p className="text-indigo-500 text-sm mt-2">
-          We’re here to help. Contact our support team anytime.
+        <p
+          className="text-cyan-500 text-sm mt-2 animate-fadeIn"
+          style={{ animationDelay: "200ms" }}
+        >
+          We're here to help. Contact our support team anytime.
         </p>
       </div>
 
       {/* Content */}
       <div className="max-w-6xl mx-auto px-4 flex flex-col md:flex-row gap-14 mb-20">
         {/* Contact Form */}
-        <div className="flex-1">
+        <div className="flex-1 animate-fadeInLeft">
           {/* Success Message Box */}
           {submitted && (
-            <div className="mb-4 p-3 bg-green-100 text-green-700 rounded-md text-sm">
+            <div className="mb-4 p-3 bg-green-100 text-green-700 rounded-md text-sm animate-bounceIn">
               Thank you! Your message has been sent. We will contact you soon.
             </div>
           )}
@@ -112,7 +115,7 @@ const Contact = () => {
               value={formData.name}
               onChange={handleChange}
               placeholder="Full Name"
-              className="border border-gray-300 rounded-md px-4 py-2 outline-none focus:border-indigo-500"
+              className="border border-slate-200 rounded-md px-4 py-2 outline-none focus:border-cyan-500 focus:ring-2 focus:ring-cyan-200 transition-all duration-300"
             />
 
             {/* Email */}
@@ -122,7 +125,7 @@ const Contact = () => {
               value={formData.email}
               onChange={handleChange}
               placeholder="Email Address"
-              className="border border-gray-300 rounded-md px-4 py-2 outline-none focus:border-indigo-500"
+              className="border border-slate-200 rounded-md px-4 py-2 outline-none focus:border-cyan-500 focus:ring-2 focus:ring-cyan-200 transition-all duration-300"
             />
 
             {/* Subject */}
@@ -130,7 +133,7 @@ const Contact = () => {
               name="subject"
               value={formData.subject}
               onChange={handleChange}
-              className="border border-gray-300 rounded-md px-4 py-2 outline-none focus:border-indigo-500 text-gray-600"
+              className="border border-slate-200 rounded-md px-4 py-2 outline-none focus:border-cyan-500 focus:ring-2 focus:ring-cyan-200 transition-all duration-300 text-slate-600"
             >
               <option value="">Select a subject</option>
               <option>Order Issue</option>
@@ -147,11 +150,11 @@ const Contact = () => {
               maxLength="500"
               rows="5"
               placeholder="Write your message here..."
-              className="border border-gray-300 rounded-md px-4 py-2 outline-none focus:border-indigo-500 resize-none"
+              className="border border-slate-200 rounded-md px-4 py-2 outline-none focus:border-cyan-500 focus:ring-2 focus:ring-cyan-200 transition-all duration-300 resize-none"
             ></textarea>
 
             {/* Character Counter */}
-            <p className="text-xs text-gray-400">
+            <p className="text-xs text-slate-400">
               {formData.message.length}/500 characters
             </p>
 
@@ -159,41 +162,43 @@ const Contact = () => {
             <button
               type="submit"
               disabled={loading}
-              className={`w-fit px-8 py-2 rounded-md font-medium transition text-white
+              className={`w-fit px-8 py-2 rounded-md font-medium transition-all duration-300 text-white
               ${
                 loading
                   ? "bg-gray-400 cursor-not-allowed"
-                  : "bg-indigo-600 hover:bg-indigo-700"
+                  : "bg-cyan-600 hover:bg-cyan-700 hover:scale-[1.02] hover:shadow-lg active:scale-[0.98]"
               }`}
             >
               {loading ? "Sending Message..." : "Send Message"}
             </button>
 
             {/* Note */}
-            <p className="text-xs text-indigo-400 mt-1">
+            <p className="text-xs text-cyan-400 mt-1">
               We usually respond within 24 hours.
             </p>
           </form>
         </div>
 
         {/* Contact Info */}
-        <div className="flex-1 flex flex-col gap-6 text-indigo-500">
-          <div>
-            <b className="text-indigo-800">Email</b>
-            <p>amdsahbaz19@gmail.com</p>
-          </div>
+        <div
+          className="flex-1 flex flex-col gap-6 text-cyan-500 animate-fadeInRight"
+          style={{ animationDelay: "300ms" }}
+        >
+          {[
+            { title: "Email", value: "amdsahbaz19@gmail.com" },
+            { title: "Phone", value: "+91 62077 85640" },
+            { title: "Location", value: "Hyderabad, India" },
+          ].map((item, index) => (
+            <div
+              key={index}
+              className="transform transition-all duration-300 hover:translate-x-2"
+            >
+              <b className="text-cyan-800">{item.title}</b>
+              <p>{item.value}</p>
+            </div>
+          ))}
 
-          <div>
-            <b className="text-indigo-800">Phone</b>
-            <p>+91 62077 85640</p>
-          </div>
-
-          <div>
-            <b className="text-indigo-800">Location</b>
-            <p>Hyderabad, India</p>
-          </div>
-
-          <div className="text-sm text-indigo-400">
+          <div className="text-sm text-cyan-400 animate-pulse">
             Support available Monday – Saturday, 9AM – 6PM
           </div>
         </div>

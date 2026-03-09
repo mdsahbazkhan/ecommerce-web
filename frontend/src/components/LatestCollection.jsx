@@ -19,10 +19,11 @@ const LatestCollection = () => {
   if (loading) {
     return (
       <div className="my-10">
-        <div className="text-center text-3xl py-3">
+        <div className="text-center text-3xl py-3 animate-pulse">
           <Title text1={"FRESH "} text2={"PICKS"} />
-          <p className="text-gray-600 text-xs sm:text-sm md:text-base max-w-xl m-auto w-3/4">
-            Fresh styles, timeless designs, and quality you can trust — curated just for you.
+          <p className="text-slate-600 text-xs sm:text-sm md:text-base max-w-xl m-auto w-3/4">
+            Fresh styles, timeless designs, and quality you can trust — curated
+            just for you.
           </p>
           <div className="mt-4">
             <ProductGridSkeleton count={10} />
@@ -35,8 +36,13 @@ const LatestCollection = () => {
   return (
     <div className="my-10">
       <div className="text-center text-3xl py-3">
-        <Title text1={"FRESH "} text2={"PICKS"} />
-        <p className="text-gray-600 text-xs sm:text-sm  md:text-base max-w-xl m-auto w-3/4">
+        <div className="animate-fadeInUp">
+          <Title text1={"FRESH "} text2={"PICKS"} />
+        </div>
+        <p
+          className="text-slate-600 text-xs sm:text-sm md:text-base max-w-xl m-auto w-3/4 animate-fadeIn"
+          style={{ animationDelay: "200ms" }}
+        >
           Fresh styles, timeless designs, and quality you can trust — curated
           just for you.
         </p>
@@ -52,6 +58,7 @@ const LatestCollection = () => {
                 price={product.price}
                 rating={product.rating}
                 reviews={product.reviews}
+                index={index}
               />
             );
           })}

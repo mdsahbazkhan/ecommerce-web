@@ -19,7 +19,7 @@ const sendReply = async (req, res) => {
     const mailOptions = {
       from: process.env.ADMIN_EMAIL,
       to: email,
-      subject: "Reply from Bazario Support",
+      subject: "Reply from BazarioX Support",
       text: message,
     };
     await transporter.sendMail(mailOptions);

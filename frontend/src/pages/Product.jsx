@@ -185,8 +185,8 @@ const Product = () => {
                 onClick={() => setImage(item)}
                 className={`cursor-pointer border-2 rounded-md w-20 h-20 sm:w-full sm:h-auto object-cover ${
                   image === item
-                    ? "border-indigo-600"
-                    : "border-gray-200 hover:border-indigo-400"
+                    ? "border-cyan-600"
+                    : "border-slate-200 hover:border-cyan-400"
                 }`}
                 alt=""
               />
@@ -224,26 +224,26 @@ const Product = () => {
 
         {/* ---------- PRODUCT INFO ---------- */}
         <div className="flex-1">
-          <h1 className="text-2xl font-medium text-indigo-800">
+          <h1 className="text-2xl font-medium text-cyan-800">
             {productData.name}
           </h1>
 
           <div className="flex items-center gap-2 mt-2">
             <RatingStars rating={productData.rating} />
-            <span className="text-indigo-600">
+            <span className="text-cyan-600">
               ({productData.reviews} reviews)
             </span>
           </div>
 
-          <p className="mt-4 text-3xl font-semibold text-indigo-800">
+          <p className="mt-4 text-3xl font-semibold text-cyan-800">
             {currency}
             {productData.price}
           </p>
 
           {/* Highlights */}
           <div className="mt-4">
-            <p className="font-medium text-indigo-800 mb-2">Highlights</p>
-            <ul className="list-disc pl-5 text-sm text-indigo-500 space-y-1">
+            <p className="font-medium text-cyan-800 mb-2">Highlights</p>
+            <ul className="list-disc pl-5 text-sm text-cyan-500 space-y-1">
               {productData.highlights?.map((h, i) => (
                 <li key={i}>{h}</li>
               ))}
@@ -256,7 +256,7 @@ const Product = () => {
               <p className="font-medium">Select Size</p>
               <button
                 onClick={() => setShowSizeChart((prev) => !prev)}
-                className="text-sm text-indigo-600 hover:underline"
+                className="text-sm text-cyan-600 hover:underline"
               >
                 Size Chart
               </button>
@@ -269,8 +269,8 @@ const Product = () => {
                   onClick={() => setSize(item)}
                   className={`px-4 py-2 border rounded-md text-sm transition ${
                     size === item
-                      ? "bg-indigo-100 border-indigo-600 text-indigo-800"
-                      : "border-gray-300 hover:border-indigo-400"
+                      ? "bg-cyan-100 border-cyan-600 text-cyan-800"
+                      : "border-slate-200 hover:border-cyan-400"
                   }`}
                 >
                   {item}
@@ -280,9 +280,9 @@ const Product = () => {
 
             {/* ---------- SIZE CHART ---------- */}
             {showSizeChart && (
-              <div className="mt-4 bg-white border border-indigo-200 rounded-lg shadow-sm overflow-hidden">
-                <div className="bg-indigo-50 px-4 py-3 border-b border-indigo-200">
-                  <h3 className="text-indigo-800 font-semibold text-sm flex items-center gap-2">
+              <div className="mt-4 bg-white border border-cyan-200 rounded-lg shadow-sm overflow-hidden">
+                <div className="bg-cyan-50 px-4 py-3 border-b border-cyan-200">
+                  <h3 className="text-cyan-800 font-semibold text-sm flex items-center gap-2">
                     <svg
                       className="w-4 h-4"
                       fill="currentColor"
@@ -300,20 +300,20 @@ const Product = () => {
                     <div className="overflow-x-auto">
                       <table className="w-full text-sm">
                         <thead>
-                          <tr className="border-b border-gray-200">
-                            <th className="text-left py-2 px-3 font-semibold text-indigo-800 bg-gray-50">
+                          <tr className="border-b border-slate-200">
+                            <th className="text-left py-2 px-3 font-semibold text-cyan-800 bg-slate-50">
                               Size
                             </th>
-                            <th className="text-center py-2 px-3 font-semibold text-indigo-800 bg-gray-50">
+                            <th className="text-center py-2 px-3 font-semibold text-cyan-800 bg-slate-50">
                               Chest
                             </th>
-                            <th className="text-center py-2 px-3 font-semibold text-indigo-800 bg-gray-50">
+                            <th className="text-center py-2 px-3 font-semibold text-cyan-800 bg-slate-50">
                               Length
                             </th>
-                            <th className="text-center py-2 px-3 font-semibold text-indigo-800 bg-gray-50">
+                            <th className="text-center py-2 px-3 font-semibold text-cyan-800 bg-slate-50">
                               Shoulder
                             </th>
-                            <th className="text-center py-2 px-3 font-semibold text-indigo-800 bg-gray-50">
+                            <th className="text-center py-2 px-3 font-semibold text-cyan-800 bg-slate-50">
                               Sleeve
                             </th>
                           </tr>
@@ -323,23 +323,23 @@ const Product = () => {
                             ([size, info], index) => (
                               <tr
                                 key={size}
-                                className={`border-b border-gray-100 hover:bg-indigo-25 transition-colors ${
+                                className={`border-b border-gray-100 hover:bg-cyan-25 transition-colors ${
                                   index % 2 === 0 ? "bg-gray-25" : "bg-white"
                                 }`}
                               >
-                                <td className="py-3 px-3 font-medium text-indigo-700">
+                                <td className="py-3 px-3 font-medium text-cyan-700">
                                   {size}
                                 </td>
-                                <td className="py-3 px-3 text-center text-gray-700">
+                                <td className="py-3 px-3 text-center text-slate-700">
                                   {info.chest}
                                 </td>
-                                <td className="py-3 px-3 text-center text-gray-700">
+                                <td className="py-3 px-3 text-center text-slate-700">
                                   {info.length}
                                 </td>
-                                <td className="py-3 px-3 text-center text-gray-700">
+                                <td className="py-3 px-3 text-center text-slate-700">
                                   {info.shoulder}
                                 </td>
-                                <td className="py-3 px-3 text-center text-gray-700">
+                                <td className="py-3 px-3 text-center text-slate-700">
                                   {info.sleeve}
                                 </td>
                               </tr>
@@ -355,23 +355,23 @@ const Product = () => {
                     <div className="overflow-x-auto">
                       <table className="w-full text-sm">
                         <thead>
-                          <tr className="border-b border-gray-200">
-                            <th className="text-left py-2 px-3 font-semibold text-indigo-800 bg-gray-50">
+                          <tr className="border-b border-slate-200">
+                            <th className="text-left py-2 px-3 font-semibold text-cyan-800 bg-slate-50">
                               Size
                             </th>
-                            <th className="text-center py-2 px-3 font-semibold text-indigo-800 bg-gray-50">
+                            <th className="text-center py-2 px-3 font-semibold text-cyan-800 bg-slate-50">
                               Waist
                             </th>
-                            <th className="text-center py-2 px-3 font-semibold text-indigo-800 bg-gray-50">
+                            <th className="text-center py-2 px-3 font-semibold text-cyan-800 bg-slate-50">
                               Length
                             </th>
-                            <th className="text-center py-2 px-3 font-semibold text-indigo-800 bg-gray-50">
+                            <th className="text-center py-2 px-3 font-semibold text-cyan-800 bg-slate-50">
                               Hip
                             </th>
-                            <th className="text-center py-2 px-3 font-semibold text-indigo-800 bg-gray-50">
+                            <th className="text-center py-2 px-3 font-semibold text-cyan-800 bg-slate-50">
                               Thigh
                             </th>
-                            <th className="text-center py-2 px-3 font-semibold text-indigo-800 bg-gray-50">
+                            <th className="text-center py-2 px-3 font-semibold text-cyan-800 bg-slate-50">
                               Inseam
                             </th>
                           </tr>
@@ -381,26 +381,26 @@ const Product = () => {
                             ([size, info], index) => (
                               <tr
                                 key={size}
-                                className={`border-b border-gray-100 hover:bg-indigo-25 transition-colors ${
+                                className={`border-b border-gray-100 hover:bg-cyan-25 transition-colors ${
                                   index % 2 === 0 ? "bg-gray-25" : "bg-white"
                                 }`}
                               >
-                                <td className="py-3 px-3 font-medium text-indigo-700">
+                                <td className="py-3 px-3 font-medium text-cyan-700">
                                   {size}
                                 </td>
-                                <td className="py-3 px-3 text-center text-gray-700">
+                                <td className="py-3 px-3 text-center text-slate-700">
                                   {info.waist}
                                 </td>
-                                <td className="py-3 px-3 text-center text-gray-700">
+                                <td className="py-3 px-3 text-center text-slate-700">
                                   {info.length}
                                 </td>
-                                <td className="py-3 px-3 text-center text-gray-700">
+                                <td className="py-3 px-3 text-center text-slate-700">
                                   {info.hip}
                                 </td>
-                                <td className="py-3 px-3 text-center text-gray-700">
+                                <td className="py-3 px-3 text-center text-slate-700">
                                   {info.thigh}
                                 </td>
-                                <td className="py-3 px-3 text-center text-gray-700">
+                                <td className="py-3 px-3 text-center text-slate-700">
                                   {info.inseam}
                                 </td>
                               </tr>
@@ -440,21 +440,21 @@ const Product = () => {
           <div className="flex gap-3 mt-6">
             <button
               onClick={() => addToCart(productData._id, size)}
-              className="flex-1 bg-indigo-600 text-white py-3 rounded-md hover:bg-indigo-700"
+              className="flex-1 bg-cyan-600 text-white py-3 rounded-md hover:bg-cyan-700"
             >
               ADD TO CART
             </button>
 
             <button
               onClick={handleBuyNow}
-              className="flex-1 border border-indigo-600 text-indigo-600 py-3 rounded-md hover:bg-indigo-50"
+              className="flex-1 border border-cyan-600 text-cyan-600 py-3 rounded-md hover:bg-cyan-50"
             >
               BUY NOW
             </button>
           </div>
 
           {/* Info */}
-          <div className="text-sm text-indigo-500 mt-5 space-y-1">
+          <div className="text-sm text-cyan-500 mt-5 space-y-1">
             <p>✔ 100% Original product</p>
             <p>✔ Cash on delivery available</p>
             <p>✔ 7 days return & exchange</p>
@@ -463,14 +463,14 @@ const Product = () => {
       </div>
 
       {/* ---------- TABS ---------- */}
-      <div className="mt-10 border-b border-indigo-300">
+      <div className="mt-10 border-b border-cyan-300">
         <div className="flex gap-6 text-sm">
           <button
             onClick={() => setActiveTab("description")}
             className={`pb-2 ${
               activeTab === "description"
-                ? "border-b-2 border-indigo-600 text-indigo-700"
-                : "text-indigo-400"
+                ? "border-b-2 border-cyan-600 text-cyan-700"
+                : "text-cyan-400"
             }`}
           >
             Description
@@ -480,15 +480,15 @@ const Product = () => {
             onClick={() => setActiveTab("reviews")}
             className={`pb-2 ${
               activeTab === "reviews"
-                ? "border-b-2 border-indigo-600 text-indigo-700"
-                : "text-indigo-400"
+                ? "border-b-2 border-cyan-600 text-cyan-700"
+                : "text-cyan-400"
             }`}
           >
             Reviews ({productData.reviews})
           </button>
         </div>
 
-        <div className="mt-6 text-sm text-indigo-500">
+        <div className="mt-6 text-sm text-cyan-500">
           {activeTab === "description" && <p>{productData.description}</p>}
 
           {activeTab === "reviews" && <p>No reviews yet.</p>}

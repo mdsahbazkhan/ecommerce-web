@@ -170,9 +170,9 @@ const Profile = () => {
     return (
       <div className="border-t pt-16 mt-10 flex justify-center items-center min-h-[50vh]">
         <div className="animate-pulse flex flex-col items-center gap-4">
-          <div className="w-24 h-24 rounded-full bg-indigo-100"></div>
-          <div className="h-6 w-48 bg-indigo-100 rounded"></div>
-          <div className="h-4 w-64 bg-indigo-100 rounded"></div>
+          <div className="w-24 h-24 rounded-full bg-cyan-100"></div>
+          <div className="h-6 w-48 bg-cyan-100 rounded"></div>
+          <div className="h-4 w-64 bg-cyan-100 rounded"></div>
         </div>
       </div>
     );
@@ -193,24 +193,24 @@ const Profile = () => {
         <Title text1={"MY"} text2={"PROFILE"} />
       </div>
 
-      <div className="max-w-2xl mx-auto">
+      <div className="max-w-2xl mx-auto px-4">
         {/* Profile Header */}
-        <div className="bg-gradient-to-r from-indigo-500 to-indigo-600 rounded-xl p-8 mb-6 text-white">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-6">
-              <div className="w-20 h-20 rounded-full bg-white/20 flex items-center justify-center">
-                <FiUser className="text-4xl text-white" />
+        <div className="bg-gradient-to-r from-cyan-500 to-cyan-600 rounded-xl p-4 sm:p-8 mb-6 text-white">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div className="flex items-center gap-4 sm:gap-6 w-full sm:w-auto">
+              <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0">
+                <FiUser className="text-3xl sm:text-4xl text-white" />
               </div>
-              <div>
-                <h2 className="text-2xl font-semibold">
+              <div className="flex-1 min-w-0">
+                <h2 className="text-xl sm:text-2xl font-semibold truncate">
                   {user?.name || "User"}
                 </h2>
-                <p className="text-indigo-100 flex items-center gap-2 mt-1">
-                  <FiMail />
-                  {user?.email || "No email"}
+                <p className="text-cyan-100 flex items-center gap-2 mt-1 text-sm sm:text-base truncate">
+                  <FiMail className="flex-shrink-0" />
+                  <span className="truncate">{user?.email || "No email"}</span>
                 </p>
-                <p className="text-indigo-100 text-sm flex items-center gap-2 mt-1">
-                  <FiCalendar />
+                <p className="text-cyan-100 text-xs sm:text-sm flex items-center gap-2 mt-1">
+                  <FiCalendar className="flex-shrink-0" />
                   Member since {formatDate(user?.createdAt)}
                 </p>
               </div>
@@ -218,7 +218,7 @@ const Profile = () => {
             {!isEditing && (
               <button
                 onClick={() => setIsEditing(true)}
-                className="flex items-center gap-2 bg-white/20 hover:bg-white/30 px-4 py-2 rounded-lg transition"
+                className="flex items-center gap-2 bg-white/20 hover:bg-white/30 px-4 py-2 rounded-lg transition w-full sm:w-auto justify-center"
               >
                 <FiEdit2 /> Edit
               </button>
@@ -228,9 +228,9 @@ const Profile = () => {
 
         {/* Edit Form */}
         {isEditing && (
-          <div className="bg-white rounded-xl shadow-sm border border-indigo-100 overflow-hidden mb-6">
-            <div className="p-4 border-b border-indigo-100 bg-indigo-50">
-              <h3 className="text-lg font-semibold text-indigo-800">
+          <div className="bg-white rounded-xl shadow-sm border border-cyan-100 overflow-hidden mb-6">
+            <div className="p-4 border-b border-cyan-100 bg-cyan-50">
+              <h3 className="text-lg font-semibold text-cyan-800">
                 Edit Profile
               </h3>
             </div>
@@ -238,14 +238,14 @@ const Profile = () => {
             <div className="p-6 space-y-4">
               {/* Name */}
               <div>
-                <label className="block text-sm font-medium text-indigo-700 mb-1">
+                <label className="block text-sm font-medium text-cyan-700 mb-1">
                   Full Name
                 </label>
                 <input
                   name="name"
                   value={formData.name}
                   onChange={onChangeHandler}
-                  className="w-full border border-indigo-200 rounded-lg px-4 py-2 focus:outline-none focus:border-indigo-500"
+                  className="w-full border border-cyan-200 rounded-lg px-4 py-2 focus:outline-none focus:border-cyan-500"
                   placeholder="Your full name"
                 />
                 {errors.name && (
@@ -254,21 +254,21 @@ const Profile = () => {
               </div>
 
               {/* Address Section */}
-              <div className="pt-4 border-t border-indigo-100">
-                <h4 className="font-medium text-indigo-800 mb-4">
+              <div className="pt-4 border-t border-cyan-100">
+                <h4 className="font-medium text-cyan-800 mb-4">
                   Delivery Address
                 </h4>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-indigo-700 mb-1">
+                    <label className="block text-sm font-medium text-cyan-700 mb-1">
                       First Name
                     </label>
                     <input
                       name="address.firstName"
                       value={formData.address.firstName}
                       onChange={onChangeHandler}
-                      className="w-full border border-indigo-200 rounded-lg px-4 py-2 focus:outline-none focus:border-indigo-500"
+                      className="w-full border border-cyan-200 rounded-lg px-4 py-2 focus:outline-none focus:border-cyan-500"
                       placeholder="First name"
                     />
                     {errors["address.firstName"] && (
@@ -278,14 +278,14 @@ const Profile = () => {
                     )}
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-indigo-700 mb-1">
+                    <label className="block text-sm font-medium text-cyan-700 mb-1">
                       Last Name
                     </label>
                     <input
                       name="address.lastName"
                       value={formData.address.lastName}
                       onChange={onChangeHandler}
-                      className="w-full border border-indigo-200 rounded-lg px-4 py-2 focus:outline-none focus:border-indigo-500"
+                      className="w-full border border-cyan-200 rounded-lg px-4 py-2 focus:outline-none focus:border-cyan-500"
                       placeholder="Last name"
                     />
                     {errors["address.lastName"] && (
@@ -297,14 +297,14 @@ const Profile = () => {
                 </div>
 
                 <div className="mt-4">
-                  <label className="block text-sm font-medium text-indigo-700 mb-1">
+                  <label className="block text-sm font-medium text-cyan-700 mb-1">
                     Street Address
                   </label>
                   <input
                     name="address.street"
                     value={formData.address.street}
                     onChange={onChangeHandler}
-                    className="w-full border border-indigo-200 rounded-lg px-4 py-2 focus:outline-none focus:border-indigo-500"
+                    className="w-full border border-cyan-200 rounded-lg px-4 py-2 focus:outline-none focus:border-cyan-500"
                     placeholder="Street address"
                   />
                   {errors["address.street"] && (
@@ -316,14 +316,14 @@ const Profile = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
                   <div>
-                    <label className="block text-sm font-medium text-indigo-700 mb-1">
+                    <label className="block text-sm font-medium text-cyan-700 mb-1">
                       City
                     </label>
                     <input
                       name="address.city"
                       value={formData.address.city}
                       onChange={onChangeHandler}
-                      className="w-full border border-indigo-200 rounded-lg px-4 py-2 focus:outline-none focus:border-indigo-500"
+                      className="w-full border border-cyan-200 rounded-lg px-4 py-2 focus:outline-none focus:border-cyan-500"
                       placeholder="City"
                     />
                     {errors["address.city"] && (
@@ -333,14 +333,14 @@ const Profile = () => {
                     )}
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-indigo-700 mb-1">
+                    <label className="block text-sm font-medium text-cyan-700 mb-1">
                       State
                     </label>
                     <input
                       name="address.state"
                       value={formData.address.state}
                       onChange={onChangeHandler}
-                      className="w-full border border-indigo-200 rounded-lg px-4 py-2 focus:outline-none focus:border-indigo-500"
+                      className="w-full border border-cyan-200 rounded-lg px-4 py-2 focus:outline-none focus:border-cyan-500"
                       placeholder="State"
                     />
                     {errors["address.state"] && (
@@ -353,14 +353,14 @@ const Profile = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
                   <div>
-                    <label className="block text-sm font-medium text-indigo-700 mb-1">
+                    <label className="block text-sm font-medium text-cyan-700 mb-1">
                       Zip Code
                     </label>
                     <input
                       name="address.zipCode"
                       value={formData.address.zipCode}
                       onChange={onChangeHandler}
-                      className="w-full border border-indigo-200 rounded-lg px-4 py-2 focus:outline-none focus:border-indigo-500"
+                      className="w-full border border-cyan-200 rounded-lg px-4 py-2 focus:outline-none focus:border-cyan-500"
                       placeholder="Zip code"
                     />
                     {errors["address.zipCode"] && (
@@ -370,14 +370,14 @@ const Profile = () => {
                     )}
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-indigo-700 mb-1">
+                    <label className="block text-sm font-medium text-cyan-700 mb-1">
                       Country
                     </label>
                     <input
                       name="address.country"
                       value={formData.address.country}
                       onChange={onChangeHandler}
-                      className="w-full border border-indigo-200 rounded-lg px-4 py-2 focus:outline-none focus:border-indigo-500"
+                      className="w-full border border-cyan-200 rounded-lg px-4 py-2 focus:outline-none focus:border-cyan-500"
                       placeholder="Country"
                     />
                     {errors["address.country"] && (
@@ -389,7 +389,7 @@ const Profile = () => {
                 </div>
 
                 <div className="mt-4">
-                  <label className="block text-sm font-medium text-indigo-700 mb-1">
+                  <label className="block text-sm font-medium text-cyan-700 mb-1">
                     Phone Number
                   </label>
                   <input
@@ -400,7 +400,7 @@ const Profile = () => {
                         onChangeHandler(e);
                       }
                     }}
-                    className="w-full border border-indigo-200 rounded-lg px-4 py-2 focus:outline-none focus:border-indigo-500"
+                    className="w-full border border-cyan-200 rounded-lg px-4 py-2 focus:outline-none focus:border-cyan-500"
                     placeholder="10-digit phone number"
                   />
                   {errors["address.phone"] && (
@@ -412,17 +412,17 @@ const Profile = () => {
               </div>
 
               {/* Action Buttons */}
-              <div className="flex justify-end gap-3 pt-4">
+              <div className="flex flex-col sm:flex-row justify-end gap-3 pt-4">
                 <button
                   onClick={handleCancel}
-                  className="flex items-center gap-2 px-4 py-2 border border-indigo-300 text-indigo-600 rounded-lg hover:bg-indigo-50 transition"
+                  className="flex items-center justify-center gap-2 px-4 py-2 border border-cyan-300 text-cyan-600 rounded-lg hover:bg-cyan-50 transition"
                 >
                   <FiX /> Cancel
                 </button>
                 <button
                   onClick={handleSave}
                   disabled={saving}
-                  className="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition disabled:opacity-50"
+                  className="flex items-center justify-center gap-2 px-4 py-2 bg-cyan-600 text-white rounded-lg hover:bg-cyan-700 transition disabled:opacity-50"
                 >
                   {saving ? (
                     "Saving..."
@@ -438,31 +438,31 @@ const Profile = () => {
         )}
 
         {/* Account Options */}
-        <div className="bg-white rounded-xl shadow-sm border border-indigo-100 overflow-hidden">
-          <div className="p-4 border-b border-indigo-100">
-            <h3 className="text-lg font-semibold text-indigo-800">
+        <div className="bg-white rounded-xl shadow-sm border border-cyan-100 overflow-hidden">
+          <div className="p-4 border-b border-cyan-100">
+            <h3 className="text-lg font-semibold text-cyan-800">
               Account Settings
             </h3>
           </div>
 
-          <div className="divide-y divide-indigo-50">
+          <div className="divide-y divide-cyan-50">
             {/* My Orders */}
             <button
               onClick={() => navigate("/orders")}
-              className="w-full p-4 flex items-center justify-between hover:bg-indigo-50 transition duration-200 group"
+              className="w-full p-4 flex items-center justify-between hover:bg-cyan-50 transition duration-200 group"
             >
               <div className="flex items-center gap-4">
-                <div className="w-10 h-10 rounded-lg bg-indigo-100 flex items-center justify-center group-hover:bg-indigo-200 transition">
-                  <FiPackage className="text-indigo-600 text-lg" />
+                <div className="w-10 h-10 rounded-lg bg-cyan-100 flex items-center justify-center group-hover:bg-cyan-200 transition">
+                  <FiPackage className="text-cyan-600 text-lg" />
                 </div>
                 <div className="text-left">
-                  <p className="font-medium text-indigo-800">My Orders</p>
-                  <p className="text-sm text-indigo-500">
+                  <p className="font-medium text-cyan-800">My Orders</p>
+                  <p className="text-sm text-cyan-500">
                     View order history and track shipments
                   </p>
                 </div>
               </div>
-              <span className="text-indigo-400 group-hover:text-indigo-600">
+              <span className="text-cyan-400 group-hover:text-cyan-600">
                 →
               </span>
             </button>
@@ -470,20 +470,20 @@ const Profile = () => {
             {/* Payment Methods */}
             <button
               onClick={() => navigate("/cart")}
-              className="w-full p-4 flex items-center justify-between hover:bg-indigo-50 transition duration-200 group"
+              className="w-full p-4 flex items-center justify-between hover:bg-cyan-50 transition duration-200 group"
             >
               <div className="flex items-center gap-4">
-                <div className="w-10 h-10 rounded-lg bg-indigo-100 flex items-center justify-center group-hover:bg-indigo-200 transition">
-                  <FiCreditCard className="text-indigo-600 text-lg" />
+                <div className="w-10 h-10 rounded-lg bg-cyan-100 flex items-center justify-center group-hover:bg-cyan-200 transition">
+                  <FiCreditCard className="text-cyan-600 text-lg" />
                 </div>
                 <div className="text-left">
-                  <p className="font-medium text-indigo-800">Payment Methods</p>
-                  <p className="text-sm text-indigo-500">
+                  <p className="font-medium text-cyan-800">Payment Methods</p>
+                  <p className="text-sm text-cyan-500">
                     Manage your payment options
                   </p>
                 </div>
               </div>
-              <span className="text-indigo-400 group-hover:text-indigo-600">
+              <span className="text-cyan-400 group-hover:text-cyan-600">
                 →
               </span>
             </button>
@@ -510,32 +510,32 @@ const Profile = () => {
         </div>
 
         {/* Account Info Card */}
-        <div className="mt-6 bg-indigo-50 rounded-xl p-6">
-          <h3 className="text-lg font-semibold text-indigo-800 mb-4">
+        <div className="mt-6 bg-cyan-50 rounded-xl p-6">
+          <h3 className="text-lg font-semibold text-cyan-800 mb-4">
             Account Information
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="bg-white rounded-lg p-4">
-              <p className="text-sm text-indigo-500 mb-1">Full Name</p>
-              <p className="font-medium text-indigo-800">
+              <p className="text-sm text-cyan-500 mb-1">Full Name</p>
+              <p className="font-medium text-cyan-800">
                 {user?.name || "Not provided"}
               </p>
             </div>
             <div className="bg-white rounded-lg p-4">
-              <p className="text-sm text-indigo-500 mb-1">Email Address</p>
-              <p className="font-medium text-indigo-800">
+              <p className="text-sm text-cyan-500 mb-1">Email Address</p>
+              <p className="font-medium text-cyan-800">
                 {user?.email || "Not provided"}
               </p>
             </div>
             <div className="bg-white rounded-lg p-4">
-              <p className="text-sm text-indigo-500 mb-1">Account Type</p>
-              <p className="font-medium text-indigo-800 capitalize">
+              <p className="text-sm text-cyan-500 mb-1">Account Type</p>
+              <p className="font-medium text-cyan-800 capitalize">
                 {user?.authProvider || "Local"}
               </p>
             </div>
             <div className="bg-white rounded-lg p-4">
-              <p className="text-sm text-indigo-500 mb-1">Member Since</p>
-              <p className="font-medium text-indigo-800">
+              <p className="text-sm text-cyan-500 mb-1">Member Since</p>
+              <p className="font-medium text-cyan-800">
                 {formatDate(user?.createdAt)}
               </p>
             </div>
@@ -544,16 +544,16 @@ const Profile = () => {
           {/* Saved Address */}
           {user?.address && Object.keys(user.address).length > 0 && (
             <div className="mt-4 bg-white rounded-lg p-4">
-              <p className="text-sm text-indigo-500 mb-2">Saved Address</p>
-              <p className="font-medium text-indigo-800">
+              <p className="text-sm text-cyan-500 mb-2">Saved Address</p>
+              <p className="font-medium text-cyan-800">
                 {user.address.firstName} {user.address.lastName}
               </p>
-              <p className="text-indigo-600 text-sm">
+              <p className="text-cyan-600 text-sm">
                 {user.address.street}, {user.address.city}, {user.address.state}{" "}
                 {user.address.zipCode}
               </p>
-              <p className="text-indigo-600 text-sm">{user.address.country}</p>
-              <p className="text-indigo-600 text-sm">
+              <p className="text-cyan-600 text-sm">{user.address.country}</p>
+              <p className="text-cyan-600 text-sm">
                 Phone: {user.address.phone}
               </p>
             </div>

@@ -22,7 +22,7 @@ app.use(express.json());
 app.use(cors());
 // Root route
 app.get("/", (req, res) => {
-  res.send("Bazario Backend is running on Vercel 🚀");
+  res.send("BazarioX Backend is running on Vercel 🚀");
 });
 // Api EndPoints
 app.use("/api/user", userRouter);

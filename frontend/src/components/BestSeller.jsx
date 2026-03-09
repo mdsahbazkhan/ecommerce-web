@@ -20,10 +20,11 @@ const BestSeller = () => {
   if (loading) {
     return (
       <div className="my-10">
-        <div className="text-center text-3xl py-3">
+        <div className="text-center text-3xl py-3 animate-pulse">
           <Title text1="BEST" text2="SELLERS" />
-          <p className="text-gray-600 text-xs sm:text-sm md:text-base max-w-xl m-auto w-3/4">
-            Discover our most loved products, chosen by customers for quality and style.
+          <p className="text-slate-600 text-xs sm:text-sm md:text-base max-w-xl m-auto w-3/4">
+            Discover our most loved products, chosen by customers for quality
+            and style.
           </p>
         </div>
         <ProductGridSkeleton count={5} />
@@ -34,8 +35,13 @@ const BestSeller = () => {
   return (
     <div className="my-10">
       <div className="text-center text-3xl py-3">
-        <Title text1="BEST" text2="SELLERS" />
-        <p className="text-gray-600 text-xs sm:text-sm md:text-base max-w-xl m-auto w-3/4">
+        <div className="animate-fadeInUp">
+          <Title text1="BEST" text2="SELLERS" />
+        </div>
+        <p
+          className="text-slate-600 text-xs sm:text-sm md:text-base max-w-xl m-auto w-3/4 animate-fadeIn"
+          style={{ animationDelay: "200ms" }}
+        >
           Discover our most loved products, chosen by customers for quality and
           style.
         </p>
@@ -53,6 +59,7 @@ const BestSeller = () => {
               price={item.price}
               rating={item.rating}
               reviews={item.reviews}
+              index={index}
             />
           );
         })}

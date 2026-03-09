@@ -19,6 +19,7 @@ const Login = () => {
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       if (currentState === "Sign Up") {
         const response = await axios.post(`${backendUrl}/api/user/register`, {
@@ -53,6 +54,8 @@ const Login = () => {
         error.response?.data?.message ||
         "Something went wrong. Please try again.";
       toast.error(errorMessage);
+    } finally {
+      setLoading(false);
     }
   };
   const handleGoogleLogin = async (credentialResponse) => {
@@ -89,12 +92,15 @@ const Login = () => {
   return (
     <form
       onSubmit={onSubmitHandler}
-      className="flex flex-col items-center w-[90%] sm:max-w-96 m-auto mt-24 gap-4 text-indigo-800"
+      className="flex flex-col items-center w-[90%] sm:max-w-md m-auto mt-24 gap-5 text-slate-900 animate-fadeIn"
     >
       {/* Heading */}
-      <div className="inline-flex items-center gap-2 mb-2">
-        <p className="prata-regular text-3xl">{currentState}</p>
-        <hr className="border-none h-[1.5px] w-8 bg-indigo-800" />
+      <div className="inline-flex items-center gap-3 mb-4 animate-fadeInUp">
+        <p className="prata-regular text-4xl text-slate-900">{currentState}</p>
+        <hr
+          className="border-none h-[2px] w-10 bg-gradient-to-r from-cyan-500 to-cyan-600 animate-scaleIn rounded-full"
+          style={{ animationDelay: "200ms" }}
+        />
       </div>
 
       {/* Name (Signup only) */}
@@ -102,7 +108,8 @@ const Login = () => {
         <input
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="w-full border border-gray-300 rounded-md px-4 py-2 outline-none focus:border-indigo-500"
+          className="w-full border-2 border-slate-200 rounded-xl px-5 py-3 outline-none focus:border-cyan-500 focus:ring-4 focus:ring-cyan-100 transition-all duration-300 animate-fadeInUp bg-slate-50 focus:bg-white text-slate-900 font-medium"
+          style={{ animationDelay: "200ms" }}
           type="text"
           placeholder="Full Name"
           required
@@ -113,43 +120,50 @@ const Login = () => {
       <input
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        className="w-full border border-gray-300 rounded-md px-4 py-2 outline-none focus:border-indigo-500"
+        className="w-full border-2 border-slate-200 rounded-xl px-5 py-3 outline-none focus:border-cyan-500 focus:ring-4 focus:ring-cyan-100 transition-all duration-300 animate-fadeInUp bg-slate-50 focus:bg-white text-slate-900 font-medium"
+        style={{ animationDelay: "300ms" }}
         type="email"
         placeholder="Email Address"
         required
       />
 
       {/* Password */}
-      <div className="relative w-full">
+      <div
+        className="relative w-full animate-fadeInUp"
+        style={{ animationDelay: "400ms" }}
+      >
         <input
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="w-full border border-gray-300 rounded-md px-4 py-2 outline-none focus:border-indigo-500 pr-10"
+          className="w-full border-2 border-slate-200 rounded-xl px-5 py-3 outline-none focus:border-cyan-500 focus:ring-4 focus:ring-cyan-100 transition-all duration-300 pr-12 bg-slate-50 focus:bg-white text-slate-900 font-medium"
           type={showPassword ? "text" : "password"}
           placeholder="Password"
           required
         />
         <span
           onClick={() => setShowPassword(!showPassword)}
-          className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-indigo-600"
+          className="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer text-slate-500 transform transition-all duration-300 hover:scale-110 hover:text-cyan-600"
         >
-          {showPassword ? <FiEyeOff size={18} /> : <FiEye size={18} />}
+          {showPassword ? <FiEyeOff size={20} /> : <FiEye size={20} />}
         </span>
       </div>
 
       {/* Remember Me (Login only) */}
       {currentState === "Login" && (
-        <div className="w-full flex items-center justify-between text-sm">
-          <label className="flex items-center gap-2 text-indigo-600 cursor-pointer">
+        <div
+          className="w-full flex items-center justify-between text-sm animate-fadeInUp"
+          style={{ animationDelay: "500ms" }}
+        >
+          <label className="flex items-center gap-2 text-slate-600 cursor-pointer transform transition-all duration-300 hover:text-cyan-600 font-medium">
             <input
               type="checkbox"
               checked={rememberMe}
               onChange={() => setRememberMe(!rememberMe)}
-              className="accent-indigo-600"
+              className="w-4 h-4 accent-cyan-600 cursor-pointer"
             />
             Remember me
           </label>
-          <p className="cursor-pointer hover:underline text-indigo-600">
+          <p className="cursor-pointer hover:underline text-cyan-600 transform transition-all duration-300 hover:scale-105 font-bold">
             Forgot Password?
           </p>
         </div>
@@ -159,32 +173,39 @@ const Login = () => {
       {currentState === "Sign Up" && (
         <p
           onClick={() => setCurrentState("Login")}
-          className="text-sm cursor-pointer text-indigo-600 hover:underline"
+          className="text-sm cursor-pointer text-slate-600 hover:text-cyan-600 transform transition-all duration-300 hover:translate-x-1 animate-fadeIn font-medium"
+          style={{ animationDelay: "500ms" }}
         >
-          Already have an account? Login here
+          Already have an account? <span className="font-bold text-cyan-600">Login here</span>
         </p>
       )}
 
       {currentState === "Login" && (
         <p
           onClick={() => setCurrentState("Sign Up")}
-          className="text-sm cursor-pointer text-indigo-600 hover:underline"
+          className="text-sm cursor-pointer text-slate-600 hover:text-cyan-600 transform transition-all duration-300 hover:translate-x-1 animate-fadeIn font-medium"
+          style={{ animationDelay: "500ms" }}
         >
-          Don’t have an account? Create one
+          Don't have an account? <span className="font-bold text-cyan-600">Create one</span>
         </p>
       )}
 
       {/* Error */}
-      {error && <p className="text-red-500 text-sm text-center">{error}</p>}
+      {error && (
+        <p className="text-red-500 text-sm text-center animate-shake font-bold">
+          {error}
+        </p>
+      )}
 
       {/* Submit */}
       <button
         disabled={loading}
-        className={`w-full py-2 px-8 rounded-md font-semibold transition ${
+        className={`w-full py-4 px-8 rounded-xl font-bold text-white transition-all duration-300 animate-fadeInUp shadow-lg ${
           loading
-            ? "bg-gray-400 cursor-not-allowed"
-            : "bg-indigo-600 text-white hover:bg-indigo-700"
+            ? "bg-slate-400 cursor-not-allowed"
+            : "bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 hover:scale-[1.02] hover:shadow-xl active:scale-[0.98]"
         }`}
+        style={{ animationDelay: "600ms" }}
       >
         {loading
           ? "Please wait..."
@@ -195,13 +216,17 @@ const Login = () => {
 
       {/* Terms & Privacy (Signup only) */}
       {currentState === "Sign Up" && (
-        <p className="text-xs text-gray-500 text-center mt-1">
+        <p
+          onClick={() => navigate("/privacy")}
+          className="text-xs text-slate-500 text-center mt-1 animate-fadeIn"
+          style={{ animationDelay: "700ms" }}
+        >
           By signing up, you agree to our{" "}
-          <span className="text-indigo-600 cursor-pointer hover:underline">
+          <span className="text-cyan-600 cursor-pointer hover:underline transform transition-all duration-300 hover:scale-105 inline-block font-bold">
             Terms
           </span>{" "}
           &{" "}
-          <span className="text-indigo-600 cursor-pointer hover:underline">
+          <span className="text-cyan-600 cursor-pointer hover:underline transform transition-all duration-300 hover:scale-105 inline-block font-bold">
             Privacy Policy
           </span>
           .
@@ -209,20 +234,25 @@ const Login = () => {
       )}
 
       {/* Divider */}
-      <div className="w-full flex items-center gap-3 my-2">
-        <hr className="flex-1 border-gray-300" />
-        <p className="text-sm text-gray-500">OR</p>
-        <hr className="flex-1 border-gray-300" />
+      <div
+        className="w-full flex items-center gap-4 my-2 animate-fadeIn"
+        style={{ animationDelay: "800ms" }}
+      >
+        <hr className="flex-1 border-slate-300" />
+        <p className="text-sm text-slate-500 font-bold">OR</p>
+        <hr className="flex-1 border-slate-300" />
       </div>
 
       {/* Google Login */}
-      <GoogleLogin
-        onSuccess={handleGoogleLogin}
-        onError={() => toast.error("Google Login Failed")}
-        theme="outline"
-        size="large"
-        width="100%"
-      />
+      <div className="animate-fadeInUp w-full flex justify-center" style={{ animationDelay: "900ms" }}>
+        <GoogleLogin
+          onSuccess={handleGoogleLogin}
+          onError={() => toast.error("Google Login Failed")}
+          theme="outline"
+          size="large"
+          width="100%"
+        />
+      </div>
     </form>
   );
 };
