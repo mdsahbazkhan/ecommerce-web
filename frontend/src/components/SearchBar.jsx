@@ -29,7 +29,7 @@ const SearchBar = () => {
   if (!showSearchBar || !visible) return null;
 
   return (
-    <div className="mt-20 flex justify-center items-center px-4 animate-fadeInDown">
+    <div className="fixed top-20 left-0 right-0 z-40 flex justify-center items-center px-4 animate-fadeInDown">
       <div className="relative w-full sm:w-1/2">
         {/* Search Input */}
         <form
@@ -75,7 +75,9 @@ const SearchBar = () => {
                   alt={item.name}
                   className="w-12 h-12 rounded-xl object-cover transform transition-transform duration-300 hover:scale-110 shadow-md"
                 />
-                <span className="text-sm font-bold text-slate-900">{item.name}</span>
+                <span className="text-sm font-bold text-slate-900">
+                  {item.name}
+                </span>
               </div>
             ))}
           </div>

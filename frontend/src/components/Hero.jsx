@@ -52,7 +52,7 @@ const Hero = () => {
   };
 
   return (
-    <div className="flex flex-col sm:flex-row items-center bg-gradient-to-br from-cyan-50 via-sky-50 to-blue-50 mt-20 overflow-hidden relative">
+    <div className="flex flex-col sm:flex-row items-center bg-gradient-to-br from-cyan-50 via-sky-50 to-blue-50 mt-10 overflow-hidden relative">
       {/* Decorative Elements */}
       <div className="absolute top-10 right-10 w-72 h-72 bg-cyan-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-float z-0"></div>
       <div
