@@ -27,7 +27,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="absolute top-0 left-0 w-full z-50 bg-white/95 backdrop-blur-lg shadow-sm border-b border-slate-200 animate-fadeInDown">
+    <div className="fixed top-0 left-0 w-full z-50 bg-white/95 backdrop-blur-lg shadow-sm border-b border-slate-200 animate-fadeInDown">
       <div className="flex items-center justify-between px-6 py-4 font-medium max-w-7xl mx-auto">
         <Link to="/" className="transform transition-transform hover:scale-105">
           <img src={assets.logo} alt="" className="w-36" />

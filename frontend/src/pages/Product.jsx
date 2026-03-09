@@ -177,7 +177,7 @@ const Product = () => {
       <div className="flex gap-12 flex-col sm:flex-row">
         {/* Images */}
         <div className="flex-1 flex flex-col-reverse sm:flex-row gap-3">
-          <div className="flex sm:flex-col gap-3 sm:w-[18%] w-full overflow-auto">
+          <div className="flex sm:flex-col gap-3 sm:w-[18%] w-full overflow-x-auto sm:overflow-hidden no-scrollbar">
             {productData.images?.map((item, index) => (
               <img
                 key={index}
