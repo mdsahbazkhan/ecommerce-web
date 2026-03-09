@@ -132,7 +132,7 @@ const Navbar = () => {
               { to: "/", label: "HOME" },
               { to: "/collection", label: "COLLECTION" },
               { to: "/about", label: "ABOUT" },
-              { to: "/contact", label: "CONTACT" },
+              { to: "/orders", label: "ORDERS" },
             ].map((item, index) => (
               <NavLink
                 key={item.to}
